@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 18:56:59 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/23 19:07:57 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:23:37 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t i;
-	char *str;
+	size_t	i;
+	char	*str;
 
 	str = (char *)s;
 	i = 0;
@@ -26,6 +26,10 @@ char	*ft_strchr(const char *s, int c)
 			return (str + i);
 		}
 		i++;
+	}
+	if (str[i] == c)
+	{
+		return (str + i);
 	}
 	return (NULL);
 }

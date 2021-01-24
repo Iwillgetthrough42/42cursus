@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 14:36:21 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/24 15:00:50 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:26:23 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,25 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int		i;
+	size_t	i;
 	size_t	j;
 	char	*str;
 	char	*to_find;
 
-	str =(char *)haystack;
-	to_find =(char *)needle;
-
+	str = (char *)haystack;
+	to_find = (char *)needle;
 	i = 0;
-	while (i <= (int)ft_strlen(str) - (int)ft_strlen(to_find) && i < (int) len)
+	while ((int)i <= (int)ft_strlen(str) - (int)ft_strlen(to_find) && i < len)
 	{
 		j = 0;
-		while (j < ft_strlen(to_find))
+		while (j < ft_strlen(to_find) && (i + j) < len)
 		{
 			if (str[i + j] != to_find[j])
-			{
 				break ;
-			}
 			j++;
 		}
 		if (j == ft_strlen(to_find))
-		{
 			return (&str[i]);
-		}
 		i++;
 	}
 	return (0);

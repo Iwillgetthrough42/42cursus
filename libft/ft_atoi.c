@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:36:07 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/24 15:42:35 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:19:33 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ int				ft_atoi(const char *str)
 	{
 		i++;
 	}
-	if (str[i] == '-')
+	if (str[i] == '+' || str[i] == '-')
 	{
-		sign *= -1;
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		num *= 10;
-		num += sign * (str[i] - '0');
+		num += (str[i] - '0');
 		i++;
 	}
-	return (num);
+	return (sign * num);
 }

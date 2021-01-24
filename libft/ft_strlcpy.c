@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 18:27:00 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/23 18:46:39 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:24:32 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 			dst[i] = src[i];
 			i++;
 		}
-		dst[i] = '\0';	
+		dst[i] = '\0';
 	}
 	return (len);
 }
