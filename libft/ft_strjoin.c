@@ -6,19 +6,19 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 18:43:17 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/25 19:27:40 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/27 17:28:42 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static		char	*append(const char*s1, const char *s2)
+static		char	*append(const char *s1, const char *s2)
 {
 	char	*dest;
 	char	*src;
 	int		i;
 	int		len;
-	
+
 	dest = (char *)s1;
 	src = (char *)s2;
 	i = 0;

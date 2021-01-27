@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:17:50 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/25 14:53:54 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/27 17:25:56 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t i;
-	int step;
-	unsigned char *dest;
-	unsigned char *source;
+	size_t			i;
+	int				step;
+	unsigned char	*dest;
+	unsigned char	*source;
 
 	step = 1;
 	dest = (unsigned char *)dst;
@@ -29,7 +29,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		source = (unsigned char *)(src + len - 1);
 	}
 	i = 0;
-	while(i < len)
+	while (i < len)
 	{
 		*dest = *source;
 		dest += step;

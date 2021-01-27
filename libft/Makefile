@@ -6,7 +6,7 @@
 #    By: arastepa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/23 12:43:16 by arastepa          #+#    #+#              #
-#    Updated: 2021/01/25 19:29:34 by arastepa         ###   ########.fr        #
+#    Updated: 2021/01/27 14:46:09 by arastepa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,13 @@ SRCS = ft_memset.c	\
 		ft_calloc.c \
 		ft_substr.c \
 		ft_strjoin.c \
+		ft_strtrim.c \
+		ft_itoa.c \
+		ft_strmapi.c \
+		ft_putchar_fd.c \
+		ft_putstr_fd.c \
+		ft_putendl_fd.c \
+		ft_putnbr_fd.c \
 
 OBJS	= 	${SRCS:.c=.o}
 
