@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 19:03:41 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 18:19:01 by arastepa         ###   ########.fr       */
+/*   Created: 2021/01/28 14:21:31 by arastepa          #+#    #+#             */
+/*   Updated: 2021/01/28 16:59:14 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+t_list	*ft_lstnew(void *content)
 {
-	char *s;
+	t_list *elem;
 
-	s = ft_itoa(n);
-	write(fd, s, ft_strlen(s) + 1);
+	if(!(elem =(t_list *)malloc(sizeof(*elem))))
+	{
+		return NULL;
+	}
+
+	elem->content = content;
+	elem->next = NULL;
+	return (elem);
 }

@@ -1,12 +1,11 @@
-#include "ft_memcmp.c"
+#include "ft_atoi.c"
 #include <stdio.h>
 #include <string.h>
 
 int main()
 {
-	char s1[] = "abcdefgj";
-	char s2[] = "kkkkkkkk";
+	char s1[] = "-99999999999999999999999999999999999999";
 
-	printf("%s", ft_memcmp(s1, s2, 8));
+	printf("%d", ft_atoi(s1));
 	//printf("%zu", strlcat(s, s2, 10));
 }

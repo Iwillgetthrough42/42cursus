@@ -6,7 +6,7 @@
 #    By: arastepa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/23 12:43:16 by arastepa          #+#    #+#              #
-#    Updated: 2021/01/27 14:46:09 by arastepa         ###   ########.fr        #
+#    Updated: 2021/01/28 17:09:23 by arastepa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,18 @@ SRCS = ft_memset.c	\
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
 
+SRCS_B = ft_lstnew.c \
+		 ft_lstadd_front.c \
+		 ft_lstsize.c \
+		 ft_lstlast.c \
+		 ft_lstadd_back.c \
+		 ft_lstdelone.c \
+		 ft_lstclear.c \
+		 ft_lstiter.c \
+
 OBJS	= 	${SRCS:.c=.o}
+
+OBJS_B	=	$(SRCS_B:.c=.o)
 
 RM		=	rm -f
 
@@ -60,16 +71,19 @@ INCS	= .
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I${INCS}
 
 $(NAME):	${OBJS}
-			${LIBC}  $(NAME) $(OBJS)
+			${LIBC} $(NAME) $(OBJS)
 
 all:		$(NAME)
 
+bonus:		$(NAME) $(OBJS_B)
+			${LIBC} $(NAME) $(OBJS_B)
+
 clean:		
-			$(RM) -f $(OBJS)
+			$(RM) -f $(OBJS) $(OBJS_B)
 
 fclean:		clean
-			$(RM)  $(NAME)
+			$(RM) $(NAME) $(bonus)
 
 re:			fclean all
 
-.PHONY:		all clean fclean re .c.o
+.PHONY:		all bonus clean fclean re .c.o

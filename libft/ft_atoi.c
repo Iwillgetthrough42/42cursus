@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:36:07 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/24 18:19:33 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/28 18:36:51 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static	int		ft_isspace(char c)
 
 int				ft_atoi(const char *str)
 {
-	int i;
-	int num;
-	int sign;
+	int		i;
+	long	num;
+	int		sign;
 
 	sign = 1;
 	num = 0;
@@ -43,5 +43,7 @@ int				ft_atoi(const char *str)
 		num += (str[i] - '0');
 		i++;
 	}
+	if (i > 19 || num > 9223372036854775807)
+		return ((sign == 1) ? -1 : 0);
 	return (sign * num);
 }

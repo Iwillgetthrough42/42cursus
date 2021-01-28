@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 18:43:17 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/27 17:28:42 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/28 18:42:40 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char				*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*dest;
 
-	if (!(dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+	if (!(dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 	{
 		return (NULL);
 	}

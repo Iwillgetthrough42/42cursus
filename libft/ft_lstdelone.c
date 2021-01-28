@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 19:03:41 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 18:19:01 by arastepa         ###   ########.fr       */
+/*   Created: 2021/01/28 15:46:54 by arastepa          #+#    #+#             */
+/*   Updated: 2021/01/28 16:02:07 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	char *s;
-
-	s = ft_itoa(n);
-	write(fd, s, ft_strlen(s) + 1);
+	if(!lst)
+		return ;
+	if(del)
+	{
+		del(lst->content);
+	}
 }

@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   lstclear.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 19:03:41 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 18:19:01 by arastepa         ###   ########.fr       */
+/*   Created: 2021/01/28 16:04:55 by arastepa          #+#    #+#             */
+/*   Updated: 2021/01/28 16:39:49 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char *s;
+	t_list *tmp;
 
-	s = ft_itoa(n);
-	write(fd, s, ft_strlen(s) + 1);
+	while (*lst)
+	{
+		del((*lst)->content);
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;	
+	}
+	*lst = NULL;
 }

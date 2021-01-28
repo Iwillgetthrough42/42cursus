@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 11:32:16 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/27 17:30:47 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/28 18:05:18 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	{
 		end--;
 	}
-	str = calloc(end - start + 1, sizeof(char));
+	if(!(str =(char *)malloc(sizeof(char) * (end - start + 1))))
+		return (NULL);
 	i = 0;
 	while (start < end)
 	{
@@ -37,5 +38,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		i++;
 		start++;
 	}
+	str[i] = '\0';
 	return (str);
 }

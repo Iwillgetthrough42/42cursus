@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 14:17:50 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/27 17:25:56 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/28 17:16:15 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	unsigned char	*dest;
 	unsigned char	*source;
 
+	if (dst == NULL && src == NULL)
+		return (NULL);
 	step = 1;
 	dest = (unsigned char *)dst;
 	source = (unsigned char *)src;

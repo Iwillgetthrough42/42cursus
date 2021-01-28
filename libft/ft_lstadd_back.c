@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 19:03:41 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 18:19:01 by arastepa         ###   ########.fr       */
+/*   Created: 2021/01/28 15:24:50 by arastepa          #+#    #+#             */
+/*   Updated: 2021/01/28 15:41:59 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char *s;
-
-	s = ft_itoa(n);
-	write(fd, s, ft_strlen(s) + 1);
+	t_list *last;
+	last = ft_lstlast(*lst);
+	if (last)
+		last->next = new;
+	else
+		*lst = new;
 }

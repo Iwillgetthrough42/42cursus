@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 16:24:14 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/25 16:39:10 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/28 17:58:55 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	*ft_calloc(size_t count, size_t size)
 	{
 		return (NULL);
 	}
-	ft_bzero(dest, count);
+	ft_bzero(dest, count * size);
 	return (dest);
 }
