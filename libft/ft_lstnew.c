@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:21:31 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 16:59:14 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/29 19:04:43 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list *elem;
 
-	if(!(elem =(t_list *)malloc(sizeof(*elem))))
+	if (!(elem = (t_list *)malloc(sizeof(*elem))))
 	{
-		return NULL;
+		return (NULL);
 	}
-
 	elem->content = content;
 	elem->next = NULL;
 	return (elem);

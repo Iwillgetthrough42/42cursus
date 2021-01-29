@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 18:21:38 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 17:45:08 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/29 19:13:57 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*dest;
 	size_t	i;
 
-	if (!(dest =(char *)malloc(sizeof(char) * (len + 1))))
+	if (!(dest = (char *)malloc(sizeof(char) * (len + 1))))
 	{
 		return (NULL);
 	}

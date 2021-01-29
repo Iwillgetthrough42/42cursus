@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 15:36:07 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 18:36:51 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/29 18:57:29 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ int				ft_atoi(const char *str)
 	num = 0;
 	i = 0;
 	while (ft_isspace(str[i]))
-	{
 		i++;
-	}
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')

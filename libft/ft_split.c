@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 14:38:02 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/29 18:25:54 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/29 19:07:07 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*malloc_tmp(char *str, char c)
 	st = str;
 	while (*str && *str != c)
 		str++;
-	if (!(tmp =(char *)malloc(sizeof(char) * (str - st + 1))))
+	if (!(tmp = (char *)malloc(sizeof(char) * (str - st + 1))))
 		return (NULL);
 	i = 0;
 	while (i < str - st)
@@ -64,7 +64,7 @@ char	**ft_split(char const *s, char c)
 
 	j = 0;
 	str = (char *)s;
-	if(!(arr = (char **)malloc(sizeof(char *) * (count_words(str, c) + 1))))
+	if (!(arr = (char **)malloc(sizeof(char *) * (count_words(str, c) + 1))))
 		return (NULL);
 	while (*str != '\0')
 	{
@@ -72,13 +72,13 @@ char	**ft_split(char const *s, char c)
 			str++;
 		if (*str == '\0')
 			break ;
-		if(*str != c)
+		if (*str != c)
 		{
 			tmp = malloc_tmp(str, c);
 			arr[j++] = ft_strdup(tmp);
 			while (*str && *str != c)
 				str++;
-		}	
+		}
 	}
 	arr[j] = NULL;
 	return (arr);

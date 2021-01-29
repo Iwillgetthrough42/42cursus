@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 17:02:34 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 17:14:40 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/29 19:03:58 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-
 	while (lst)
 	{
 		f(lst->content);

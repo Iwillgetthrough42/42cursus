@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:46:54 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/28 16:02:07 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/29 19:03:06 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if(!lst)
+	if (!lst)
 		return ;
-	if(del)
+	if (del)
 	{
 		del(lst->content);
 	}
