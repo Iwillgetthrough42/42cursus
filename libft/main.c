@@ -1,11 +1,11 @@
-#include "ft_atoi.c"
+#include "ft_split.c"
 #include <stdio.h>
 #include <string.h>
 
 int main()
 {
-	char s1[] = "-99999999999999999999999999999999999999";
+	char s1[] = "   lorem   ipsum  Suspendisse  ";
 
-	printf("%d", ft_atoi(s1));
+		ft_split(s1, ' ');
 	//printf("%zu", strlcat(s, s2, 10));
 }
