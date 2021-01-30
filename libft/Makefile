@@ -6,7 +6,7 @@
 #    By: arastepa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/23 12:43:16 by arastepa          #+#    #+#              #
-#    Updated: 2021/01/30 14:47:35 by arastepa         ###   ########.fr        #
+#    Updated: 2021/01/30 15:07:55 by arastepa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,6 @@ SRCS_B = ft_lstnew.c \
 		 ft_lstclear.c \
 		 ft_lstiter.c \
 		 ft_lstmap.c \
-		 ft_split.c \
 
 OBJS	= 	${SRCS:.c=.o}
 
