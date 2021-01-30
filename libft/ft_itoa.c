@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 13:41:48 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/29 18:59:52 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/01/30 12:36:43 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ static	int		count(long n)
 {
 	size_t	cnt;
 
-	cnt = 0;
+	cnt = (n > 0 ? 0 : 1);
 	while (n != 0)
 	{
 		n /= 10;
 		cnt++;
 	}
-	if (n == 0)
-		cnt++;
 	return (cnt);
 }
 
@@ -61,8 +59,7 @@ char			*ft_itoa(int n)
 
 	num = n;
 	t = 0;
-	if (!(str = (char *)malloc((count(num) > 0 ? count(num) + 1 :
-		count(num) + 2) * sizeof(char))))
+	if (!(str = (char *)malloc((count(num) + 1) * sizeof(char))))
 		return (NULL);
 	if (num < 0)
 	{
