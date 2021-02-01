@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:52:58 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/29 19:31:39 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/01 16:11:05 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char	*str;
 
 	length = ft_strlen(s);
-	str = (char *)ft_calloc(length + 1, sizeof(char));
 	if (!(str = (char *)malloc(sizeof(char) * (length + 1))))
 		return (NULL);
 	i = 0;
