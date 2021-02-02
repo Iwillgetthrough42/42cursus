@@ -5,25 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/29 14:38:02 by arastepa          #+#    #+#             */
-/*   Updated: 2021/01/30 12:37:59 by arastepa         ###   ########.fr       */
+/*   Created: 2021/02/02 16:21:42 by arastepa          #+#    #+#             */
+/*   Updated: 2021/02/02 17:06:39 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int		count_words(char *str, char c)
+static	int		count_words(char const *str, char c)
 {
-	int	count;
 	int	i;
+	int	count;
 
-	count = 0;
 	i = 0;
-	while (str[i] != '\0')
+	count = 0;
+	while (str[i])
 	{
 		while (str[i] && str[i] == c)
 			i++;
-		if (str[i] && str[i] != c)
+		while (str[i] && str[i] != c)
 		{
 			count++;
 			while (str[i] && str[i] != c)
@@ -33,21 +33,20 @@ static	int		count_words(char *str, char c)
 	return (count);
 }
 
-static	char	*malloc_tmp(char *str, char c)
+static	char	*malloc_tmp(char const *s, char c)
 {
-	char	*st;
-	int		i;
 	char	*tmp;
+	int		i;
 
-	st = str;
-	while (*str && *str != c)
-		str++;
-	if (!(tmp = (char *)malloc(sizeof(char) * (str - st + 1))))
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	if (!(tmp = (char *)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
 	i = 0;
-	while (i < str - st)
+	while (s[i] && s[i] != c)
 	{
-		tmp[i] = st[i];
+		tmp[i] = s[i];
 		i++;
 	}
 	tmp[i] = '\0';
@@ -56,27 +55,23 @@ static	char	*malloc_tmp(char *str, char c)
 
 char			**ft_split(char const *s, char c)
 {
-	char	*str;
 	char	**arr;
+	int		i;
 	int		j;
-	char	*tmp;
 
-	j = 0;
-	str = (char *)s;
-	if (!(arr = (char **)malloc(sizeof(char *) * (count_words(str, c) + 1))))
+	if (!(arr = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1))))
 		return (NULL);
-	while (*str != '\0')
+	i = 0;
+	j = 0;
+	while (s[i])
 	{
-		while (*str && *str == c)
-			str++;
-		if (*str == '\0')
-			break ;
-		if (*str != c)
+		while (s[i] && s[i] == c)
+			i++;
+		if (s[i] && s[i] != c)
 		{
-			tmp = malloc_tmp(str, c);
-			arr[j++] = ft_strdup(tmp);
-			while (*str && *str != c)
-				str++;
+			arr[j++] = malloc_tmp(s + i, c);
+			while (s[i] && s[i] != c)
+				i++;
 		}
 	}
 	arr[j] = NULL;
