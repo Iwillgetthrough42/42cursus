@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 16:21:42 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/02 17:06:39 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:33:39 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char			**ft_split(char const *s, char c)
 	int		i;
 	int		j;
 
+	if (!s)
+		return (NULL);
 	if (!(arr = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1))))
 		return (NULL);
 	i = 0;
