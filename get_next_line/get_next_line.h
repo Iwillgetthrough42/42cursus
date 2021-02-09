@@ -19,5 +19,6 @@ char				*ft_strchr(const char *s, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strdup(const char *s1);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
+int					get_next_line(int fd, char **line);
 
 #endif

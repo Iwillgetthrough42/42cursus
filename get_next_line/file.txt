@@ -1,7 +1,0 @@
-TCP is a connection-oriented protocol. Connection-orientation means that the communicating devices should establish a connection before transmitting data and should close the connection after transmitting the data.
-Sequencing of data is a feature of Transmission Control Protocol (TCP). this means that packets arrive in-order at the receiver.
-Consider the first solution as TCP. A connection has to made ( bridge ) to get the data (letter) delivered.
-Th data is reliable because it will directly reach to another end without loss in data or error.
-And the second solution is UDP. No connection is required for sending the data.
-The process is fast as compare to TCP, where we need to set up connection(bridge). But the data is not reliable: we don’t know whether the pigeon will go in the right direction, or it will drop the letter on the way or some issue is encountered in mid-travel.
-Attention reader! Don’t stop learning now. Get hold of all the important CS Theory concepts for SDE interviews with the CS Theory Course at a student-friendly price and become industry ready.
