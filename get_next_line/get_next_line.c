@@ -114,5 +114,6 @@ int				get_next_line(int fd, char **line)
 			break ;
 		}
 	}
+	free(buf);
 	return (process_errors(i, p, line));
 }
