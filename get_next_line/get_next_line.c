@@ -72,8 +72,7 @@ char			*check_remainder(char *remainder, char **line)
 	}
 	else
 	{
-		*line = (char *)malloc(sizeof(char) * 1);
-		*line[0] = 0;
+		*line = ft_strdup("");
 	}
 	return (p);
 }

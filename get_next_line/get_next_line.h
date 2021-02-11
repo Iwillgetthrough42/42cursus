@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:30:34 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/09 18:31:22 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/11 12:17:09 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
-
-typedef	struct		s_list
-{
-	char			*read;
-	struct s_list	*next;
-}					t_list;
 
 char				*ft_strjoin(char const *s1, char const *s2);
 size_t				ft_strlen(const char *s);
