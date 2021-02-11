@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 13:09:33 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/10 15:28:36 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/11 15:18:03 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ char			*check_remainder(char *remainder, char **line)
 int				process_errors(int i, char *p, char **line)
 {
 	if (i < 0)
+	{
+		*line = NULL;
 		return (-1);
+	}
 	if ((!i && !p) || (!i && !*line))
 		return (0);
 	return (1);
