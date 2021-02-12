@@ -80,8 +80,6 @@ char			*check_remainder(char **remainder, char **line)
 
 int				process_errors(int i, char **line, char *buf, char *remainder)
 {
-	if (*line == NULL)
-		return (-1);
 	free(buf);
 	if (i < 0)
 	{
@@ -91,6 +89,8 @@ int				process_errors(int i, char **line, char *buf, char *remainder)
 	}
 	if ((!i && !*line) || (!i && !remainder))
 		return (0);
+	if (*line == NULL)
+		return (-1);
 	return (1);
 }
 
