@@ -78,15 +78,16 @@ char			*check_remainder(char **remainder, char **line)
 	return (p);
 }
 
-int				process_errors(int i, char *p, char **line)
+int				process_errors(int i, char **line, char *buf, char *remainder)
 {
+	free(buf);
 	if (i < 0)
 	{
 		free(*line);
 		*line = NULL;
 		return (-1);
 	}
-	if ((!i && !p) || (!i && !*line))
+	if ((!i && !*line) || (!i && !remainder))
 		return (0);
 	return (1);
 }
@@ -99,14 +100,11 @@ int				get_next_line(int fd, char **line)
 	static	char	*remainder;
 	char			*p;
 
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (fd < 0 || !line || !buf)
-	{	
-		free(buf);
+	if (fd < 0 || !line)
 		return (-1);
-	}
+	if (!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+		return (-1);
 	p = check_remainder(&remainder, line);
-	
 	while (!p && (i = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[i] = '\0';
@@ -120,6 +118,5 @@ int				get_next_line(int fd, char **line)
 			break ;
 		}
 	}
-	free(buf);
-	return (process_errors(i, p, line));
+	return (process_errors(i, line, buf, remainder));
 }
