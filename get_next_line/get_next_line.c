@@ -80,6 +80,8 @@ char			*check_remainder(char **remainder, char **line)
 
 int				process_errors(int i, char **line, char *buf, char *remainder)
 {
+	if (*line == NULL)
+		return (-1);
 	free(buf);
 	if (i < 0)
 	{
@@ -105,7 +107,7 @@ int				get_next_line(int fd, char **line)
 	if (!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	p = check_remainder(&remainder, line);
-	while (!p && (i = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (!p && (i = read(fd, buf, BUFFER_SIZE)) > 0 && *line != NULL)
 	{
 		buf[i] = '\0';
 		*line = ft_strjoin(*line, buf);
