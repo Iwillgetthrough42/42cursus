@@ -51,23 +51,24 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	return (dest);
 }
 
-char			*check_remainder(char *remainder, char **line)
+char			*check_remainder(char **remainder, char **line)
 {
 	char	*p;
 
 	p = NULL;
-	if (remainder)
+	if (*remainder)
 	{
-		if ((p = ft_strchr(remainder, '\n')))
+		if ((p = ft_strchr(*remainder, '\n')))
 		{
-			*line = ft_substr(remainder, 0, p - remainder);
+			*line = ft_substr(*remainder, 0, p - *remainder);
 			p++;
-			ft_memcpy(remainder, p, ft_strlen(remainder));
+			ft_memcpy(*remainder, p, ft_strlen(*remainder));
 		}
 		else
 		{
-			*line = ft_strdup(remainder);
-			remainder[0] = '\0';
+			*line = ft_strdup(*remainder);
+			free(*remainder);
+			*remainder = NULL;
 		}
 	}
 	else
@@ -81,6 +82,7 @@ int				process_errors(int i, char *p, char **line)
 {
 	if (i < 0)
 	{
+		free(*line);
 		*line = NULL;
 		return (-1);
 	}
@@ -98,9 +100,13 @@ int				get_next_line(int fd, char **line)
 	char			*p;
 
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	p = check_remainder(remainder, line);
 	if (fd < 0 || !line || !buf)
+	{	
+		free(buf);
 		return (-1);
+	}
+	p = check_remainder(&remainder, line);
+	
 	while (!p && (i = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[i] = '\0';
