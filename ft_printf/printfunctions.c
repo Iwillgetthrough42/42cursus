@@ -61,7 +61,6 @@ void	printstr(va_list args, t_fields *st)
 	if (st->precision)
 		str = ft_substr(str, 0, st->precision);
 	if (!st->minus && !st->zero && st->width)
-		if (ft_strlen(str) < st->width)
 			printch(st->width - ft_strlen(str),' ');
 	write(1, str, ft_strlen(str));
 	if (st->minus && !st->zero && st->width)

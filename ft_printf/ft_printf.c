@@ -50,7 +50,6 @@ void	check_sign(char **str, va_list args, t_fields *st)
 		if (**str == signs[j])
 		{
 			handle_signs(signs[j], args, st);
-			(*str)++;
 			break ;
 		}
 		j++;	
@@ -80,7 +79,6 @@ int		ft_printf(const char *s, ...)
 		str++;
 	}
 	return (1);
-
 }
 
 int main()
@@ -90,5 +88,5 @@ int main()
 
 	k = 325;
 	p = &k;
-	ft_printf("number is :%5c,   other number is: %p, kkkkkkk: %s",'b', p, "lllll");
+	ft_printf("number is :%010c,   other number is: %p, kkkkkkk: %-10s",'b', p, "lllll");
 }
