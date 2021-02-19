@@ -13,15 +13,21 @@
 #include "lib.h"
 #include "libft/libft.h"
 
-void	printchar(va_list args)
+void	printchar(va_list args, t_fields *st)
 {
 	char c;
 
 	c = va_arg(args, int);
+	if (!st->minus && !st->zero && st->width)
+		printch(st->width - 1, ' ');
+	else if (!st->minus && st->zero && st->width)
+		printch(st->width - 1, '0');
 	write(1, &c, 1);
+	if (st->minus && !st->zero && st->width)
+		printch(st->width - 1, ' ');
 }
 
-void	printdigit(char c, va_list args)
+void	printdigit(char c, va_list args, t_fields *st)
 {
 	char	*str;
 	long	num;
@@ -36,18 +42,33 @@ void	printdigit(char c, va_list args)
 		num = va_arg(args, unsigned int);
 		str = ft_itoa(num);
 	}
-	write (1, str, ft_strlen(str));
+	if (!st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ');
+	else if (!st->minus && st->zero && st->width)
+		printch(st->width - ft_strlen(str), '0');
+	if (st->precision)
+		if (ft_strlen(str) < st->precision)
+			printch(st->precision - ft_strlen(str),'0');
+	if (st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ');
 }
 
-void	printstr(va_list args)
+void	printstr(va_list args, t_fields *st)
 {
 	char *str;
 
 	str = va_arg(args, char *);
+	if (st->precision)
+		str = ft_substr(str, 0, st->precision);
+	if (!st->minus && !st->zero && st->width)
+		if (ft_strlen(str) < st->width)
+			printch(st->width - ft_strlen(str),' ');
 	write(1, str, ft_strlen(str));
+	if (st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ');
 }
 
-void	printhex(char c, va_list args)
+void	printhex(char c, va_list args, t_fields *st)
 {
 	unsigned long	n;
 	char			*str;

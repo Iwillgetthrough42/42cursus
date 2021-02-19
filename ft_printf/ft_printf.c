@@ -14,67 +14,72 @@
 #include "lib.h"
 #include <stdio.h>
 
-void	init_struct(fl_st st)
+void	init_struct(t_fields *st)
 {
-	st.minus = 0;
-	st.zero = 0;
-	st.precision = 0;
-	st.asterisk = 0;
-	st.width = 0;
+	st->minus = 0;
+	st->zero = 0;
+	st->precision = 0;
+	st->width = 0;
 }
 
-void	handle_signs(char c, va_list args)
+void	handle_signs(char c, va_list args, t_fields *st)
 {
 	if (c == 'c')
-		printchar(args);
+		printchar(args, st);
 	else if (c == 'd' || c == 'i' || c == 'u')
-		printdigit(c, args);
+		printdigit(c, args, st);
 	else if (c == 's')
-		printstr(args);
+		printstr(args, st);
 	else if (c == 'x' || c == 'X' || c == 'p')
-		printhex(c, args);
+		printhex(c, args, st);
 }
 
-void	check_sign(const char *s, va_list args, int i)
+void	check_sign(char **str, va_list args, t_fields *st)
 {
 	char	*signs;
 	int		j;
-	char	*str;
 
+	(*str)++;
 	j = 0;
+	check_flags(str, st);
+	check_width(str, st, args);
+	check_precision(str, st, args);
 	signs = ft_strdup("cspdiuxX");
 	while (signs[j] != '\0')
 	{
-		if (s[i + 1] == signs[j])
+		if (**str == signs[j])
 		{
-			handle_signs(signs[j], args);
+			handle_signs(signs[j], args, st);
+			(*str)++;
 			break ;
 		}
 		j++;	
 	}
 }
 
-void		ft_printf(const char *s, ...)
+int		ft_printf(const char *s, ...)
 {
 	char	c;
 	int		i;
-
-	fl_st st;
-	init_struct(st);
-	i = 0;
+	char	*str;
 	va_list args;
+
+	str = (char *)s;
+	t_fields st;
+	i = 0;
 	va_start(args, s);
-	while (s[i] != '\0')
+	while (*str != '\0')
 	{
-		if (s[i] == '%')
+		if (*str == '%')
 		{
-			check_sign(s, args, i);
-			i++;
+			init_struct(&st);
+			check_sign(&str, args, &st);
 		}
 		else
-			write(1, &s[i], 1);
-		i++;
+			write(1, str, 1);
+		str++;
 	}
+	return (1);
 
 }
 
@@ -85,5 +90,5 @@ int main()
 
 	k = 325;
 	p = &k;
-	ft_printf("number is :%c,   other number is: %p, kkkkkkk: %s",'b', p, "lllll");
+	ft_printf("number is :%5c,   other number is: %p, kkkkkkk: %s",'b', p, "lllll");
 }
