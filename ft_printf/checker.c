@@ -53,7 +53,7 @@ void	check_precision(char **str, t_fields *st, va_list args)
 		}
 		while (**str >= '0' && **str <= '9')
 		{
-			st->precision = (st->width * 10) + (**str - '0');
+			st->precision = (st->precision * 10) + (**str - '0');
 			(*str)++;
 		}
 

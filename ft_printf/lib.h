@@ -22,5 +22,6 @@ void	check_flags(char **str, t_fields *st);
 void	check_width(char **str, t_fields *st, va_list args);
 void	check_precision(char **str, t_fields *st, va_list args);
 void	printch(int quant, char ch);
+void	printpointer(va_list args, t_fields *st);
 
 #endif

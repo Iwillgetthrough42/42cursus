@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 16:02:01 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/17 17:52:11 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/20 13:10:38 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	handle_signs(char c, va_list args, t_fields *st)
 		printdigit(c, args, st);
 	else if (c == 's')
 		printstr(args, st);
-	else if (c == 'x' || c == 'X' || c == 'p')
+	else if (c == 'x' || c == 'X')
 		printhex(c, args, st);
+	else if (c == 'p')
+		printpointer(args, st);
 }
 
 void	check_sign(char **str, va_list args, t_fields *st)
@@ -88,5 +90,5 @@ int main()
 
 	k = 325;
 	p = &k;
-	ft_printf("number is :%010c,   other number is: %p, kkkkkkk: %-10s",'b', p, "lllll");
+	ft_printf("number is :%10.5d,   other number is: %1x, kkkkkkk: %10s",396, 397, "lllll");
 }

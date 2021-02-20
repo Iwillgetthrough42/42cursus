@@ -47,8 +47,8 @@ void	printdigit(char c, va_list args, t_fields *st)
 	else if (!st->minus && st->zero && st->width)
 		printch(st->width - ft_strlen(str), '0');
 	if (st->precision)
-		if (ft_strlen(str) < st->precision)
-			printch(st->precision - ft_strlen(str),'0');
+		printch(st->precision - ft_strlen(str),'0');
+	write(1, str, ft_strlen(str));
 	if (st->minus && !st->zero && st->width)
 		printch(st->width - ft_strlen(str), ' ');
 }
@@ -72,20 +72,35 @@ void	printhex(char c, va_list args, t_fields *st)
 	unsigned long	n;
 	char			*str;
 
-	if (c == 'x' || c == 'X')
-		n = va_arg(args, unsigned int);
-	else if (c == 'p')
-		n = va_arg(args, unsigned long);
+	n = va_arg(args, unsigned int);
 	if (c == 'x')
 		str = ft_anybase(n, "0123456789abcdef");
 	else if (c == 'X')
 		str = ft_anybase(n, "0123456789ABCDEF");
-	else if (c == 'p')
-	{
-		str = ft_anybase(n, "0123456789abcdef");
-		write(1, "0x", 2);
-	}
+	if (!st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ');
+	else if (!st->minus && st->zero && st->width)
+		printch(st->width - ft_strlen(str), '0');
+	if (st->precision)
+		printch(st->precision - ft_strlen(str),'0');
 	write(1, str, ft_strlen(str));
+	if (st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ');
+}
+
+void	printpointer(va_list args, t_fields *st)
+{
+	unsigned long	n;
+	char			*str;
+
+	n = va_arg(args, unsigned long);
+	str = ft_anybase(n, "0123456789abcdef");
+	if (!st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ');
+	write(1, "0x", 2);
+	write(1, str, ft_strlen(str));
+	if (st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ');
 }
 
 
