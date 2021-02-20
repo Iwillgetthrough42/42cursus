@@ -45,6 +45,7 @@ void	check_precision(char **str, t_fields *st, va_list args)
 {
 	if (**str == '.')
 	{
+		st->dot = 1;
 		(*str)++;
 		if (**str == '*')
 		{

@@ -9,6 +9,8 @@ SRCS = ft_printf.c \
 		libft/ft_strdup.c \
 		libft/ft_itoa.c \
 		libft/ft_substr.c \
+		libft/ft_strjoin.c \
+		libft/ft_memcpy.c \
 
 OBJS = $(SRCS:.c=.o)
 

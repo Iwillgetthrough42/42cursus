@@ -20,6 +20,7 @@ void	init_struct(t_fields *st)
 	st->zero = 0;
 	st->precision = 0;
 	st->width = 0;
+	st->dot = 0;
 }
 
 void	handle_signs(char c, va_list args, t_fields *st)
@@ -56,11 +57,20 @@ void	check_sign(char **str, va_list args, t_fields *st)
 		}
 		j++;	
 	}
+	if (**str == '%')
+	{
+		if (!st->minus && !st->zero && st->width)
+		printch(st->width - 1, ' ');
+		else if (!st->minus && st->zero && st->width)
+		printch(st->width - 1, '0');
+		write(1, "%", 1);
+		if (st->minus && !st->zero && st->width)
+		printch(st->width - 1, ' ');
+	}
 }
 
 int		ft_printf(const char *s, ...)
 {
-	char	c;
 	int		i;
 	char	*str;
 	va_list args;
@@ -81,14 +91,4 @@ int		ft_printf(const char *s, ...)
 		str++;
 	}
 	return (1);
-}
-
-int main()
-{
-	int k;
-	int *p;
-
-	k = 325;
-	p = &k;
-	ft_printf("number is :%10.5d,   other number is: %1x, kkkkkkk: %10s",396, 397, "lllll");
 }

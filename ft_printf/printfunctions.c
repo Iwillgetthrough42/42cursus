@@ -58,14 +58,16 @@ void	printstr(va_list args, t_fields *st)
 	char *str;
 
 	str = va_arg(args, char *);
-	if (st->precision)
-		str = ft_substr(str, 0, st->precision);
-	if (!st->minus && !st->zero && st->width)
+	if (str == NULL)
+		str = "(null)";
+		if (st->dot)
+			str = ft_substr(str, 0, st->precision);
+		if (!st->minus && !st->zero && st->width)
 			printch(st->width - ft_strlen(str),' ');
-	write(1, str, ft_strlen(str));
-	if (st->minus && !st->zero && st->width)
-		printch(st->width - ft_strlen(str), ' ');
-}
+		write(1, str, ft_strlen(str));
+		if (st->minus && !st->zero && st->width)
+			printch(st->width - ft_strlen(str), ' ');
+}	
 
 void	printhex(char c, va_list args, t_fields *st)
 {
@@ -92,16 +94,18 @@ void	printpointer(va_list args, t_fields *st)
 {
 	unsigned long	n;
 	char			*str;
+	char			*tmp;
 
 	n = va_arg(args, unsigned long);
 	str = ft_anybase(n, "0123456789abcdef");
+	tmp = str;
+	if (n == 0)
+		str = "0";
+	str = ft_strjoin("0x",str);
+	free(tmp);
 	if (!st->minus && !st->zero && st->width)
 		printch(st->width - ft_strlen(str), ' ');
-	write(1, "0x", 2);
 	write(1, str, ft_strlen(str));
 	if (st->minus && !st->zero && st->width)
 		printch(st->width - ft_strlen(str), ' ');
 }
-
-
-
