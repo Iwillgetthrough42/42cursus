@@ -31,26 +31,33 @@ void	printdigit(char c, va_list args, t_fields *st)
 {
 	char	*str;
 	long	num;
+	int		t;
 
 	if (c == 'i' || c == 'd')
-	{
 		num = va_arg(args, int);
-		str = ft_itoa(num);
-	}
-	else if (c == 'u')
-	{
+	else
 		num = va_arg(args, unsigned int);
-		str = ft_itoa(num);
-	}
-	if (!st->minus && !st->zero && st->width)
-		printch(st->width - ft_strlen(str), ' ');
-	else if (!st->minus && st->zero && st->width)
+	str = (num == 0 && st->dot ? "" : ft_itoa(num));
+	t = num < 0 && st->precision ? 1 : 0;
+	if (!st->minus && st->width && (!st->zero || (st->zero && st->precision)))
+		printch(st->width - ((st->precision > (int)ft_strlen(str)) ? st->precision + t : ft_strlen(str)), ' ');
+	else if (!st->minus && st->zero && st->width && !st->precision)
+	{
+		if (num < 0)
+			write(1, "-", 1);
 		printch(st->width - ft_strlen(str), '0');
+	}
 	if (st->precision)
-		printch(st->precision - ft_strlen(str),'0');
+	{
+		if (num < 0)
+			write(1, "-", 1);
+		printch(st->precision - ft_strlen(str + t), '0');
+	}
+	if (num < 0 && (st->zero || (st->precision)))
+		str++;
 	write(1, str, ft_strlen(str));
 	if (st->minus && !st->zero && st->width)
-		printch(st->width - ft_strlen(str), ' ');
+		printch(st->width - (st->precision > (int)ft_strlen(str) ? st->precision + t : ft_strlen(str) + t), ' ');
 }
 
 void	printstr(va_list args, t_fields *st)
