@@ -37,7 +37,7 @@ void	printdigit(char c, va_list args, t_fields *st)
 		num = va_arg(args, int);
 	else
 		num = va_arg(args, unsigned int);
-	str = (num == 0 && st->dot ? "" : ft_itoa(num));
+	str = (num == 0 && st->dot ? "" : ft_utoa(num));
 	t = num < 0 && st->precision ? 1 : 0;
 	if (!st->minus && st->width && (!st->zero || (st->zero && st->precision)))
 		printch(st->width - ((st->precision > (int)ft_strlen(str)) ? st->precision + t : ft_strlen(str)), ' ');

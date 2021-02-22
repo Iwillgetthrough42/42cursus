@@ -5,6 +5,7 @@ SRCS = ft_printf.c \
 		printspace.c \
 		to_hex.c \
 		checker.c \
+		ft_utoa.c \
 		libft/ft_strlen.c \
 		libft/ft_strdup.c \
 		libft/ft_itoa.c \
