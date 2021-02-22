@@ -17,7 +17,7 @@ static	int		count(unsigned long n, unsigned int basesize)
 {
 	int count;
 
-	count = 0;
+	count = (n > 0 ? 0 : 1);
 	while (n != 0)
 	{
 		n /= basesize;
@@ -35,9 +35,12 @@ char			*ft_anybase(unsigned long n, const char *base)
 	
 	base_size = ft_strlen(base);
 	cnt = count(n, base_size);
-	new = malloc(sizeof(char) * (cnt + 1));
+	if (!(new = malloc(sizeof(char) * (cnt + 1))))
+		return (0);
 	new[cnt] = '\0';
 	i = 0;
+	if (n == 0)
+		new[cnt - i - 1] = '0';
 	while (n != 0)
 	{
 		new[cnt - i - 1] = base[n % base_size];

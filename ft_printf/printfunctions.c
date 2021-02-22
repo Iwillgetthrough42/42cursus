@@ -80,21 +80,23 @@ void	printhex(char c, va_list args, t_fields *st)
 {
 	unsigned long	n;
 	char			*str;
+	char			*base;
 
 	n = va_arg(args, unsigned int);
 	if (c == 'x')
-		str = ft_anybase(n, "0123456789abcdef");
+		base = "0123456789abcdef";
 	else if (c == 'X')
-		str = ft_anybase(n, "0123456789ABCDEF");
-	if (!st->minus && !st->zero && st->width)
-		printch(st->width - ft_strlen(str), ' ');
+		base = "0123456789ABCDEF";
+	str = (n == 0 && st->dot ? "" : ft_anybase(n, base));
+	if (!st->minus && st->width && (!st->zero || (st->zero && st->precision)))
+		printch(st->width - ((st->precision > (int)ft_strlen(str)) ? st->precision : ft_strlen(str)), ' ');
 	else if (!st->minus && st->zero && st->width)
 		printch(st->width - ft_strlen(str), '0');
 	if (st->precision)
 		printch(st->precision - ft_strlen(str),'0');
 	write(1, str, ft_strlen(str));
 	if (st->minus && !st->zero && st->width)
-		printch(st->width - ft_strlen(str), ' ');
+		printch(st->width - ((st->precision > (int)ft_strlen(str)) ? st->precision : ft_strlen(str)), ' ');
 }
 
 void	printpointer(va_list args, t_fields *st)
