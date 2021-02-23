@@ -24,7 +24,7 @@ void	check_flags(char **str, t_fields *st)
 		(*str)++;
 	}
 	if (st->minus && st->zero)
-		st->zero = 0;	
+		st->zero = 0;
 }
 
 void	check_width(char **str, t_fields *st, va_list args)
@@ -56,20 +56,18 @@ void	check_precision(char **str, t_fields *st, va_list args)
 		(*str)++;
 		if (**str == '*')
 		{
-			st->precision = va_arg(args, int);
-			if (st->precision < 0)
+			st->prec = va_arg(args, int);
+			if (st->prec < 0)
 			{
-				st->precision = 0;
+				st->prec = 0;
 				st->dot = 0;
 			}
 			(*str)++;
 		}
 		while (**str >= '0' && **str <= '9')
 		{
-			st->precision = (st->precision * 10) + (**str - '0');
+			st->prec = (st->prec * 10) + (**str - '0');
 			(*str)++;
 		}
-
 	}
-	
 }

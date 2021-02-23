@@ -14,11 +14,22 @@
 #include "lib.h"
 #include <stdio.h>
 
+void	printpercent(t_fields *st)
+{
+	if (!st->minus && !st->zero && st->width)
+		printch(st->width - 1, ' ', st);
+	else if (!st->minus && st->zero && st->width)
+		printch(st->width - 1, '0', st);
+	printch(1, '%', st);
+	if (st->minus && !st->zero && st->width)
+		printch(st->width - 1, ' ', st);
+}
+
 void	init_struct(t_fields *st)
 {
 	st->minus = 0;
 	st->zero = 0;
-	st->precision = 0;
+	st->prec = 0;
 	st->width = 0;
 	st->dot = 0;
 	st->len = 0;
@@ -56,18 +67,10 @@ void	check_sign(char **str, va_list args, t_fields *st)
 			handle_signs(signs[j], args, st);
 			break ;
 		}
-		j++;	
+		j++;
 	}
 	if (**str == '%')
-	{
-		if (!st->minus && !st->zero && st->width)
-		printch(st->width - 1, ' ', st);
-		else if (!st->minus && st->zero && st->width)
-		printch(st->width - 1, '0', st);
-		printch(1, '%', st);
-		if (st->minus && !st->zero && st->width)
-		printch(st->width - 1, ' ', st);
-	}
+		printpercent(st);
 }
 
 int		ft_printf(const char *s, ...)
@@ -86,25 +89,11 @@ int		ft_printf(const char *s, ...)
 	{
 		init_struct(&st);
 		if (*str == '%')
-		{
-			
-			check_sign(&str, args, &st);	
-		}
+			check_sign(&str, args, &st);
 		else
-		{
 			printch(1, *str, &st);
-			//count += st.len;
-		}
 		count += st.len;
 		str++;
 	}
 	return (count);
 }
-
-/*int 	main()
-{
-	printf(" ret:  %d   ", ft_printf("%0*.*d",1,0,0));
-	printf("\n");
-	printf(" ret:  %d   ", printf("%0*.*d",1,0,0));
-
-}*/

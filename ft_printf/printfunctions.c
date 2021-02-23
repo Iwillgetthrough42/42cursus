@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:28:23 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/17 17:52:41 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/23 17:37:30 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	printdigit(char c, va_list args, t_fields *st)
 	str = (num == 0 && st->dot ? "" : ft_utoa(num));
 	t = num < 0 && st->dot ? 1 : 0;
 	if (!st->minus && st->width && (!st->zero || (st->zero && st->dot)))
-		printch(st->width - ((st->precision >= (int)ft_strlen(str)) ? st->precision + t : ft_strlen(str)), ' ', st);
+		printch(st->width - ((st->prec >= (int)ft_strlen(str)) ? st->prec + t : ft_strlen(str)), ' ', st);
 	if (!st->minus && st->zero && st->width && !st->dot)
 	{
 		if (num < 0)
@@ -51,13 +51,13 @@ void	printdigit(char c, va_list args, t_fields *st)
 	{
 		if (num < 0)
 			printch(1, '-', st);
-		printch(st->precision - ft_strlen(str + t), '0', st);
+		printch(st->prec - ft_strlen(str + t), '0', st);
 	}
 	if (num < 0 && ((st->zero && st->width) || (st->dot)))
 		str++;
 	ft_putstr(str, st);
 	if (st->minus && !st->zero && st->width)
-		printch(st->width - (st->precision > (int)ft_strlen(str) ? st->precision + t : ft_strlen(str) + t), ' ', st);
+		printch(st->width - (st->prec > (int)ft_strlen(str) ? st->prec + t : ft_strlen(str) + t), ' ', st);
 }
 
 void	printstr(va_list args, t_fields *st)
@@ -67,14 +67,14 @@ void	printstr(va_list args, t_fields *st)
 	str = va_arg(args, char *);
 	if (str == NULL)
 		str = "(null)";
-		if (st->dot)
-			str = ft_substr(str, 0, st->precision);
-		if (!st->minus && !st->zero && st->width)
-			printch(st->width - ft_strlen(str),' ', st);
-		ft_putstr(str, st);
-		if (st->minus && !st->zero && st->width)
-			printch(st->width - ft_strlen(str), ' ', st);
-}	
+	if (st->dot)
+		str = ft_substr(str, 0, st->prec);
+	if (!st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ', st);
+	ft_putstr(str, st);
+	if (st->minus && !st->zero && st->width)
+		printch(st->width - ft_strlen(str), ' ', st);
+}
 
 void	printhex(char c, va_list args, t_fields *st)
 {
@@ -89,14 +89,14 @@ void	printhex(char c, va_list args, t_fields *st)
 		base = "0123456789ABCDEF";
 	str = (n == 0 && st->dot ? "" : ft_anybase(n, base));
 	if (!st->minus && st->width && (!st->zero || (st->zero && st->dot)))
-		printch(st->width - ((st->precision > (int)ft_strlen(str)) ? st->precision : ft_strlen(str)), ' ', st);
+		printch(st->width - ((st->prec > (int)ft_strlen(str)) ? st->prec : ft_strlen(str)), ' ', st);
 	else if (!st->minus && st->zero && st->width)
 		printch(st->width - ft_strlen(str), '0', st);
-	if (st->precision)
-		printch(st->precision - ft_strlen(str),'0', st);
+	if (st->prec)
+		printch(st->prec - ft_strlen(str), '0', st);
 	ft_putstr(str, st);
 	if (st->minus && !st->zero && st->width)
-		printch(st->width - ((st->precision > (int)ft_strlen(str)) ? st->precision : ft_strlen(str)), ' ', st);
+		printch(st->width - ((st->prec > (int)ft_strlen(str)) ? st->prec : ft_strlen(str)), ' ', st);
 }
 
 void	printpointer(va_list args, t_fields *st)
@@ -110,7 +110,7 @@ void	printpointer(va_list args, t_fields *st)
 	tmp = str;
 	if (n == 0)
 		str = "0";
-	str = ft_strjoin("0x",str);
+	str = ft_strjoin("0x", str);
 	free(tmp);
 	if (!st->minus && !st->zero && st->width)
 		printch(st->width - ft_strlen(str), ' ', st);
