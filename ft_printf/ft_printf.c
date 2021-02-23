@@ -6,13 +6,12 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 16:02:01 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/23 14:25:36 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/23 18:12:33 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "lib.h"
-#include <stdio.h>
 
 void	printpercent(t_fields *st)
 {
@@ -73,16 +72,16 @@ void	check_sign(char **str, va_list args, t_fields *st)
 		printpercent(st);
 }
 
-int		ft_printf(const char *s, ...)
+int		ft_printf(const	char *s, ...)
 {
-	int		i;
-	char	*str;
-	va_list args;
-	int 	count;
+	va_list		args;
+	int			i;
+	int			count;
+	char		*str;
+	t_fields	st;
 
 	count = 0;
 	str = (char *)s;
-	t_fields st;
 	i = 0;
 	va_start(args, s);
 	while (*str != '\0')
@@ -95,5 +94,6 @@ int		ft_printf(const char *s, ...)
 		count += st.len;
 		str++;
 	}
+	va_end(args);
 	return (count);
 }

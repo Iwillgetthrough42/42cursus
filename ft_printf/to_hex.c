@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:21:52 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/18 14:22:30 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/23 17:51:39 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static	int		count(unsigned long n, unsigned int basesize)
 
 char			*ft_anybase(unsigned long n, const char *base)
 {
-	unsigned int	base_size;
+	unsigned	int	base_size;
 	int				cnt;
 	char			*new;
 	int				i;
-	
+
 	base_size = ft_strlen(base);
 	cnt = count(n, base_size);
 	if (!(new = malloc(sizeof(char) * (cnt + 1))))
@@ -45,7 +45,7 @@ char			*ft_anybase(unsigned long n, const char *base)
 	{
 		new[cnt - i - 1] = base[n % base_size];
 		n /= base_size;
-		i++;		
+		i++;
 	}
 	return (new);
 }

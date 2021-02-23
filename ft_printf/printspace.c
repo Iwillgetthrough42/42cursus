@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 16:25:41 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/22 16:25:46 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/23 17:49:54 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	printch(int quant, char ch, t_fields *st)
 		write(1, &ch, 1);
 		st->len += 1;
 		i++;
-	}	
+	}
 }
 
 void	ft_putstr(char *str, t_fields *st)
