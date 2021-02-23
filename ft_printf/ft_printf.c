@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 16:02:01 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/20 13:10:38 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/23 14:25:36 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_struct(t_fields *st)
 	st->precision = 0;
 	st->width = 0;
 	st->dot = 0;
+	st->len = 0;
 }
 
 void	handle_signs(char c, va_list args, t_fields *st)
@@ -60,12 +61,12 @@ void	check_sign(char **str, va_list args, t_fields *st)
 	if (**str == '%')
 	{
 		if (!st->minus && !st->zero && st->width)
-		printch(st->width - 1, ' ');
+		printch(st->width - 1, ' ', st);
 		else if (!st->minus && st->zero && st->width)
-		printch(st->width - 1, '0');
-		write(1, "%", 1);
+		printch(st->width - 1, '0', st);
+		printch(1, '%', st);
 		if (st->minus && !st->zero && st->width)
-		printch(st->width - 1, ' ');
+		printch(st->width - 1, ' ', st);
 	}
 }
 
@@ -74,21 +75,36 @@ int		ft_printf(const char *s, ...)
 	int		i;
 	char	*str;
 	va_list args;
+	int 	count;
 
+	count = 0;
 	str = (char *)s;
 	t_fields st;
 	i = 0;
 	va_start(args, s);
 	while (*str != '\0')
 	{
+		init_struct(&st);
 		if (*str == '%')
 		{
-			init_struct(&st);
-			check_sign(&str, args, &st);
+			
+			check_sign(&str, args, &st);	
 		}
 		else
-			write(1, str, 1);
+		{
+			printch(1, *str, &st);
+			//count += st.len;
+		}
+		count += st.len;
 		str++;
 	}
-	return (1);
+	return (count);
 }
+
+/*int 	main()
+{
+	printf(" ret:  %d   ", ft_printf("%0*.*d",1,0,0));
+	printf("\n");
+	printf(" ret:  %d   ", printf("%0*.*d",1,0,0));
+
+}*/
