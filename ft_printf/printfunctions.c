@@ -32,6 +32,7 @@ void	printdigit(char c, va_list args, t_fields *st)
 	char	*str;
 	long	num;
 	int		t;
+	int		cn;
 
 	if (c == 'i' || c == 'd')
 		num = va_arg(args, int);
@@ -39,25 +40,20 @@ void	printdigit(char c, va_list args, t_fields *st)
 		num = va_arg(args, unsigned int);
 	str = (num == 0 && st->dot ? "" : ft_utoa(num));
 	t = num < 0 && st->dot ? 1 : 0;
+	cn = st->prec >= (int)ft_strlen(str) ? 1 : 0;
 	if (!st->minus && st->width && (!st->zero || (st->zero && st->dot)))
-		printch(st->width - ((st->prec >= (int)ft_strlen(str)) ? st->prec + t : ft_strlen(str)), ' ', st);
+		printch(st->width - ((cn) ? st->prec + t : ft_strlen(str)), ' ', st);
+	if (num < 0 && ((st->zero && st->width) || (st->dot)))
+		printch(1, '-', st);
 	if (!st->minus && st->zero && st->width && !st->dot)
-	{
-		if (num < 0)
-			printch(1, '-', st);
 		printch(st->width - ft_strlen(str), '0', st);
-	}
 	if (st->dot)
-	{
-		if (num < 0)
-			printch(1, '-', st);
 		printch(st->prec - ft_strlen(str + t), '0', st);
-	}
 	if (num < 0 && ((st->zero && st->width) || (st->dot)))
 		str++;
 	ft_putstr(str, st);
 	if (st->minus && !st->zero && st->width)
-		printch(st->width - (st->prec > (int)ft_strlen(str) ? st->prec + t : ft_strlen(str) + t), ' ', st);
+		printch(st->width - (cn ? st->prec + t : ft_strlen(str) + t), ' ', st);
 }
 
 void	printstr(va_list args, t_fields *st)
@@ -81,6 +77,7 @@ void	printhex(char c, va_list args, t_fields *st)
 	unsigned long	n;
 	char			*str;
 	char			*base;
+	int				cn;
 
 	n = va_arg(args, unsigned int);
 	if (c == 'x')
@@ -88,15 +85,16 @@ void	printhex(char c, va_list args, t_fields *st)
 	else if (c == 'X')
 		base = "0123456789ABCDEF";
 	str = (n == 0 && st->dot ? "" : ft_anybase(n, base));
+	cn = st->prec > (int)ft_strlen(str) ? 1 : 0;
 	if (!st->minus && st->width && (!st->zero || (st->zero && st->dot)))
-		printch(st->width - ((st->prec > (int)ft_strlen(str)) ? st->prec : ft_strlen(str)), ' ', st);
+		printch(st->width - (cn ? st->prec : ft_strlen(str)), ' ', st);
 	else if (!st->minus && st->zero && st->width)
 		printch(st->width - ft_strlen(str), '0', st);
 	if (st->prec)
 		printch(st->prec - ft_strlen(str), '0', st);
 	ft_putstr(str, st);
 	if (st->minus && !st->zero && st->width)
-		printch(st->width - ((st->prec > (int)ft_strlen(str)) ? st->prec : ft_strlen(str)), ' ', st);
+		printch(st->width - (cn ? st->prec : ft_strlen(str)), ' ', st);
 }
 
 void	printpointer(va_list args, t_fields *st)
