@@ -6,7 +6,7 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 13:28:23 by arastepa          #+#    #+#             */
-/*   Updated: 2021/02/23 17:37:30 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/02/24 15:17:10 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,12 @@ void	printpointer(va_list args, t_fields *st)
 {
 	unsigned long	n;
 	char			*str;
-	char			*tmp;
 
 	n = va_arg(args, unsigned long);
 	str = ft_anybase(n, "0123456789abcdef");
-	tmp = str;
 	if (n == 0)
 		str = "0";
 	str = ft_strjoin("0x", str);
-	free(tmp);
 	if (!st->minus && !st->zero && st->width)
 		printch(st->width - ft_strlen(str), ' ', st);
 	ft_putstr(str, st);
