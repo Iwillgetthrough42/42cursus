@@ -7,7 +7,6 @@ RUN apt-get -y install nginx
 RUN apt-get -y install mariadb-server
 RUN apt-get -y install php7.3 php-mysql php-fpm php-pdo php-gd php-cli php-mbstring
 
-COPY srcs/init.sh ./
 COPY srcs/default /etc/nginx/sites-available
 
 WORKDIR /var/www/html/
@@ -29,5 +28,5 @@ RUN openssl req -x509 -nodes -days 365 -subj \
 
 RUN chown -R www-data:www-data *
 RUN chmod -R 755 /var/www/*
-
+COPY srcs/init.sh ./
 CMD bash init.sh
