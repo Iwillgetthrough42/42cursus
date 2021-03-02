@@ -14,12 +14,12 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.
 RUN tar -xf phpMyAdmin-5.0.1-english.tar.gz && rm -rf phpMyAdmin-5.0.1-english.tar.gz
 RUN mv phpMyAdmin-5.0.1-english phpmyadmin
 
-COPY srcs/config.php phpMyAdmin
+COPY srcs/config.inc.php /var/www/html/phpmyadmin
 
 RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
 
-COPY srcs/wordpress.php /var/www/html
+COPY srcs/wordpress.php /var/www/html/wordpress
 
 RUN openssl req -x509 -nodes -days 365 -subj \
 "/C=KR/ST=Korea/L=Seoul/O=innoaca/OU=42seoul/CN=forhjy" \
