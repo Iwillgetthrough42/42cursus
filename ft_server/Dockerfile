@@ -21,10 +21,15 @@ RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
 
 COPY srcs/wordpress.php /var/www/html/wordpress
 
-RUN openssl req -x509 -nodes -days 365 -subj \
-"/C=KR/ST=Korea/L=Seoul/O=innoaca/OU=42seoul/CN=forhjy" \
- -newkey rsa:2048 -keyout \
-/etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
+RUN openssl req -newkey rsa:4096 \
+ -x509 \
+ -sha256 \
+ -days 3650 \
+ -nodes \
+ -subj \
+ "/C=AM/ST=Yerevan/L=Yerevan/O=Tumo/OU=42Yerevan/CN=arastepa" \
+ -out /etc/ssl/nginx-selfsigned.crt \
+ -keyout /etc/ssl/nginx-selfsigned.key 
 
 RUN chown -R www-data:www-data *
 RUN chmod -R 755 /var/www/*
