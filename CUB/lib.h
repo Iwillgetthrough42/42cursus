@@ -24,12 +24,15 @@ typedef	struct		s_mapdata
 	char	*east;
 	char	*sprite;
 	int		floor[3];
-	int		ceilling[3];
+	int		*ceilling;
 	char	**map;
 }					t_mapdata;
 
 void				skipspaces(char **line);
-void				ft_res(char *line, t_mapdata *data);
+void				ft_res(char **line, t_mapdata *data);
 void				skipspaces(char **line);
+void				ft_dir(char **line, char **st);
+int					getcolor(char **line);
+void				ft_color(char **line, int *st[3]);
 
 #endif

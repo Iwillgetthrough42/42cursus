@@ -1,6 +1,20 @@
 #include "lib.h"
 #include <stdio.h>
 
+void	init(t_mapdata *data)
+{
+	data->resx = 0;
+	data->resy = 0;
+	data->north = 0;
+	data->south = 0;
+	data->west = 0;
+	data->east = 0;
+	data->sprite = 0;
+	data->floor = 0;
+	data->ceilling = 0;
+	data->map = 0;
+}
+
 void	skipspaces(char **line)
 {
 	while (**line == '\t' || **line == '\n' || **line == '\v' || 
@@ -13,25 +27,24 @@ void	checkline(char *line, t_mapdata *data)
 	int i;
 
 	i = 0;
-	while (line[i] != '\0')
+	while (*line != '\0')
 	{
-		if (line[i] == 'R')
-			ft_res(line, data);
-		/*else if (line[i] == 'N' && line[i + 1] == 'O')
-			ft_north(line, data);
+		if (*line == 'R')
+			ft_res(&line, data);
+		else if (*line == 'N' && *(line + 1) == 'O')
+			ft_dir(&line, &data->north);
 		else if (line[i] == 'S' && line[i + 1] == 'O')
-			ft_south(line, data);
+			ft_dir(&line, &data->south);
 		else if (line[i] == 'W' && line[i + 1] == 'E')
-			ft_west(line, data);
+			ft_dir(&line, &data->west);
 		else if (line[i] == 'E' && line[i + 1] == 'A')
-			ft_east(line, data);
+			ft_dir(&line, &data->east);
 		else if (line[i] == 'S')
-			ft_sprite(line, data);
-		else if (line[i] == 'S')
-			ft_floor(line, data);
-		else if (line[i] == 'S')
-			ft_ceilling(line, data);*/
-		i++;
+			ft_dir(&line, &data->sprite);
+		else if (line[i] == 'F')
+			ft_color(&line, &data->floor);
+		//else if (line[i] == 'C')
+			//ft_color(line, &data->ceilling);*/
 	}
 }
 
@@ -41,16 +54,20 @@ void	readfile()
 	char		*line;
 	t_mapdata	data;
 	int			t;
+	int			i;
 
-	t = 1;	
+	i = 0; 
+	t = 1;
+	init(&data);	
 	fd = open("map.cub", O_RDONLY);
-	//while (t)
-	//{
-		get_next_line(fd, &line);
+	while (i < 7)
+	{
+		t = get_next_line(fd, &line);
 		skipspaces(&line);
 		checkline(line, &data);
-		printf("%s, %d", line, data.resx);
-	//}
+		printf("%p", data.floor);
+		i++;
+	}
 }
 
 int		main()
