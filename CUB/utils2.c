@@ -30,3 +30,11 @@ int				getcolor(char **line)
 	str[i] = '\0';
 	return (ft_atoi(str));
 }
+
+int				createtrgb(int r, int g, int b)
+{
+	int t;
+
+	t = 0;
+	return(t << 24 | r << 16 | g << 8 | b);
+}

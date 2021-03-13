@@ -23,8 +23,8 @@ typedef	struct		s_mapdata
 	char	*west;
 	char	*east;
 	char	*sprite;
-	int		floor[3];
-	int		*ceilling;
+	char	*floor;
+	char	*ceilling;
 	char	**map;
 }					t_mapdata;
 
@@ -33,6 +33,10 @@ void				ft_res(char **line, t_mapdata *data);
 void				skipspaces(char **line);
 void				ft_dir(char **line, char **st);
 int					getcolor(char **line);
-void				ft_color(char **line, int *st[3]);
+void				ft_color(char **line, char **st);
+int					createtrgb(int r, int g, int b);
+char				*ft_anybase(unsigned long n, const char *base);
+void				ft_map(char **line, t_mapdata *data, int cnt);
+int					ft_count();
 
 #endif

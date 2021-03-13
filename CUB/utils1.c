@@ -64,9 +64,10 @@ void	ft_dir(char **line, char **st)
 	str = NULL;
 }
 
-void	ft_color(char **line, int *st[3])
+void	ft_color(char **line, char **st)
 {
 	int	i;
+	int	rgb[3];
 
 	//*st = malloc(sizeof(char) * 3);
 	i = 0;
@@ -74,9 +75,10 @@ void	ft_color(char **line, int *st[3])
 	skipspaces(line);
 	while (i < 3)
 	{
-		*st[i] = getcolor(line);
+		rgb[i] = getcolor(line);
 		i++;
 	}
+	*st = ft_anybase(createtrgb(rgb[0], rgb[1], rgb[2]), "0123456789ABCDEF");
 }
 
 

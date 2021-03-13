@@ -22,29 +22,31 @@ void	skipspaces(char **line)
 			(*line)++;
 }
 
-void	checkline(char *line, t_mapdata *data)
+void	checkline(char *line, t_mapdata *data, int cnt)
 {
 	int i;
 
 	i = 0;
 	while (*line != '\0')
 	{
-		if (*line == 'R')
+		if (*line == 'R' && *(line + 1) == ' ')
 			ft_res(&line, data);
-		else if (*line == 'N' && *(line + 1) == 'O')
+		else if (*line == 'N' && *(line + 1) == 'O' && *(line + 2) == ' ')
 			ft_dir(&line, &data->north);
-		else if (line[i] == 'S' && line[i + 1] == 'O')
+		else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
 			ft_dir(&line, &data->south);
-		else if (line[i] == 'W' && line[i + 1] == 'E')
+		else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
 			ft_dir(&line, &data->west);
-		else if (line[i] == 'E' && line[i + 1] == 'A')
+		else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
 			ft_dir(&line, &data->east);
-		else if (line[i] == 'S')
+		else if (line[i] == 'S' && line[i + 1] == ' ')
 			ft_dir(&line, &data->sprite);
-		else if (line[i] == 'F')
+		else if (line[i] == 'F' && line[i + 1] == ' ')
 			ft_color(&line, &data->floor);
-		//else if (line[i] == 'C')
-			//ft_color(line, &data->ceilling);*/
+		else if (line[i] == 'C' && line[i + 1] == ' ')
+			ft_color(&line, &data->ceilling);
+		else if(line[i] == '1')
+			ft_map(&line, data, cnt);
 	}
 }
 
@@ -54,19 +56,17 @@ void	readfile()
 	char		*line;
 	t_mapdata	data;
 	int			t;
-	int			i;
+	int 		cnt;
 
-	i = 0; 
+	cnt = ft_count();
 	t = 1;
-	init(&data);	
+	init(&data);
 	fd = open("map.cub", O_RDONLY);
-	while (i < 7)
+	while (t)
 	{
 		t = get_next_line(fd, &line);
 		skipspaces(&line);
-		checkline(line, &data);
-		printf("%p", data.floor);
-		i++;
+		checkline(line, &data, cnt);
 	}
 }
 
