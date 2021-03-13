@@ -26,6 +26,7 @@ typedef	struct		s_mapdata
 	char	*floor;
 	char	*ceilling;
 	char	**map;
+	int		mapy;
 }					t_mapdata;
 
 void				skipspaces(char **line);

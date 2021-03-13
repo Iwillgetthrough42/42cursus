@@ -13,6 +13,7 @@ void	init(t_mapdata *data)
 	data->floor = 0;
 	data->ceilling = 0;
 	data->map = 0;
+	data->mapy = 0;
 }
 
 void	skipspaces(char **line)

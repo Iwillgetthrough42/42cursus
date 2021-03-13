@@ -23,6 +23,9 @@ int		ft_count()
 
 void	ft_map(char **line, t_mapdata *data, int cnt)
 {
-	printf("%d", cnt);
-	*line += ft_strlen(*line);	
+	data->map = (char **)malloc(sizeof(char *) * (cnt + 1));
+	data->map[data->mapy] = ft_strdup(*line);
+	printf("%s", data->map[data->mapy]);
+	*line += ft_strlen(*line);
+	(data->mapy)++;	
 }
