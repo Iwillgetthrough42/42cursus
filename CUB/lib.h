@@ -30,6 +30,13 @@ typedef	struct		s_mapdata
 	int		mapy;
 }					t_mapdata;
 
+typedef	struct		s_player
+{
+	int i;
+	int j;
+}					t_player;
+
+
 void				skipspaces(char **line);
 void				ft_res(char **line, t_mapdata *data);
 void				skipspaces(char **line);
@@ -40,7 +47,8 @@ int					createtrgb(int r, int g, int b);
 char				*ft_anybase(unsigned long n, const char *base);
 void				ft_map(char **line, t_mapdata *data);
 int					ft_count();
-void				drawmap(t_mapdata *data, void *mlx, void *win);
 t_mapdata			readfile();
+void				drawmap(t_mapdata *data, void *mlx, void *win);
+void				deal_key(int key, t_player *player);
 
 #endif
