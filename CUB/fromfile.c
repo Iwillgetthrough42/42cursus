@@ -23,7 +23,7 @@ void	skipspaces(char **line)
 			(*line)++;
 }
 
-void	checkline(char *line, t_mapdata *data, int cnt)
+void	checkline(char *line, t_mapdata *data)
 {
 	int i;
 
@@ -47,11 +47,11 @@ void	checkline(char *line, t_mapdata *data, int cnt)
 		else if (line[i] == 'C' && line[i + 1] == ' ')
 			ft_color(&line, &data->ceilling);
 		else if(line[i] == '1')
-			ft_map(&line, data, cnt);
+			ft_map(&line, data);
 	}
 }
 
-void	readfile()
+t_mapdata	readfile()
 {
 	int			fd;
 	char		*line;
@@ -62,16 +62,13 @@ void	readfile()
 	cnt = ft_count();
 	t = 1;
 	init(&data);
+	data.map = (char **)malloc(sizeof(char *) * (cnt));
 	fd = open("map.cub", O_RDONLY);
 	while (t)
 	{
 		t = get_next_line(fd, &line);
 		skipspaces(&line);
-		checkline(line, &data, cnt);
+		checkline(line, &data);
 	}
-}
-
-int		main()
-{
-	readfile();
+	return (data);
 }
