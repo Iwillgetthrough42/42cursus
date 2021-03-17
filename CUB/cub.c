@@ -58,7 +58,7 @@ void	drawrect(void *mlx, void *win, int x, int y)
 	}
 }
 
-void	drawmap(t_mapdata *data, void *mlx, void *win)
+void	drawmap(t_mapdata *data, t_player *player, void *mlx, void *win)
 {
 
 	int i;
@@ -73,9 +73,11 @@ void	drawmap(t_mapdata *data, void *mlx, void *win)
 		{
 			if (data->map[i][j] == '1')
 				drawrect(mlx, win, j*32, i*32);
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
-				|| data->map[i][j] == 'E' || data->map[i][j] == 'W')
-				drawcircle(mlx, win, 10, j * 32, i * 32);
+			else
+			{
+				findplayer(data, player);			
+				drawcircle(mlx, win, 10, player->j * 32, player->i * 32);
+			}
 			j++;
 		}
 		i++;
@@ -89,11 +91,16 @@ int		main()
 	void		*mlx_win;
 	t_mapdata	data;
 	t_player	player;
+	t_pladata	pl;
 	
 	data =readfile();
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "JUMANJI");
-	drawmap(&data, mlx, mlx_win);
-	//mlx_key_hook(mlx_win, deal_key, &player);
+	drawmap(&data, &player, mlx, mlx_win);
+	pl.data = &data;
+	pl.player = &player;
+	pl.mlx = mlx;
+	pl.win = mlx_win;
+	mlx_key_hook(mlx_win, deal_key, &pl);
 	mlx_loop(mlx);
 }

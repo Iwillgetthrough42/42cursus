@@ -36,6 +36,14 @@ typedef	struct		s_player
 	int j;
 }					t_player;
 
+typedef	struct		s_pladata
+{
+	t_mapdata	*data;
+	t_player	*player;
+	void		*mlx;
+	void		*win;
+}					t_pladata;
+
 
 void				skipspaces(char **line);
 void				ft_res(char **line, t_mapdata *data);
@@ -48,7 +56,8 @@ char				*ft_anybase(unsigned long n, const char *base);
 void				ft_map(char **line, t_mapdata *data);
 int					ft_count();
 t_mapdata			readfile();
-void				drawmap(t_mapdata *data, void *mlx, void *win);
-void				deal_key(int key, t_player *player);
+void				drawmap(t_mapdata *data, t_player *player, void *mlx, void *win);
+int					deal_key(int key, t_pladata *param);
+void				findplayer(t_mapdata *data, t_player *player);
 
 #endif

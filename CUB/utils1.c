@@ -68,8 +68,7 @@ void	ft_color(char **line, char **st)
 {
 	int	i;
 	int	rgb[3];
-
-	//*st = malloc(sizeof(char) * 3);
+	
 	i = 0;
 	(*line)++;
 	skipspaces(line);
