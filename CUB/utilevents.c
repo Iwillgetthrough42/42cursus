@@ -30,12 +30,14 @@ void	findplayer(t_mapdata *data, t_player *player)
 int		deal_key(int key, t_pladata *param)
 {
 	if (key == 126)
-	{
-		param->data->map[param->player->i - 1][param->player->j] \
-		= param->data->map[param->player->i][param->player->j];
-		param->data->map[param->player->i][param->player->j] = '0';
-		mlx_clear_window(param->mlx, param->win);
-		drawmap(param->data, param->player, param->mlx, param->win);
-	}
+		moveplayerup(param);
+	else if (key == 123)
+		moveplayerleft(param);
+	else if (key == 124)
+		moveplayerright(param);
+	else if (key == 125)
+		moveplayerdown(param);
+	mlx_clear_window(param->mlx, param->win);
+	drawmap(param->data, param->player, param->mlx, param->win);
 	return (0);
 }

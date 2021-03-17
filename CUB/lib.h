@@ -59,5 +59,9 @@ t_mapdata			readfile();
 void				drawmap(t_mapdata *data, t_player *player, void *mlx, void *win);
 int					deal_key(int key, t_pladata *param);
 void				findplayer(t_mapdata *data, t_player *player);
+void				moveplayerup(t_pladata *param);
+void				moveplayerleft(t_pladata *param);
+void				moveplayerright(t_pladata *param);
+void				moveplayerdown(t_pladata *param);
 
 #endif

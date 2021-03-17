@@ -76,7 +76,7 @@ void	drawmap(t_mapdata *data, t_player *player, void *mlx, void *win)
 			else
 			{
 				findplayer(data, player);			
-				drawcircle(mlx, win, 10, player->j * 32, player->i * 32);
+				drawcircle(mlx, win, 5, player->j * 32, player->i * 32);
 			}
 			j++;
 		}
