@@ -226,18 +226,25 @@ void	printdigit(t_fields *st, va_list args)
 	int num;
 	int cn;
 	char *str;
+	int uns;
+	int t;
 
 	num = va_arg(args, int);
-	str = ((num == 0 && st->dot) ? "" : ft_utoa(num));
+	if (num < 0)
+		uns = -1 * num;
+	else
+		uns = num;
+	t = (num < 0 ? 1 : 0);
+	str = ((num == 0 && st->dot) ? "" : ft_anybase(uns, "0123456789"));
 	cn = st->prec >= (int)ft_strlen(str) ? 1 : 0;
 	if (st->width)
-		printch(st->width - ((cn ? st->prec : ft_strlen(str))) , ' ', st);
-	if (num < 0 && st->dot)
+		printch(st->width - ((cn ? st->prec + t : ft_strlen(str) + t)) , ' ', st);
+	if (num < 0)
 		printch(1, '-', st);
 	if (st->dot)
 		printch(st->prec - ft_strlen(str) , '0', st);
-	if (num < 0 && st->dot)
-		str++;
+	//if (num < 0 && st->dot)
+		//str++;
 	ft_putstr(str, st);
 }
 
@@ -315,6 +322,6 @@ int ft_printf(char *s, ...)
 
 int main()
 {
-	printf("%.d\n", 0);
-	ft_printf("%.d", 0);
+	printf("%10.2x\n", 100);
+	ft_printf("%10.2x", 100);
 }
