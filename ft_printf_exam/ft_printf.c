@@ -59,75 +59,6 @@ char			*ft_anybase(unsigned long n, char *base)
 	return (new);
 }
 
-static	int		cnt(long n)
-{
-	size_t	cnt;
-
-	cnt = (n > 0 ? 0 : 1);
-	while (n != 0)
-	{
-		n /= 10;
-		cnt++;
-	}
-	return (cnt);
-}
-
-static	char	*reverse(char *str)
-{
-	size_t	k;
-	size_t	i;
-	char	tmp;
-
-	if (ft_strlen(str) % 2 == 0)
-	{
-		k = ft_strlen(str) / 2;
-	}
-	else
-	{
-		k = (ft_strlen(str) + 1) / 2;
-	}
-	i = 0;
-	while (i < k)
-	{
-		tmp = str[i];
-		str[i] = str[ft_strlen(str) - 1 - i];
-		str[ft_strlen(str) - 1 - i] = tmp;
-		i++;
-	}
-	return (str);
-}
-
-char			*ft_utoa(long n)
-{
-	size_t	i;
-	char	*str;
-	int		t;
-	long	num;
-
-	num = n;
-	t = 0;
-	if (!(str = (char *)malloc((cnt(num) + 1) * sizeof(char))))
-		return (NULL);
-	if (num < 0)
-	{
-		*str++ = '-';
-		num *= -1;
-		t = 1;
-	}
-	i = 0;
-	if (num == 0)
-		str[i++] = '0';
-	while (num != 0)
-	{
-		str[i++] = (num % 10 + '0');
-		num = num / 10;
-	}
-	str[i] = '\0';
-	return (reverse(str) - t);
-}
-
-
-
 char	*ft_substr(char *str, int start, int len)
 {
 	char *dst;
@@ -223,10 +154,10 @@ void	printstr(t_fields *st, va_list args)
 
 void	printdigit(t_fields *st, va_list args)
 {
-	int num;
+	long num;
 	int cn;
 	char *str;
-	int uns;
+	unsigned long uns;
 	int t;
 
 	num = va_arg(args, int);
@@ -243,15 +174,13 @@ void	printdigit(t_fields *st, va_list args)
 		printch(1, '-', st);
 	if (st->dot)
 		printch(st->prec - ft_strlen(str) , '0', st);
-	//if (num < 0 && st->dot)
-		//str++;
 	ft_putstr(str, st);
 }
 
 
 void	printhex(t_fields *st, va_list args)
 {
-	int num;
+	unsigned long num;
 	int cn;
 	char *str;
 
@@ -264,8 +193,6 @@ void	printhex(t_fields *st, va_list args)
 		printch(1, '-', st);
 	if (st->dot)
 		printch(st->prec - ft_strlen(str) , '0', st);
-	if (num < 0 && st->dot)
-		str++;
 	ft_putstr(str, st);
 }
 
@@ -298,6 +225,12 @@ void 	checksign(char **s, t_fields *st, va_list args)
 		}
 		j++;
 	}
+	if (**s == '%')
+	{
+		if (st->width)
+			printch(st->width - 1, ' ', st);
+		printch(1, '%', st);
+	}
 }
 
 int ft_printf(char *s, ...)
@@ -305,7 +238,9 @@ int ft_printf(char *s, ...)
 	va_list args;
 	t_fields st;
 	int i;
+	int count;
 
+	count  = 0;
 	i = 0;
 	va_start(args, s);
 	while (*s != '\0')
@@ -315,13 +250,9 @@ int ft_printf(char *s, ...)
 			checksign(&s, &st, args);
 		else
 			printch(1, *s, &st);
+		count += st.len;
 		s++;
 	}
-	return (0);
-}
-
-int main()
-{
-	printf("%10.2x\n", 100);
-	ft_printf("%10.2x", 100);
+	va_end(args);
+	return (count);
 }
