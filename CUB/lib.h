@@ -5,6 +5,8 @@
 #include "get_next_line/get_next_line.h"
 #include "libft/libft.h"
 #include "mlx/mlx.h"
+#include <math.h>
+#include <stdlib.h>
 
 typedef	struct		s_data
 {
@@ -13,7 +15,22 @@ typedef	struct		s_data
 	int		bits;
 	int		linel;
 	int		endian;
-}					t_data;	
+}					t_data;
+
+typedef	struct		s_tex
+{
+	void	*imge;
+	void	*imgw;
+	void	*imgn;
+	void	*imgs;
+	int		width;
+	int		height;
+	int 	texx;
+	int 	texy;
+	double 	step;
+	double 	texpos;
+	int 	*color;
+}					t_tex;
 
 typedef	struct		s_mapdata
 {
@@ -28,22 +45,50 @@ typedef	struct		s_mapdata
 	char	*ceilling;
 	char	**map;
 	int		mapy;
+	void 	*mlx;
+	void 	*mlx_win;
 }					t_mapdata;
 
 typedef	struct		s_player
 {
-	int i;
-	int j;
+	double	x;
+	double	y;
+	char	dir;
+	int 	mapx;
+	int 	mapy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
 }					t_player;
 
-typedef	struct		s_pladata
+typedef	struct		s_ray
 {
-	t_mapdata	*data;
-	t_player	*player;
-	void		*mlx;
-	void		*win;
-}					t_pladata;
+	double 	camerax;
+	double 	raydirx;
+	double 	raydiry;
+	double 	sidedistx;
+	double 	sidedisty;
+	double 	deldistx;
+	double 	deldisty;
+	double 	walldist;
+	int 	stepx;
+	int 	stepy;
+	int 	hit;
+	int 	side;
+	int 	lineheight;
+	int 	drawstart;
+	int 	drawend;
+}					t_ray;
 
+typedef struct 		s_all
+{
+	t_ray		ray;
+	t_player	pl;
+	t_mapdata	data;
+	t_tex		tex;
+	t_data 		img;
+}					t_all;
 
 void				skipspaces(char **line);
 void				ft_res(char **line, t_mapdata *data);
@@ -56,12 +101,15 @@ char				*ft_anybase(unsigned long n, const char *base);
 void				ft_map(char **line, t_mapdata *data);
 int					ft_count();
 t_mapdata			readfile();
-void				drawmap(t_mapdata *data, t_player *player, void *mlx, void *win);
-int					deal_key(int key, t_pladata *param);
 void				findplayer(t_mapdata *data, t_player *player);
-void				moveplayerup(t_pladata *param);
-void				moveplayerleft(t_pladata *param);
-void				moveplayerright(t_pladata *param);
-void				moveplayerdown(t_pladata *param);
+void 				initpl(t_player *pl);
+void 				initray(t_ray *ray);
+void 				inittex(t_tex *tex);
+void 				create_data(t_all *all);
+void 				calcdistheight(t_all *all);
+void				texture(t_all *all);
+void				generate_textures(t_all *all);
+void 				color(t_all *all);
+void 				verline(t_all *all, int x);
 
 #endif
