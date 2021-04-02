@@ -17,8 +17,8 @@ void	findplayer(t_mapdata *data, t_player *player)
 				|| data->map[i][j] == 'E' || data->map[i][j] == 'W')
 			{
 				player->dir = data->map[i][j];
-				player->x = i;
-				player->y = j;
+				player->y = i;
+				player->x = j;
 			}
 			j++;
 		}
@@ -34,7 +34,7 @@ void 	color(t_all *all)
 		all->tex.color = (int *)(all->tex.imgn);
 	else if (all->ray.side == 0 && (all->pl.mapx > all->pl.x))
 		all->tex.color = (int *)(all->tex.imge);
-	else if (all->ray.side == 0 && (all->pl.mapx < all->pl.x))
+	else
 		all->tex.color = (int *)(all->tex.imgw);
 }
 
@@ -47,11 +47,11 @@ void	texture(t_all *all)
 	else
 		wallx = all->pl.x + all->ray.walldist * all->ray.raydirx;
 	wallx -= floor(wallx);
-	all->tex.texx = (int)(wallx * (double)all->tex.width);
+	all->tex.texx = (int)(wallx * all->tex.height);
 	if (all->ray.side == 0 && all->ray.raydirx > 0)
 		all->tex.texx = all->tex.width - all->tex.texx - 1;
 	if (all->ray.side == 1 && all->ray.raydiry < 0)
-		all->tex.texx = all->tex.width - all->tex.texx - 1;
+		all->tex.texx = all->tex.width - all ->tex.texx - 1;
 	all->tex.step = 1.0 * all->tex.height / all->ray.lineheight;
 	all->tex.texpos = (all->ray.drawstart - all->data.resy / 2 + all->ray.lineheight / 2) 
 	* all->tex.step;

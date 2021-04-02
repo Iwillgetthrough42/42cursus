@@ -1,8 +1,8 @@
 R 1920 1080
-NO ./texture/wall4.xpm
-SO ./texture/wall_1.xpm
-WE ./texture/wall.xpm
-EA ./texture/wall3.xpm
+NO ./texture/east.xpm
+SO ./texture/west.xpm
+WE ./texture/south.xpm
+EA ./texture/north.xpm
 S ./path_to_the_sprite_texture
 F 220,100,0
 C 225,30,0

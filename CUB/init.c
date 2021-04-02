@@ -46,3 +46,12 @@ void inittex(t_tex *tex)
 	tex->texpos = 0;
 	tex->color = 0;
 }
+
+void initdata(t_all *all)
+{
+	all->img.img = 0;
+	all->img.addr = 0;
+	all->img.bits = 0;
+	all->img.linel = 0;
+	all->img.endian = 0;
+}

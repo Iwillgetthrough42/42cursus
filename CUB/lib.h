@@ -7,11 +7,12 @@
 #include "mlx/mlx.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef	struct		s_data
 {
 	void	*img;
-	char	*addr;
+	int 	*addr;
 	int		bits;
 	int		linel;
 	int		endian;
@@ -111,5 +112,6 @@ void				texture(t_all *all);
 void				generate_textures(t_all *all);
 void 				color(t_all *all);
 void 				verline(t_all *all, int x);
+void 				initdata(t_all *all);
 
 #endif
