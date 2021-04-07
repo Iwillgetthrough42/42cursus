@@ -3,8 +3,16 @@
 void verline(t_all *all, int x)
 {
 	int y;
+	int j;
+	int k;
 
+	j = 0;
 	y = all->ray.drawstart;
+	while (j < y)
+	{
+		all->img.addr[j * all->data.resx + x] = all->data.ceilling;
+		j++;
+	}
 	while (y < all->ray.drawend)
 	{
 		all->tex.texy = (int)all->tex.texpos & (all->tex.height - 1);
@@ -12,6 +20,12 @@ void verline(t_all *all, int x)
 		all->img.addr[y * all->data.resx + x] = \
 		all->tex.color[all->tex.texy * all->tex.height + all->tex.texx];
 		y++;
+	}
+	k = y;
+	while (k < all->data.resy)
+	{
+		all->img.addr[k * all->data.resx + x] = all->data.floor;
+		k++;
 	}
 }
 

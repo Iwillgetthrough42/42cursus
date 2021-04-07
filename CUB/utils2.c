@@ -20,7 +20,8 @@ int				getcolor(char **line)
 	i = 0;
 	while (**line == ',')
 		(*line)++;
-	str = malloc(sizeof(char) * (checkmalloc(*line) + 1));
+	if (!(str = malloc(sizeof(char) * (checkmalloc(*line) + 1))))
+		return (-1);
 	while (**line != ',' && **line)
 	{
 		str[i] = **line;
@@ -35,6 +36,6 @@ int				createtrgb(int r, int g, int b)
 {
 	int t;
 
-	t = 0;
+	t = 100;
 	return(t << 24 | r << 16 | g << 8 | b);
 }

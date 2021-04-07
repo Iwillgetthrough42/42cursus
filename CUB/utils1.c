@@ -1,5 +1,4 @@
 #include "lib.h"
-#include <stdio.h>
 
 int		checkmalloc(char *line)
 {
@@ -18,11 +17,13 @@ static	int	resxy(char **line, t_mapdata *data)
 	int		i;
 	char	*str1;
 	int		count1;
+	int 	num;
 
 	i = 0;
 	skipspaces(line);
 	count1 = checkmalloc(*line);
-	str1 = malloc(sizeof(char) * (count1 + 1));
+	if (!(str1 = malloc(sizeof(char) * (count1 + 1))))
+		return (-1);
 	while (**line != ' ' && **line)
 	{
 		str1[i] = **line;
@@ -30,28 +31,36 @@ static	int	resxy(char **line, t_mapdata *data)
 		i++;
 	}
 	str1[i] = '\0';
-	return (ft_atoi(str1));
+	num = ft_atoi(str1);
+	free(str1);
+	return (num);
 }
 
-void	ft_res(char **line, t_mapdata *data)
+void	ft_res(char **line, t_mapdata *data, int *i)
 {
+	int	sizex;
+	int	sizey;
+
+	(*i)++;
 	(*line)++;
 	data->resx = resxy(line, data);
 	data->resy = resxy(line, data);
 }
 
-void	ft_dir(char **line, char **st)
+int		ft_dir(char **line, char **st, int *l)
 {
 	char	*str;
 	int 	count;
 	int		i;
 
+	(*l)++;
 	i = 0;
 	(*line)++;
 	(*line)++;
 	skipspaces(line);
 	count = checkmalloc(*line);
-	str = malloc(sizeof(char) * (count + 1));
+	if (!(str = malloc(sizeof(char) * (count + 1))))
+		return (-1);
 	while (**line != ' ' && **line)
 	{
 		str[i] = **line;
@@ -62,13 +71,15 @@ void	ft_dir(char **line, char **st)
 	*st = ft_strdup(str);
 	free(str);
 	str = NULL;
+	return (1);
 }
 
-void	ft_color(char **line, char **st)
+void	ft_color(char **line, int *st, int *l)
 {
 	int	i;
 	int	rgb[3];
 	
+	(*l)++;
 	i = 0;
 	(*line)++;
 	skipspaces(line);
@@ -77,11 +88,5 @@ void	ft_color(char **line, char **st)
 		rgb[i] = getcolor(line);
 		i++;
 	}
-	*st = ft_anybase(createtrgb(rgb[0], rgb[1], rgb[2]), "0123456789ABCDEF");
+	*st = createtrgb(rgb[0], rgb[1], rgb[2]);
 }
-
-
-
-
-
-

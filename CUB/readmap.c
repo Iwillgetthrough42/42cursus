@@ -25,5 +25,5 @@ void	ft_map(char **line, t_mapdata *data)
 {
 	data->map[data->mapy] = ft_strdup(*line);
 	*line += ft_strlen(*line);
-	(data->mapy)++;	
+	(data->mapy)++;
 }

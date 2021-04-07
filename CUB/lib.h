@@ -8,6 +8,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "ft_printf/lib.h"
 
 typedef	struct		s_data
 {
@@ -42,8 +43,8 @@ typedef	struct		s_mapdata
 	char	*west;
 	char	*east;
 	char	*sprite;
-	char	*floor;
-	char	*ceilling;
+	int		floor;
+	int 	ceilling;
 	char	**map;
 	int		mapy;
 	void 	*mlx;
@@ -92,16 +93,15 @@ typedef struct 		s_all
 }					t_all;
 
 void				skipspaces(char **line);
-void				ft_res(char **line, t_mapdata *data);
+void				ft_res(char **line, t_mapdata *data, int *i);
 void				skipspaces(char **line);
-void				ft_dir(char **line, char **st);
+int					ft_dir(char **line, char **st, int *l);
 int					getcolor(char **line);
-void				ft_color(char **line, char **st);
 int					createtrgb(int r, int g, int b);
 char				*ft_anybase(unsigned long n, const char *base);
 void				ft_map(char **line, t_mapdata *data);
 int					ft_count();
-t_mapdata			readfile();
+int					readfile(t_mapdata *data);
 void				findplayer(t_mapdata *data, t_player *player);
 void 				initpl(t_player *pl);
 void 				initray(t_ray *ray);
@@ -113,5 +113,13 @@ void				generate_textures(t_all *all);
 void 				color(t_all *all);
 void 				verline(t_all *all, int x);
 void 				initdata(t_all *all);
+void				ft_color(char **line, int *st, int *l);
+void				ft_error1(t_mapdata *data);
+void 				ft_error2(t_mapdata *data);
+int					ft_isspace(int c);
+void 				lastrow(t_mapdata *data);
+void 				firstrow(t_mapdata *data);
+void				checkmapins(t_mapdata *data);
+void 				ft_error3(t_mapdata *data);
 
 #endif

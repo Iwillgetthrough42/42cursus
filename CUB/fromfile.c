@@ -23,52 +23,84 @@ void	skipspaces(char **line)
 			(*line)++;
 }
 
-void	checkline(char *line, t_mapdata *data)
+void	checkline(char *line, t_mapdata *data, int *i)
 {
-	int i;
-
-	i = 0;
 	while (*line != '\0')
 	{
 		if (*line == 'R' && *(line + 1) == ' ')
-			ft_res(&line, data);
+			ft_res(&line, data, i);
 		else if (*line == 'N' && *(line + 1) == 'O' && *(line + 2) == ' ')
-			ft_dir(&line, &data->north);
-		else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
-			ft_dir(&line, &data->south);
-		else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
-			ft_dir(&line, &data->west);
-		else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
-			ft_dir(&line, &data->east);
-		else if (line[i] == 'S' && line[i + 1] == ' ')
-			ft_dir(&line, &data->sprite);
-		else if (line[i] == 'F' && line[i + 1] == ' ')
-			ft_color(&line, &data->floor);
-		else if (line[i] == 'C' && line[i + 1] == ' ')
-			ft_color(&line, &data->ceilling);
-		else if(line[i] == '1')
+			ft_dir(&line, &data->north, i);
+		else if (*line == 'S' && *(line + 1) == 'O' && *(line + 2) == ' ')
+			ft_dir(&line, &data->south, i);
+		else if (*line == 'W' && *(line + 1) == 'E' && *(line + 2) == ' ')
+			ft_dir(&line, &data->west, i);
+		else if (*line == 'E' && *(line + 1) == 'A' && *(line + 2) == ' ')
+			ft_dir(&line, &data->east, i);
+		else if (*line == 'S' && *(line + 1) == ' ')
+			ft_dir(&line, &data->sprite, i);
+		else if (*line == 'F' && *(line + 1) == ' ')
+			ft_color(&line, &data->floor, i);
+		else if (*line == 'C' && *(line + 1) == ' ')
+			ft_color(&line, &data->ceilling, i);
+		else if(*i > 7)
 			ft_map(&line, data);
+		else
+			ft_error1(data);
 	}
 }
 
-t_mapdata	readfile()
+int 	checkmap(t_mapdata *data)
+{
+	int i;
+	int j;
+	int t;
+	int ind;
+
+	t = 0;
+	i = 0;
+	j = 0;
+	while (i < data->mapy)
+	{
+		ind = ft_strlen(data->map[i]) - 1;
+		j = 0;
+		while (ft_isspace(data->map[i][j]))
+			j++;
+		while (ft_isspace(data->map[i][ind]))
+			ind--;
+		if ((!ft_isspace(data->map[i][j]) && data->map[i][j] != '1')
+			|| data->map[i][ind] != '1')
+				ft_error2(data);
+		i++;
+	}
+	firstrow(data);
+	lastrow(data);
+	return (1);
+}
+
+int		readfile(t_mapdata *data)
 {
 	int			fd;
 	char		*line;
-	t_mapdata	data;
 	int			t;
 	int 		cnt;
+	int 		i;
 
+	i = 0;
 	cnt = ft_count();
 	t = 1;
-	init(&data);
-	data.map = (char **)malloc(sizeof(char *) * (cnt));
+	init(data);
+	if (!(data->map = (char **)malloc(sizeof(char *) * (cnt))))
+		return (-1);
 	fd = open("map.cub", O_RDONLY);
 	while (t)
 	{
 		t = get_next_line(fd, &line);
-		skipspaces(&line);
-		checkline(line, &data);
+		if (i <= 7)
+			skipspaces(&line);
+		checkline(line, data, &i);
 	}
-	return (data);
+	checkmap(data);
+	checkmapins(data);
+	return (1);
 }
