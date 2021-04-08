@@ -31,11 +31,11 @@ MLX		= libmlx.dylib
 NAME	= cub3d
 
 all:  $(MLX) $(OBJS)
-	 gcc -Wall -Wextra -Werror -o ${NAME} ${OBJS} ${LIBC}
+	 gcc -Wall -Wextra -Werror -o ${NAME} ${OBJS} ${LIBC} 
 
 $(MLX):
 		@$(MAKE) -C mlx 
-		@mv mlx/$(MLX)
+		@mv mlx/$(MLX) .
 
 clean:
 	@$(MAKE) -C mlx clean
@@ -44,6 +44,6 @@ clean:
 fclean: clean
 	rm -f $(NAME) $(MLX)
 
-re:	fclean $(NAME)
+re:	fclean all
 
 .PHONY: all clean fclean re

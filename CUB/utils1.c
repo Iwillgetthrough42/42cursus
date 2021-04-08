@@ -51,10 +51,11 @@ void	ft_res(char **line, t_mapdata *data, int *i)
 		write(1, "Error\nwrong resolution", 22);
 		exit(0);
 	}
-	if (data->resx > 2560)
-		data->resx = 2560;
-	if (data->resy > 1400)
-		data->resy = 1400;
+	//mlx_get_screen_size(data->mlx, &sizex, &sizey);
+	if (data->resx > 2000)
+		data->resx = 2000;
+	if (data->resy > 1500)
+		data->resy = 1500;
 }
 
 int		ft_dir(char **line, char **st, int *l)
