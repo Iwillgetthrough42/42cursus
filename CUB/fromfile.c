@@ -1,5 +1,4 @@
 #include "lib.h"
-#include <stdio.h>
 
 void	init(t_mapdata *data)
 {
@@ -40,9 +39,9 @@ void	checkline(char *line, t_mapdata *data, int *i)
 		else if (*line == 'S' && *(line + 1) == ' ')
 			ft_dir(&line, &data->sprite, i);
 		else if (*line == 'F' && *(line + 1) == ' ')
-			ft_color(&line, &data->floor, i);
+			ft_color(&line, &data->floor, i, data);
 		else if (*line == 'C' && *(line + 1) == ' ')
-			ft_color(&line, &data->ceilling, i);
+			ft_color(&line, &data->ceilling, i, data);
 		else if(*i > 7)
 			ft_map(&line, data);
 		else
@@ -91,7 +90,7 @@ int		readfile(t_mapdata *data)
 	t = 1;
 	init(data);
 	if (!(data->map = (char **)malloc(sizeof(char *) * (cnt))))
-		return (-1);
+		return (0);
 	fd = open("map.cub", O_RDONLY);
 	while (t)
 	{

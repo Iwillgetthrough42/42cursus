@@ -23,7 +23,7 @@ static	int	resxy(char **line, t_mapdata *data)
 	skipspaces(line);
 	count1 = checkmalloc(*line);
 	if (!(str1 = malloc(sizeof(char) * (count1 + 1))))
-		return (-1);
+		return (0);
 	while (**line != ' ' && **line)
 	{
 		str1[i] = **line;
@@ -45,6 +45,16 @@ void	ft_res(char **line, t_mapdata *data, int *i)
 	(*line)++;
 	data->resx = resxy(line, data);
 	data->resy = resxy(line, data);
+	if (data->resx == 0 || data->resy == 0)
+	{
+		ft_free(data);
+		write(1, "Error\nwrong resolution", 22);
+		exit(0);
+	}
+	if (data->resx > 2560)
+		data->resx = 2560;
+	if (data->resy > 1400)
+		data->resy = 1400;
 }
 
 int		ft_dir(char **line, char **st, int *l)
@@ -60,7 +70,7 @@ int		ft_dir(char **line, char **st, int *l)
 	skipspaces(line);
 	count = checkmalloc(*line);
 	if (!(str = malloc(sizeof(char) * (count + 1))))
-		return (-1);
+		return (0);
 	while (**line != ' ' && **line)
 	{
 		str[i] = **line;
@@ -74,7 +84,7 @@ int		ft_dir(char **line, char **st, int *l)
 	return (1);
 }
 
-void	ft_color(char **line, int *st, int *l)
+void	ft_color(char **line, int *st, int *l, t_mapdata *data)
 {
 	int	i;
 	int	rgb[3];
@@ -85,7 +95,7 @@ void	ft_color(char **line, int *st, int *l)
 	skipspaces(line);
 	while (i < 3)
 	{
-		rgb[i] = getcolor(line);
+		rgb[i] = getcolor(line, data);
 		i++;
 	}
 	*st = createtrgb(rgb[0], rgb[1], rgb[2]);

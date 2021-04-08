@@ -12,7 +12,7 @@ static	int		checkmalloc(char *line)
 	return (i);
 }
 
-int				getcolor(char **line)
+int				getcolor(char **line, t_mapdata *data)
 {
 	char	*str;
 	int		i;
@@ -20,8 +20,10 @@ int				getcolor(char **line)
 	i = 0;
 	while (**line == ',')
 		(*line)++;
+	while (**line == ' ')
+		(*line)++;
 	if (!(str = malloc(sizeof(char) * (checkmalloc(*line) + 1))))
-		return (-1);
+		return (0);
 	while (**line != ',' && **line)
 	{
 		str[i] = **line;
@@ -29,6 +31,12 @@ int				getcolor(char **line)
 		i++;
 	}
 	str[i] = '\0';
+	if (str[0] == '\0')
+	{
+		ft_free(data);
+		write(1, "error\nwrong color fields", 23);
+		exit(0);
+	}
 	return (ft_atoi(str));
 }
 

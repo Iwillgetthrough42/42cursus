@@ -7,8 +7,6 @@
 #include "mlx/mlx.h"
 #include <math.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include "ft_printf/lib.h"
 
 typedef	struct		s_data
 {
@@ -96,7 +94,7 @@ void				skipspaces(char **line);
 void				ft_res(char **line, t_mapdata *data, int *i);
 void				skipspaces(char **line);
 int					ft_dir(char **line, char **st, int *l);
-int					getcolor(char **line);
+int					getcolor(char **line, t_mapdata *data);
 int					createtrgb(int r, int g, int b);
 char				*ft_anybase(unsigned long n, const char *base);
 void				ft_map(char **line, t_mapdata *data);
@@ -113,7 +111,6 @@ void				generate_textures(t_all *all);
 void 				color(t_all *all);
 void 				verline(t_all *all, int x);
 void 				initdata(t_all *all);
-void				ft_color(char **line, int *st, int *l);
 void				ft_error1(t_mapdata *data);
 void 				ft_error2(t_mapdata *data);
 int					ft_isspace(int c);
@@ -121,5 +118,8 @@ void 				lastrow(t_mapdata *data);
 void 				firstrow(t_mapdata *data);
 void				checkmapins(t_mapdata *data);
 void 				ft_error3(t_mapdata *data);
+void				ft_error4(t_mapdata *data);
+void 				ft_free(t_mapdata *data);
+void				ft_color(char **line, int *st, int *l, t_mapdata *data);
 
 #endif

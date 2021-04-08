@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "lib.h"
-#include <math.h>
-#include <stdio.h>
 
 void cond(t_all *all)
 {	
@@ -112,5 +110,5 @@ int		main()
 	all.img.addr = (int *)mlx_get_data_addr(all.img.img, &all.img.bits, &all.img.linel, &all.img.endian);
 	logic(&all);
 	//mlx_hook(all.data.win, 2, 1L<<1, ft_key, &all);
-	//mlx_loop(all.data.mlx);
+	mlx_loop(all.data.mlx);
 }

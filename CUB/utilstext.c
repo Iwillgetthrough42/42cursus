@@ -1,5 +1,4 @@
 #include "lib.h"
-#include <stdio.h>
 
 void	findplayer(t_mapdata *data, t_player *player)
 {
@@ -61,28 +60,16 @@ int 	create_textures(t_all *all)
 {
 	if (!(all->tex.imge = mlx_xpm_file_to_image(all->data.mlx, all->data.east,\
 	 &all->tex.width, &all->tex.height)))
-	{
-		write(1, "Error\n texture path is wrong", 28);
-		return (-1);
-	}
+		ft_error4(&all->data);
 	if (!(all->tex.imgw = mlx_xpm_file_to_image(all->data.mlx, all->data.west,\
 	 &all->tex.width, &all->tex.height)))
-	{
-		write(1, "Error\n texture path is wrong", 28);
-		return (-1);
-	}
+		ft_error4(&all->data);
 	if (!(all->tex.imgn = mlx_xpm_file_to_image(all->data.mlx, all->data.north,\
 	 &all->tex.width, &all->tex.height)))
-	{
-		write(1, "Error\n texture path is wrong", 28);
-		return (-1);
-	}
+		ft_error4(&all->data);
 	if (!(all->tex.imgs = mlx_xpm_file_to_image(all->data.mlx, all->data.south,\
 	 &all->tex.width, &all->tex.height)))
-	{
-		write(1, "Error\n texture path is wrong", 28);
-		return (-1);
-	}
+		ft_error4(&all->data);
 	return (1);
 }
 
