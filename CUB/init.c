@@ -11,6 +11,7 @@ void initpl(t_player *pl)
 	pl->mapx = 0;
 	pl->mapy = 0;
 	pl->dir = 0;
+	pl->movespeed = 0.2;
 }
 
 void initray(t_ray *ray)

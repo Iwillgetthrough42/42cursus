@@ -18,6 +18,7 @@ SRCS = get_next_line/get_next_line.c \
 		error.c \
 		ft_isspace.c \
 		checkmapins.c \
+		keys.c \
 		cub.c \
 
 	

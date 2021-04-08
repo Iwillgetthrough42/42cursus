@@ -60,6 +60,7 @@ typedef	struct		s_player
 	double	diry;
 	double	planex;
 	double	planey;
+	double 	movespeed;
 }					t_player;
 
 typedef	struct		s_ray
@@ -121,5 +122,7 @@ void 				ft_error3(t_mapdata *data);
 void				ft_error4(t_mapdata *data);
 void 				ft_free(t_mapdata *data);
 void				ft_color(char **line, int *st, int *l, t_mapdata *data);
+int 				ft_key(int keycode, t_all *all);
+void				logic(t_all *all);
 
 #endif
