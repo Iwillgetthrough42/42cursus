@@ -46,6 +46,13 @@ void	keyrot2(t_all *all)
 	all->pl.planey = all->pl.planex * sin(0.0628) + all->pl.planey * cos(0.0628);
 }
 
+int 	keyesc(t_all *all)
+{
+	ft_free(&all->data);
+	exit(0);
+	return (1);
+}
+
 int 	ft_key(int keycode, t_all *all)
 {
 	keyupdn(keycode, all);
@@ -53,6 +60,8 @@ int 	ft_key(int keycode, t_all *all)
 		keyrot1(all);
 	if (keycode == 2)
 		keyrot2(all);
+	if (keycode == 53)
+		keyesc(all);
 	mlx_clear_window(all->data.mlx, all->data.mlx_win);
 	logic(all);
 	return (0);

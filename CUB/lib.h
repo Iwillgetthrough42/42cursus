@@ -124,5 +124,10 @@ void 				ft_free(t_mapdata *data);
 void				ft_color(char **line, int *st, int *l, t_mapdata *data);
 int 				ft_key(int keycode, t_all *all);
 void				logic(t_all *all);
+int 				keyesc(t_all *all);
+int 				bnear(t_mapdata *data, int i, int j);
+int 				enear(t_mapdata *data, int i, int ind);
+int					nearrow(t_mapdata *data, int ind, int j);
+int 				nearlst(t_mapdata *data, int ind, int j);
 
 #endif

@@ -48,6 +48,7 @@ int ft_bool(t_mapdata *data, int ind, int j)
 			data->map[ind][j] != 'N' &&
 			data->map[ind][j] != 'W' &&
 			data->map[ind][j] != 'S' &&
+			data->map[ind][j] != ' ' &&
 			data->map[ind][j] != 'E' );
 }
 

@@ -20,8 +20,8 @@ void 	firstrow(t_mapdata *data)
 		ind = 0;
 		while (ft_isspace(data->map[ind][j]))
 			ind++;
-		if (!ft_isspace(data->map[ind][j]) && 
-			data->map[ind][j] != '1')
+		if ((!ft_isspace(data->map[ind][j]) && 
+			data->map[ind][j] != '1') || !nearrow(data, ind, j))
 			ft_error2(data);
 		j++;
 	}
@@ -40,8 +40,8 @@ void 	lastrow(t_mapdata *data)
 		ind = data->mapy - 1;
 		while (ft_isspace(data->map[ind][j]))
 			ind--;
-		if (!ft_isspace(data->map[ind][j]) && 
-			data->map[ind][j] != '1')
+		if ((!ft_isspace(data->map[ind][j]) && 
+			data->map[ind][j] != '1') || !nearlst(data, ind, j))
 			ft_error2(data);
 		j++;
 	}	

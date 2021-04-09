@@ -53,10 +53,10 @@ int 	checkmap(t_mapdata *data)
 {
 	int i;
 	int j;
-	int t;
+	int jst;
 	int ind;
+	int jend;
 
-	t = 0;
 	i = 0;
 	j = 0;
 	while (i < data->mapy)
@@ -67,8 +67,8 @@ int 	checkmap(t_mapdata *data)
 			j++;
 		while (ft_isspace(data->map[i][ind]))
 			ind--;
-		if ((!ft_isspace(data->map[i][j]) && data->map[i][j] != '1')
-			|| data->map[i][ind] != '1')
+		if (((!ft_isspace(data->map[i][j]) && data->map[i][j] != '1') || !bnear(data, i, j))
+			|| ((data->map[i][ind] != '1') || !enear(data, i, ind)))
 				ft_error2(data);
 		i++;
 	}
