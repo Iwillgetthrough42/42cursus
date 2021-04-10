@@ -1,46 +1,23 @@
 #include "lib.h"
 
-int		findlastrow(t_mapdata *data, int j)
+int 	ft_bool1(t_mapdata *data, int ind, int j)
 {
-	int i;
-	int ind;
+	int t;
 
-	i = 0;
-	while (i < data->mapy)
-	{
-		ind = i;
-		if (ind == data->mapy - 1)
-		{
-			while (ft_isspace(data->map[ind][j]))
-				ind--;
-			return (ind);
-		}
-		i++;
-	}
+	t = 0;
+	if (ind != 0 && ind != data->mapy - 1)
+		if 	(data->map[ind - 1][j] != ' ' &&
+			data->map[ind + 1][j] != ' ')
+			t = 1;
+	if (j != 0 && j != ft_strlen(data->map[ind]) - 1)
+		if (data->map[ind][j + 1] != ' ' &&
+			data->map[ind][j - 1] != ' ' && t == 1)
+			return (1);
 	return (0);
 }
 
-int 	findfirstrow(t_mapdata *data, int j)
-{
-	int i;
-	int ind;
 
-	i = 0;
-	while (i < data->mapy)
-	{
-		ind = i;
-		if (ind == 0)
-		{
-			while (ft_isspace(data->map[ind][j]))
-				ind++;
-			return (ind);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int ft_bool(t_mapdata *data, int ind, int j)
+int 	ft_bool(t_mapdata *data, int ind, int j)
 {
 	return (data->map[ind][j] != '1' &&
 			data->map[ind][j] != '0' &&
@@ -48,7 +25,6 @@ int ft_bool(t_mapdata *data, int ind, int j)
 			data->map[ind][j] != 'N' &&
 			data->map[ind][j] != 'W' &&
 			data->map[ind][j] != 'S' &&
-			data->map[ind][j] != ' ' &&
 			data->map[ind][j] != 'E' );
 }
 
@@ -70,9 +46,8 @@ void	checkmapins(t_mapdata *data)
 			lstcol--;
 		while (j < lstcol)
 		{
-			ind = i;
-			if (ind > findfirstrow(data, j) && ind < findlastrow(data, j))
-				if (ft_bool(data, ind, j))
+			if (ft_bool1(data, i, j))
+				if (ft_bool(data, i, j))
 					ft_error3(data);
 			j++;
 		}
