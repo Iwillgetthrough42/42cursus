@@ -21,6 +21,8 @@ SRCS = get_next_line/get_next_line.c \
 		keys.c \
 		near.c \
 		cub.c \
+		sprites.c \
+		sprtools.c \
 	
 
 OBJS = $(SRCS:.c=.o)

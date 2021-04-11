@@ -53,27 +53,27 @@ int 	checkmap(t_mapdata *data)
 {
 	int i;
 	int j;
-	int jst;
-	int ind;
-	int jend;
+	int lstcol;
 
 	i = 0;
 	j = 0;
 	while (i < data->mapy)
 	{
-		ind = ft_strlen(data->map[i]) - 1;
+		lstcol = ft_strlen(data->map[i]) - 1;
 		j = 0;
 		while (ft_isspace(data->map[i][j]))
 			j++;
-		while (ft_isspace(data->map[i][ind]))
-			ind--;
-		if (((!ft_isspace(data->map[i][j]) && data->map[i][j] != '1') || !bnear(data, i, j))
-			|| ((data->map[i][ind] != '1') || !enear(data, i, ind)))
-				ft_error2(data);
+		while (ft_isspace(data->map[i][lstcol]))
+			lstcol--;
+		while (j < lstcol)
+		{
+			if (!ft_isspace(data->map[i][j]) && (!ft_bool1(data, i, j)))
+				if (data->map[i][j] != '1')
+					ft_error2(data);
+			j++;
+		}
 		i++;
 	}
-	firstrow(data);
-	lastrow(data);
 	return (1);
 }
 

@@ -88,8 +88,11 @@ void	logic(t_all *all)
 		texture(all);
 		color(all);
 		verline(all, x);
+		all->spr.zbuffer[x] = all->ray.walldist;
 		x++;
 	}
+	findsprites(all);
+	sprite(all);
 	mlx_put_image_to_window(all->data.mlx, all->data.mlx_win, all->img.img, 0, 0);
 }
 
@@ -109,6 +112,7 @@ int		main()
 	generate_textures(&all);
 	all.img.img = mlx_new_image(all.data.mlx, all.data.resx, all.data.resy);
 	all.img.addr = (int *)mlx_get_data_addr(all.img.img, &all.img.bits, &all.img.linel, &all.img.endian);
+	initsprite(&all);
 	logic(&all);
 	mlx_hook(all.data.mlx_win, 2, 1L<<0, ft_key, &all);
 	mlx_hook(all.data.mlx_win, 17, 0, keyesc, &all);

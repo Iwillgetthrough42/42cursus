@@ -56,9 +56,9 @@ int 	keyesc(t_all *all)
 int 	ft_key(int keycode, t_all *all)
 {
 	keyupdn(keycode, all);
-	if (keycode == 0)
+	if (keycode == 0 || (keycode == 0 && keycode == 13))
 		keyrot1(all);
-	if (keycode == 2)
+	if (keycode == 2 || (keycode == 0 && keycode == 13))
 		keyrot2(all);
 	if (keycode == 53)
 		keyesc(all);

@@ -56,3 +56,26 @@ void initdata(t_all *all)
 	all->img.linel = 0;
 	all->img.endian = 0;
 }
+
+void initsprite(t_all *all)
+{
+	all->spr.zbuffer = malloc(sizeof(double) * all->data.resx);
+	all->spr.sprx = 0;
+	all->spr.spry = 0;
+	all->spr.num = 0;
+	all->spr.spritex = 0;
+	all->spr.spritey = 0;
+	all->spr.inv = 0;
+	all->spr.transformx = 0;
+	all->spr.transformy = 0;
+	all->spr.spritescreenx = 0;
+	all->spr.spriteheight = 0;
+	all->spr.spritewidth = 0;
+	all->spr.texx = 0;
+	all->spr.texy = 0;
+	all->spr.drawstx = 0;
+	all->spr.drawsty = 0;
+	all->spr.drawendx = 0;
+	all->spr.img = 0;
+	all->spr.color = 0;
+}

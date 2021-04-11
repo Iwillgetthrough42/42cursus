@@ -7,6 +7,7 @@
 #include "mlx/mlx.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef	struct		s_data
 {
@@ -82,6 +83,32 @@ typedef	struct		s_ray
 	int 	drawend;
 }					t_ray;
 
+typedef	struct 		s_sprite
+{
+	double	*zbuffer;
+	double	*sprx;
+	double	*spry;
+	int 	num;
+	double	spritex;
+	double	spritey;
+	double	inv;
+	double	transformx;
+	double	transformy;
+	int 	spritescreenx;
+	int 	spriteheight;
+	int 	spritewidth;
+	int 	texx;
+	int 	texy;
+	int 	drawstx;
+	int 	drawsty;
+	int 	drawendx;
+	int 	drawendy;
+	void	*img;
+	int 	*color;
+	int 	width;
+	int 	height;
+}					t_sprite;
+
 typedef struct 		s_all
 {
 	t_ray		ray;
@@ -89,11 +116,11 @@ typedef struct 		s_all
 	t_mapdata	data;
 	t_tex		tex;
 	t_data 		img;
+	t_sprite	spr;
 }					t_all;
 
 void				skipspaces(char **line);
 void				ft_res(char **line, t_mapdata *data, int *i);
-void				skipspaces(char **line);
 int					ft_dir(char **line, char **st, int *l);
 int					getcolor(char **line, t_mapdata *data);
 int					createtrgb(int r, int g, int b);
@@ -115,8 +142,6 @@ void 				initdata(t_all *all);
 void				ft_error1(t_mapdata *data);
 void 				ft_error2(t_mapdata *data);
 int					ft_isspace(int c);
-void 				lastrow(t_mapdata *data);
-void 				firstrow(t_mapdata *data);
 void				checkmapins(t_mapdata *data);
 void 				ft_error3(t_mapdata *data);
 void				ft_error4(t_mapdata *data);
@@ -125,9 +150,11 @@ void				ft_color(char **line, int *st, int *l, t_mapdata *data);
 int 				ft_key(int keycode, t_all *all);
 void				logic(t_all *all);
 int 				keyesc(t_all *all);
-int 				bnear(t_mapdata *data, int i, int j);
-int 				enear(t_mapdata *data, int i, int ind);
-int					nearrow(t_mapdata *data, int ind, int j);
-int 				nearlst(t_mapdata *data, int ind, int j);
+void 				initsprite(t_all *all);
+void				findsprites(t_all *all);
+void				sprite(t_all *all);
+void				calcst(t_all *all);
+void 				generatespr(t_all *all);
+int 				ft_bool1(t_mapdata *data, int ind, int j);
 
 #endif
