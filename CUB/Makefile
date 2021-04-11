@@ -6,6 +6,7 @@ SRCS = get_next_line/get_next_line.c \
 		libft/ft_substr.c \
 		libft/ft_atoi.c \
 		libft/ft_strjoin.c \
+		libft/ft_memcmp.c \
 		utils1.c \
 		utils2.c \
 		to_hex.c \

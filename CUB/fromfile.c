@@ -86,12 +86,12 @@ int		readfile(t_mapdata *data)
 	int 		i;
 
 	i = 0;
-	cnt = ft_count();
+	cnt = ft_count(data);
 	t = 1;
 	init(data);
 	if (!(data->map = (char **)malloc(sizeof(char *) * (cnt))))
 		return (0);
-	fd = open("map.cub", O_RDONLY);
+	fd = open(data->file, O_RDONLY);
 	while (t)
 	{
 		t = get_next_line(fd, &line);

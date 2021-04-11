@@ -20,7 +20,6 @@ void cond(t_all *all)
 	{
 		all->ray.stepx = -1;
 		all->ray.sidedistx = (all->pl.x - all->pl.mapx) * all->ray.deldistx;
-		
 	}
 	else
 	{
@@ -60,7 +59,6 @@ void incrray(t_all *all)
 			all->ray.sidedistx += all->ray.deldistx;
 			all->pl.mapx += all->ray.stepx;
 			all->ray.side = 0;
-
 		}
 		else
 		{
@@ -70,7 +68,6 @@ void incrray(t_all *all)
 		}
 		if (all->data.map[all->pl.mapy][all->pl.mapx] == '1')
 			all->ray.hit = 1;
-		
 	}
 }
 
@@ -96,26 +93,40 @@ void	logic(t_all *all)
 	mlx_put_image_to_window(all->data.mlx, all->data.mlx_win, all->img.img, 0, 0);
 }
 
-int		main()
+void		start(char *file, t_all *all)
+{
+	all->data.file = file;
+	all->data.mlx = mlx_init();
+	readfile(&all->data);
+	initpl(&all->pl);
+	initray(&all->ray);
+	inittex(&all->tex);
+	initdata(all);
+	findplayer(&all->data, &all->pl);
+	create_data(all);
+	all->data.mlx_win = mlx_new_window(all->data.mlx, all->data.resx, all->data.resy,\
+	 "JUMANJI");
+	generate_textures(all);
+	all->img.img = mlx_new_image(all->data.mlx, all->data.resx, all->data.resy);
+	all->img.addr = (int *)mlx_get_data_addr(all->img.img, &all->img.bits, \
+		&all->img.linel, &all->img.endian);
+	initsprite(all);
+	logic(all);
+	mlx_hook(all->data.mlx_win, 2, 1L<<0, ft_key, all);
+	mlx_hook(all->data.mlx_win, 17, 0, keyesc, all);
+	mlx_do_key_autorepeaton(all->data.mlx);
+	mlx_loop(all->data.mlx);
+}
+
+int main(int argc, char **argv)
 {
 	t_all 		all;
 
-	all.data.mlx = mlx_init();
-	readfile(&all.data);
-	initpl(&all.pl);
-	initray(&all.ray);
-	inittex(&all.tex);
-	initdata(&all);
-	findplayer(&all.data, &all.pl);
-	create_data(&all);
-	all.data.mlx_win = mlx_new_window(all.data.mlx, all.data.resx, all.data.resy, "JUMANJI");
-	generate_textures(&all);
-	all.img.img = mlx_new_image(all.data.mlx, all.data.resx, all.data.resy);
-	all.img.addr = (int *)mlx_get_data_addr(all.img.img, &all.img.bits, &all.img.linel, &all.img.endian);
-	initsprite(&all);
-	logic(&all);
-	mlx_hook(all.data.mlx_win, 2, 1L<<0, ft_key, &all);
-	mlx_hook(all.data.mlx_win, 17, 0, keyesc, &all);
-	mlx_do_key_autorepeaton(all.data.mlx);
-	mlx_loop(all.data.mlx);
+	if (argc == 2)
+		start(argv[1], &all);
+	else if (argc == 3 && ft_memcmp(argv[1], "--save", ft_strlen("--save")) == 0)
+	{
+		start(argv[1], &all);
+		//screenshot(&all);
+	}
 }

@@ -48,6 +48,7 @@ typedef	struct		s_mapdata
 	int		mapy;
 	void 	*mlx;
 	void 	*mlx_win;
+	char	*file;
 }					t_mapdata;
 
 typedef	struct		s_player

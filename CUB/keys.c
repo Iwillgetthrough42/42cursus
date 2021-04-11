@@ -48,6 +48,9 @@ void	keyrot2(t_all *all)
 
 int 	keyesc(t_all *all)
 {
+	free(all->spr.zbuffer);
+	free(all->spr.sprx);
+	free(all->spr.spry);
 	ft_free(&all->data);
 	exit(0);
 	return (1);

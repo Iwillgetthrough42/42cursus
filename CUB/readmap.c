@@ -1,6 +1,6 @@
 #include "lib.h"
 
-int		ft_count()
+int		ft_count(t_mapdata *data)
 {
 	int			fd;
 	char		*line;
@@ -9,7 +9,7 @@ int		ft_count()
 
 	i = 0;
 	t = 1;	
-	fd = open("map.cub", O_RDONLY);
+	fd = open(data->file, O_RDONLY);
 	while (t)
 	{
 		t = get_next_line(fd, &line);
