@@ -7,6 +7,8 @@ SRCS = get_next_line/get_next_line.c \
 		libft/ft_atoi.c \
 		libft/ft_strjoin.c \
 		libft/ft_memcmp.c \
+		libft/ft_memset.c \
+		libft/ft_bzero.c \
 		utils1.c \
 		utils2.c \
 		to_hex.c \
@@ -24,6 +26,7 @@ SRCS = get_next_line/get_next_line.c \
 		cub.c \
 		sprites.c \
 		sprtools.c \
+		screenshot.c \
 	
 
 OBJS = $(SRCS:.c=.o)

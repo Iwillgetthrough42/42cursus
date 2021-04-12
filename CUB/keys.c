@@ -65,7 +65,10 @@ int 	ft_key(int keycode, t_all *all)
 		keyrot2(all);
 	if (keycode == 53)
 		keyesc(all);
-	mlx_clear_window(all->data.mlx, all->data.mlx_win);
-	logic(all);
+	if (keycode != 53)
+	{
+		mlx_clear_window(all->data.mlx, all->data.mlx_win);
+		logic(all);
+	}
 	return (0);
 }

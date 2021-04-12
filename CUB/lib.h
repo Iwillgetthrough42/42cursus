@@ -157,5 +157,6 @@ void				sprite(t_all *all);
 void				calcst(t_all *all);
 void 				generatespr(t_all *all);
 int 				ft_bool1(t_mapdata *data, int ind, int j);
+void 				screenshot(t_all *all);
 
 #endif
