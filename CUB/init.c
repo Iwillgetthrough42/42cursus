@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:12:02 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 15:04:29 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
-void initpl(t_player *pl)
+void	initpl(t_player *pl)
 {
 	pl->x = 0;
 	pl->y = 0;
@@ -14,7 +26,7 @@ void initpl(t_player *pl)
 	pl->movespeed = 0.2;
 }
 
-void initray(t_ray *ray)
+void	initray(t_ray *ray)
 {
 	ray->camerax = 0;
 	ray->raydirx = 0;
@@ -33,7 +45,7 @@ void initray(t_ray *ray)
 	ray->drawend = 0;
 }
 
-void inittex(t_tex *tex)
+void	inittex(t_tex *tex)
 {
 	tex->imge = 0;
 	tex->imgw = 0;
@@ -48,7 +60,7 @@ void inittex(t_tex *tex)
 	tex->color = 0;
 }
 
-void initdata(t_all *all)
+void	initdata(t_all *all)
 {
 	all->img.img = 0;
 	all->img.addr = 0;
@@ -57,7 +69,7 @@ void initdata(t_all *all)
 	all->img.endian = 0;
 }
 
-void initsprite(t_all *all)
+void	initsprite(t_all *all)
 {
 	all->spr.zbuffer = malloc(sizeof(double) * all->data.resx);
 	all->spr.sprx = 0;

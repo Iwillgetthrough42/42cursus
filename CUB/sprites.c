@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprites.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:18:13 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 15:30:57 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
 int		findmalloc(t_all *all)
@@ -12,7 +24,7 @@ int		findmalloc(t_all *all)
 	while (i < all->data.mapy)
 	{
 		j = 0;
-		while(j < ft_strlen(all->data.map[i]))
+		while (j < ft_strlen(all->data.map[i]))
 		{
 			if (all->data.map[i][j] == '2')
 				l++;
@@ -38,7 +50,7 @@ void	findsprites(t_all *all)
 	while (i < all->data.mapy)
 	{
 		j = 0;
-		while(j < ft_strlen(all->data.map[i]))
+		while (j < ft_strlen(all->data.map[i]))
 		{
 			if (all->data.map[i][j] == '2')
 			{
@@ -52,7 +64,7 @@ void	findsprites(t_all *all)
 	}
 }
 
-void 	sortsprites(t_all *all, int *spriteorder, double *spritedist)
+void	sortsprites(t_all *all, int *spriteorder, double *spritedist)
 {
 	int i;
 	int j;
@@ -79,7 +91,7 @@ void 	sortsprites(t_all *all, int *spriteorder, double *spritedist)
 void	calcsprite(t_all *all, int *spriteorder, double *spritedist)
 {
 	int i;
-	
+
 	i = 0;
 	while (i < all->spr.num)
 	{
@@ -87,13 +99,14 @@ void	calcsprite(t_all *all, int *spriteorder, double *spritedist)
 		all->spr.spritey = all->spr.spry[spriteorder[i]] - all->pl.y;
 		all->spr.inv = 1.0 / (all->pl.planex * all->pl.diry - all->pl.dirx * \
 			all->pl.planey);
-		all->spr.transformx = all->spr.inv * (all->pl.diry * all->spr.spritex - \
-			all->pl.dirx * all->spr.spritey);
-		all->spr.transformy = all->spr.inv * (-all->pl.planey * all->spr.spritex + \
-			all->pl.planex * all->spr.spritey);
+		all->spr.transformx = all->spr.inv * (all->pl.diry * \
+				all->spr.spritex - all->pl.dirx * all->spr.spritey);
+		all->spr.transformy = all->spr.inv * (-all->pl.planey * \
+				all->spr.spritex + all->pl.planex * all->spr.spritey);
 		all->spr.spritescreenx = (int)((all->data.resx / 2) * \
 			(1 + all->spr.transformx / all->spr.transformy));
-		all->spr.spriteheight = abs((int)(all->data.resy / all->spr.transformy));
+		all->spr.spriteheight = abs((int)(all->data.resy / \
+					all->spr.transformy));
 		calcst(all);
 		i++;
 	}
@@ -101,7 +114,7 @@ void	calcsprite(t_all *all, int *spriteorder, double *spritedist)
 
 void	sprite(t_all *all)
 {
-	int 	i;
+	int		i;
 	int		spriteorder[all->spr.num];
 	double	spritedist[all->spr.num];
 
@@ -110,8 +123,9 @@ void	sprite(t_all *all)
 	while (i < all->spr.num)
 	{
 		spriteorder[i] = i;
-		spritedist[i] = ((all->pl.x - all->spr.sprx[i]) * (all->pl.x - all->spr.sprx[i])\
-						+ (all->pl.y - all->spr.spry[i]) * (all->pl.y - all->spr.spry[i]));
+		spritedist[i] = ((all->pl.x - all->spr.sprx[i]) * \
+				(all->pl.x - all->spr.sprx[i]) + (all->pl.y -\
+				all->spr.spry[i]) * (all->pl.y - all->spr.spry[i]));
 		i++;
 	}
 	sortsprites(all, spriteorder, spritedist);

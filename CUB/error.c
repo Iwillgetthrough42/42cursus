@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:10:10 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 14:56:40 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
-void 	ft_free(t_mapdata *data)
+void	ft_free(t_mapdata *data)
 {
 	int i;
 
@@ -24,21 +36,21 @@ void 	ft_free(t_mapdata *data)
 	}
 }
 
-void 	ft_error1(t_mapdata *data)
+void	ft_error1(t_mapdata *data)
 {
 	ft_free(data);
 	write(1, "Error\nwrong map fields", 22);
 	exit(0);
 }
 
-void 	ft_error2(t_mapdata *data)
+void	ft_error2(t_mapdata *data)
 {
 	ft_free(data);
-	write(1,"Error\nwrong map walls", 21);
+	write(1, "Error\nwrong map walls", 21);
 	exit(0);
 }
 
-void 	ft_error3(t_mapdata *data)
+void	ft_error3(t_mapdata *data)
 {
 	ft_free(data);
 	write(1, "Error\nwrong map symbols", 23);

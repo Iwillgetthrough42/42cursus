@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:12:26 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 15:05:28 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
-void eastwest(t_all *all)
+void	eastwest(t_all *all)
 {
 	if (all->pl.dir == 'E')
 	{
@@ -16,10 +28,9 @@ void eastwest(t_all *all)
 		all->pl.planex = 0;
 		all->pl.planey = -0.66;
 	}
-
 }
 
-void northsouth(t_all *all)
+void	northsouth(t_all *all)
 {
 	if (all->pl.dir == 'S')
 	{
@@ -37,7 +48,7 @@ void northsouth(t_all *all)
 	}
 }
 
-void create_data(t_all *all)
+void	create_data(t_all *all)
 {
 	eastwest(all);
 	northsouth(all);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:19:17 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 15:36:11 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
-int		checkmalloc(char *line)
+int				checkmalloc(char *line)
 {
 	int i;
 
@@ -12,12 +24,12 @@ int		checkmalloc(char *line)
 	return (i);
 }
 
-static	int	resxy(char **line, t_mapdata *data)
+static	int		resxy(char **line, t_mapdata *data)
 {
 	int		i;
 	char	*str1;
 	int		count1;
-	int 	num;
+	int		num;
 
 	i = 0;
 	skipspaces(line);
@@ -36,7 +48,7 @@ static	int	resxy(char **line, t_mapdata *data)
 	return (num);
 }
 
-void	ft_res(char **line, t_mapdata *data, int *i)
+void			ft_res(char **line, t_mapdata *data, int *i)
 {
 	int	sizex;
 	int	sizey;
@@ -57,10 +69,10 @@ void	ft_res(char **line, t_mapdata *data, int *i)
 		data->resy = 1500;
 }
 
-int		ft_dir(char **line, char **st, int *l)
+int				ft_dir(char **line, char **st, int *l)
 {
 	char	*str;
-	int 	count;
+	int		count;
 	int		i;
 
 	(*l)++;
@@ -84,11 +96,11 @@ int		ft_dir(char **line, char **st, int *l)
 	return (1);
 }
 
-void	ft_color(char **line, int *st, int *l, t_mapdata *data)
+void			ft_color(char **line, int *st, int *l, t_mapdata *data)
 {
 	int	i;
 	int	rgb[3];
-	
+
 	(*l)++;
 	i = 0;
 	(*line)++;

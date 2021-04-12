@@ -22,12 +22,11 @@ SRCS = get_next_line/get_next_line.c \
 		ft_isspace.c \
 		checkmapins.c \
 		keys.c \
-		near.c \
-		cub.c \
+		screenshot.c \
 		sprites.c \
 		sprtools.c \
-		screenshot.c \
-	
+		cub.c \
+		main.c \
 
 OBJS = $(SRCS:.c=.o)
 

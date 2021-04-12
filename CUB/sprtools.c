@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprtools.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:18:39 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 15:33:20 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
-void 	generatespr(t_all *all)
+void	generatespr(t_all *all)
 {
 	if (!(all->spr.img = mlx_xpm_file_to_image(all->data.mlx, all->data.sprite,\
-	 &all->spr.width, &all->spr.height)))
+	&all->spr.width, &all->spr.height)))
 	{
 		free(all->spr.sprx);
 		free(all->spr.spry);
@@ -11,7 +23,7 @@ void 	generatespr(t_all *all)
 		ft_error4(&all->data);
 	}
 	all->spr.img = mlx_get_data_addr(all->spr.img, &all->img.bits, \
-	 &all->img.linel, &all->img.endian);
+	&all->img.linel, &all->img.endian);
 	all->spr.color = (int *)all->spr.img;
 }
 
@@ -25,7 +37,7 @@ void	draw(t_all *all)
 	i = all->spr.drawstx;
 	while (i < all->spr.drawendx)
 	{
-		all->spr.texx = (int) (256 * (i - (-all->spr.spritewidth / 2 + \
+		all->spr.texx = (int)(256 * (i - (-all->spr.spritewidth / 2 + \
 			all->spr.spritescreenx)) * 64 / all->spr.spritewidth) / 256;
 		if (all->spr.transformy > 0 && i > 0 && i < all->data.resx &&\
 			all->spr.transformy < all->spr.zbuffer[i])
@@ -45,7 +57,7 @@ void	draw(t_all *all)
 }
 
 void	calcst(t_all *all)
-{		
+{
 	all->spr.drawsty = -all->spr.spriteheight / 2 + all->data.resy / 2;
 	if (all->spr.drawsty < 0)
 		all->spr.drawsty = 0;

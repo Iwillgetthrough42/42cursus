@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fromfile.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:10:30 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 15:02:15 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
+#include <stdio.h>
 
 void	init(t_mapdata *data)
 {
@@ -17,9 +30,9 @@ void	init(t_mapdata *data)
 
 void	skipspaces(char **line)
 {
-	while (**line == '\t' || **line == '\n' || **line == '\v' || 
-		 **line == '\f' || **line == '\r' || **line == ' ')
-			(*line)++;
+	while (**line == '\t' || **line == '\n' || **line == '\v' ||
+			**line == '\f' || **line == '\r' || **line == ' ')
+		(*line)++;
 }
 
 void	checkline(char *line, t_mapdata *data, int *i)
@@ -42,14 +55,14 @@ void	checkline(char *line, t_mapdata *data, int *i)
 			ft_color(&line, &data->floor, i, data);
 		else if (*line == 'C' && *(line + 1) == ' ')
 			ft_color(&line, &data->ceilling, i, data);
-		else if(*i > 7)
+		else if (*i > 7)
 			ft_map(&line, data);
 		else
 			ft_error1(data);
 	}
 }
 
-int 	checkmap(t_mapdata *data)
+int		checkmap(t_mapdata *data)
 {
 	int i;
 	int j;
@@ -79,11 +92,11 @@ int 	checkmap(t_mapdata *data)
 
 int		readfile(t_mapdata *data)
 {
-	int			fd;
-	char		*line;
-	int			t;
-	int 		cnt;
-	int 		i;
+	int		fd;
+	char	*line;
+	int		t;
+	int		cnt;
+	int		i;
 
 	i = 0;
 	cnt = ft_count(data);
@@ -91,11 +104,12 @@ int		readfile(t_mapdata *data)
 	init(data);
 	if (!(data->map = (char **)malloc(sizeof(char *) * (cnt))))
 		return (0);
-	fd = open(data->file, O_RDONLY);
+	if ((fd = open(data->file, O_RDONLY)) == -1)
+		exit(0);
 	while (t)
 	{
 		t = get_next_line(fd, &line);
-		if (i <= 7)
+		if (i < 8)
 			skipspaces(&line);
 		checkline(line, data, &i);
 	}

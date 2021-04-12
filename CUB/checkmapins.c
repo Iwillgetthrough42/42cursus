@@ -6,19 +6,19 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 13:06:56 by arastepa          #+#    #+#             */
-/*   Updated: 2021/04/12 13:07:01 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:25:19 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-int 	ft_bool1(t_mapdata *data, int ind, int j)
+int		ft_bool1(t_mapdata *data, int ind, int j)
 {
 	int t;
 
 	t = 0;
 	if (ind != 0 && ind != data->mapy - 1)
-		if 	(data->map[ind - 1][j] != ' ' &&
+		if (data->map[ind - 1][j] != ' ' &&
 			data->map[ind + 1][j] != ' ')
 			t = 1;
 	if (j != 0 && j != ft_strlen(data->map[ind]) - 1)
@@ -28,8 +28,7 @@ int 	ft_bool1(t_mapdata *data, int ind, int j)
 	return (0);
 }
 
-
-int 	ft_bool(t_mapdata *data, int ind, int j)
+int		ft_bool(t_mapdata *data, int ind, int j)
 {
 	return (data->map[ind][j] != '1' &&
 			data->map[ind][j] != '0' &&
@@ -37,7 +36,7 @@ int 	ft_bool(t_mapdata *data, int ind, int j)
 			data->map[ind][j] != 'N' &&
 			data->map[ind][j] != 'W' &&
 			data->map[ind][j] != 'S' &&
-			data->map[ind][j] != 'E' );
+			data->map[ind][j] != 'E');
 }
 
 void	checkmapins(t_mapdata *data)

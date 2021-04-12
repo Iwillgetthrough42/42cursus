@@ -6,13 +6,13 @@
 /*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 13:06:29 by arastepa          #+#    #+#             */
-/*   Updated: 2021/04/12 13:06:37 by arastepa         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:19:54 by arastepa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
-void verline(t_all *all, int x)
+void	verline(t_all *all, int x)
 {
 	int y;
 	int j;
@@ -41,14 +41,15 @@ void verline(t_all *all, int x)
 	}
 }
 
-void calcdistheight(t_all *all)
+void	calcdistheight(t_all *all)
 {
 	if (all->ray.side == 0)
-		all->ray.walldist = (all->pl.mapx - all->pl.x + (1 - all->ray.stepx) / 2) / all->ray.raydirx;
+		all->ray.walldist = (all->pl.mapx - all->pl.x + \
+			(1 - all->ray.stepx) / 2) / all->ray.raydirx;
 	else
-		all->ray.walldist = (all->pl.mapy - all->pl.y + (1 - all->ray.stepy) / 2) / all->ray.raydiry;
+		all->ray.walldist = (all->pl.mapy - all->pl.y + \
+			(1 - all->ray.stepy) / 2) / all->ray.raydiry;
 	all->ray.lineheight = (int)(all->data.resy / all->ray.walldist);
-	
 	all->ray.drawstart = -all->ray.lineheight / 2 + all->data.resy / 2;
 	if (all->ray.drawstart < 0)
 		all->ray.drawstart = 0;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utilstext.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arastepa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/12 13:20:08 by arastepa          #+#    #+#             */
+/*   Updated: 2021/04/12 15:40:29 by arastepa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lib.h"
 
 void	findplayer(t_mapdata *data, t_player *player)
@@ -10,7 +22,7 @@ void	findplayer(t_mapdata *data, t_player *player)
 	while (i < data->mapy)
 	{
 		j = 0;
-		while(j < ft_strlen(data->map[i]))
+		while (j < ft_strlen(data->map[i]))
 		{
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
 				|| data->map[i][j] == 'E' || data->map[i][j] == 'W')
@@ -25,7 +37,7 @@ void	findplayer(t_mapdata *data, t_player *player)
 	}
 }
 
-void 	color(t_all *all)
+void	color(t_all *all)
 {
 	if (all->ray.side == 1 && (all->pl.mapy > all->pl.y))
 		all->tex.color = (int *)(all->tex.imgs);
@@ -50,25 +62,26 @@ void	texture(t_all *all)
 	if (all->ray.side == 0 && all->ray.raydirx > 0)
 		all->tex.texx = all->tex.width - all->tex.texx - 1;
 	if (all->ray.side == 1 && all->ray.raydiry < 0)
-		all->tex.texx = all->tex.width - all ->tex.texx - 1;
+		all->tex.texx = all->tex.width - all->tex.texx - 1;
 	all->tex.step = 1.0 * all->tex.height / all->ray.lineheight;
-	all->tex.texpos = (all->ray.drawstart - all->data.resy / 2 + all->ray.lineheight / 2) 
+	all->tex.texpos = (all->ray.drawstart - \
+	all->data.resy / 2 + all->ray.lineheight / 2)
 	* all->tex.step;
 }
 
-int 	create_textures(t_all *all)
+int		create_textures(t_all *all)
 {
 	if (!(all->tex.imge = mlx_xpm_file_to_image(all->data.mlx, all->data.east,\
-	 &all->tex.width, &all->tex.height)))
+	&all->tex.width, &all->tex.height)))
 		ft_error4(&all->data);
 	if (!(all->tex.imgw = mlx_xpm_file_to_image(all->data.mlx, all->data.west,\
-	 &all->tex.width, &all->tex.height)))
+	&all->tex.width, &all->tex.height)))
 		ft_error4(&all->data);
 	if (!(all->tex.imgn = mlx_xpm_file_to_image(all->data.mlx, all->data.north,\
-	 &all->tex.width, &all->tex.height)))
+	&all->tex.width, &all->tex.height)))
 		ft_error4(&all->data);
 	if (!(all->tex.imgs = mlx_xpm_file_to_image(all->data.mlx, all->data.south,\
-	 &all->tex.width, &all->tex.height)))
+	&all->tex.width, &all->tex.height)))
 		ft_error4(&all->data);
 	return (1);
 }
@@ -77,11 +90,11 @@ void	generate_textures(t_all *all)
 {
 	create_textures(all);
 	all->tex.imge = mlx_get_data_addr(all->tex.imge, &all->img.bits, \
-	 &all->img.linel, &all->img.endian);
+	&all->img.linel, &all->img.endian);
 	all->tex.imgw = mlx_get_data_addr(all->tex.imgw, &all->img.bits, \
-	 &all->img.linel, &all->img.endian);
+	&all->img.linel, &all->img.endian);
 	all->tex.imgn = mlx_get_data_addr(all->tex.imgn, &all->img.bits, \
-	 &all->img.linel, &all->img.endian);
+	&all->img.linel, &all->img.endian);
 	all->tex.imgs = mlx_get_data_addr(all->tex.imgs, &all->img.bits, \
-	 &all->img.linel, &all->img.endian);
+	&all->img.linel, &all->img.endian);
 }
