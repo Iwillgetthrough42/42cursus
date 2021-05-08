@@ -138,6 +138,23 @@ int 	drawrec(FILE *fop, char **draw, t_zone *zone, t_rec *rec)
 	return (1);
 }
 
+void	ft_free(FILE *file, char **draw, t_zone *zone)
+{
+	int i;
+	i = 0;
+
+	fclose(file);
+	if (draw)
+	{
+		while (i < zone->height)
+		{
+			free(draw[i]);
+			i++;
+		}
+		free(draw);
+	}
+}
+
 int		mic(char *file)
 {
 	t_zone 	zone;
@@ -152,10 +169,17 @@ int		mic(char *file)
 	if (!getzone(fop, &zone))
 		return(0);
 	if (!(draw = drawzone(&zone)))
+	{
+		ft_free(fop, draw, &zone);
 		return (2);
+	}
 	if (!(drawrec(fop, draw, &zone, &rec)))
+	{
+		ft_free(fop, draw, &zone);
 		return (0);
+	}
 	printzone(draw, &zone);
+	ft_free(fop, draw, &zone);
 	return (1);
 }
 
