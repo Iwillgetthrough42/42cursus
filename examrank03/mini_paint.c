@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <math.h>
 
 typedef struct s_zone
 {
@@ -9,15 +10,14 @@ typedef struct s_zone
 	char bg;
 }				t_zone;
 
-typedef struct 	s_rec
+typedef struct 	s_cir
 {
 	char 	ch;
 	float	x;
 	float	y;
-	float	width;
-	float 	height;
+	float	R;
 	char 	bg;
-}				t_rec;
+}				t_cir;
 
 int 	ft_strlen(char *str)
 {
@@ -87,21 +87,26 @@ int 	getzone(FILE *fop, t_zone *zone)
 	return (1);
 }
 
-int		checkrec(t_rec *rec)
+int		checkrec(t_cir *cir)
 {
-	return ((rec->ch == 'R' || rec->ch == 'r') && rec->width > 0 && rec->height > 0);
+	return ((cir->ch == 'C' || cir->ch == 'c') && cir->R > 0);
 }
 
-int 	inrectangle(float x, float y, t_rec *rec)
+int 	incircle(float x, float y, t_cir *cir)
 {
-	if (x < rec->x || x > rec->x + rec->width || y < rec->y || y > rec->y + rec->height)
-		return (0);
-	if (x - rec->x < 1 || (rec->x + rec->width) - x < 1 || y - rec->y < 1 || (rec->y + rec->height) - y < 1)
-		return (2);
-	return (1);
+	float dist;
+
+	dist = sqrtf((x - cir->x) * (x - cir->x) + (y - cir->y) * (y - cir->y));
+	if (dist <= cir->R)
+	{
+		if ((cir->R - dist) < 1)
+			return (2);
+		return (1);
+	}
+	return (0);
 }
 
-void 	drawr(t_zone *zone, char **draw, t_rec *rec)
+void 	drawc(t_zone *zone, char **draw, t_cir *cir)
 {
 	int ret;
 	int i;
@@ -113,9 +118,9 @@ void 	drawr(t_zone *zone, char **draw, t_rec *rec)
 		j = 0;
 		while (j < zone->width)
 		{
-			ret = inrectangle(j, i, rec);
-			if ((rec->ch == 'r' && ret == 2) || (rec->ch == 'R' && ret))
-				draw[i][j] = rec->bg;
+			ret = incircle(j, i, cir);
+			if ((cir->ch == 'c' && ret == 2) || (cir->ch == 'C' && ret))
+				draw[i][j] = cir->bg;
 			j++;
 		}
 		i++;
@@ -123,15 +128,15 @@ void 	drawr(t_zone *zone, char **draw, t_rec *rec)
 
 }
 
-int 	drawrec(FILE *fop, char **draw, t_zone *zone, t_rec *rec)
+int 	drawcircle(FILE *fop, char **draw, t_zone *zone, t_cir *cir)
 {
 	int ret;
 
-	while ((ret = (fscanf(fop, "%c %f %f %f %f %c\n", &rec->ch, &rec->x, &rec->y, &rec->width, &rec->height, &rec->bg))) == 6)
+	while ((ret = (fscanf(fop, "%c %f %f %f %c\n", &cir->ch, &cir->x, &cir->y, &cir->R, &cir->bg))) == 5)
 	{
-		if (!checkrec(rec))
+		if (!checkrec(cir))
 			return (0);
-		drawr(zone, draw, rec);
+		drawc(zone, draw, cir);
 	}
 	if (ret != -1)
 		return (0);
@@ -141,7 +146,7 @@ int 	drawrec(FILE *fop, char **draw, t_zone *zone, t_rec *rec)
 int		mic(char *file)
 {
 	t_zone 	zone;
-	t_rec	rec;
+	t_cir	cir;
 	FILE 	*fop;
 	char 	**draw;
 
@@ -153,7 +158,7 @@ int		mic(char *file)
 		return(0);
 	if (!(draw = drawzone(&zone)))
 		return (2);
-	if (!(drawrec(fop, draw, &zone, &rec)))
+	if (!(drawcircle(fop, draw, &zone, &cir)))
 		return (0);
 	printzone(draw, &zone);
 	return (1);
