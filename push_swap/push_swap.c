@@ -1,5 +1,4 @@
 #include "lib.h"
-#include <stdio.h>
 
 int		initstack(t_stack **a, char **argv, int argc)
 {
@@ -28,17 +27,17 @@ int 	main(int argc, char **argv)
 		return (0);
 	initstack(&a, argv, argc);
 	sort(&a, &b);
-	t_stack *tmp = a;
-	while(a)
+	/*t_stack *tmp = a;
+	while(tmp)
 	{
-		printf("%d\n", a->num);
-		a = a->next;
-	}
-	tmp = b;
+		printf("%d\n", tmp->num);
+		tmp = tmp->next;
+	}*/
+	/*tmp = b;
 	while(b)
 	{
 		printf("%d\n", b->num);
 		b = b->next;
-	}
+	}*/
 	return (1);
 }

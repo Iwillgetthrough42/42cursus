@@ -3,7 +3,6 @@
 int		addback(t_stack **a, t_stack *new)
 {
 	t_stack *lst;
-
 	lst = last(*a);
 	if (lst)
 		lst->next = new;

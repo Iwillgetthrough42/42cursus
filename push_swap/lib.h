@@ -29,6 +29,13 @@ void			sort(t_stack **a, t_stack **b);
 int 			getsize(t_stack *a);
 int 			findmin(t_stack *a);
 int 			getindex(t_stack *a, int min);
+void			sort10to100(t_stack **a, t_stack **b, int len);
+void 			sortk(t_stack **stack);
+int 			getnum(int index, t_stack *a, int *num);
+int 			checkunderkeynbr(t_stack *a, int key_nbr);
+int 			getindexk(t_stack *a, int key_nbr);
+int 			getmax(t_stack *b);
+void			frombtoa(t_stack **a, t_stack **b);
 
 
 #endif

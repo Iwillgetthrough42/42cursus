@@ -52,16 +52,15 @@ void	sortto10(t_stack **a, t_stack **b)
 		{
 			if (min == (*a)->next->num)
 				sa(*a);
-			else if (middle - 1 > getindex(*a, min))
-				rra(a);
-			else
+			else if (middle > getindex(*a, min))
 				ra(a);
+			else
+				rra(a);
 		}
 		pb(a, b);
 		len = getsize(*a);
 	}
 	sort3(a);
-	pushback(a, b);
 }
 
 void 	sort1to10(t_stack **a, t_stack **b, int len)
@@ -81,8 +80,16 @@ void	sort(t_stack **a, t_stack **b)
 {
 	int len;
 
-	char *str = "abc";
 	len = getsize(*a);
 	if (len <= 10)
+	{
 		sort1to10(a, b, len);
+		pushback(a, b);
+	}
+	else if (len > 10 && len <= 100)
+	{
+		sort10to100(a, b, len);
+		sort1to10(a, b, getsize(*a));
+		frombtoa(a, b);
+	}
 }
