@@ -2,6 +2,7 @@
 
 void	rrr(t_stack **a, t_stack **b)
 {
-	rra(a);
-	rra(b);
+	write(1, "rrr\n", 4);	
+	revrotate(a);
+	revrotate(b);
 }

@@ -12,7 +12,7 @@ void 	sort3(t_stack **a)
 		sa(*a);
 		rra(a);
 	}
-	else if ((*a)->num == min && (*a)->next > (*a)->next->next)
+	else if ((*a)->num == min && (*a)->next->num > (*a)->next->next->num)
 	{
 		sa(*a);
 		ra(a);
@@ -36,23 +36,20 @@ void	pushback(t_stack **a, t_stack **b)
 
 void	sortto10(t_stack **a, t_stack **b)
 {
-	int min;
-	int middle;
-	int len;
+	int 	min;
+	int 	middle;
+	int 	len;
 
 	len = getsize(*a);
-	while (len != 3)
+	while (len > 3)
 	{
 		min = findmin(*a);
-		if (len % 2 == 0)
-			middle = len / 2;
-		else
-			middle = (len + 1) / 2;
+		middle = len / 2 + len % 2;
 		while ((*a)->num != min)
 		{
 			if (min == (*a)->next->num)
 				sa(*a);
-			else if (middle > getindex(*a, min))
+			else if (middle >= getindex(*a, min))
 				ra(a);
 			else
 				rra(a);
@@ -88,7 +85,13 @@ void	sort(t_stack **a, t_stack **b)
 	}
 	else if (len > 10 && len <= 100)
 	{
-		sort10to100(a, b, len);
+		sort10to100(a, b, len, 4);
+		sort1to10(a, b, getsize(*a));
+		frombtoa(a, b);
+	}
+	else if (len > 100)
+	{
+		sort10to100(a, b, len, 8);
 		sort1to10(a, b, getsize(*a));
 		frombtoa(a, b);
 	}

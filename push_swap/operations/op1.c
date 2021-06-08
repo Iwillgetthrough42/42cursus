@@ -2,52 +2,31 @@
 
 void	sa(t_stack *a)
 {
-	int tmp;
-
-	if (a && a->next)
-	{
-		tmp = a->num;
-		a->num = a->next->num;
-		a->next->num = tmp;
-	}
+	write(1, "sa\n", 3);
+	swap(a);
 }
 
 void	sb(t_stack *b)
 {
-	sa(b);
+	write(1, "sb\n", 3);
+	swap(b);
 }
 
 void	ss(t_stack *a, t_stack *b)
 {
-	sa(a);
-	sb(b);
+	write(1, "ss\n", 3);
+	swap(a);
+	swap(b);
 }
 
 void	pb(t_stack **a, t_stack **b)
 {
-	t_stack *new;
-
-	if (*a && !(*b))
-	{
-		*b = (t_stack *)malloc(sizeof(t_stack));
-		(*b)->num = (*a)->num;
-		(*b)->next = NULL;
-		(*a) = (*a)->next;
-	}
-	else
-	{
-		if (*a)
-		{
-			new = (t_stack *)malloc(sizeof(t_stack));
-			new->num = (*a)->num;
-			new->next = NULL;
-			addfront(b, new);
-			*a = (*a)->next;
-		}
-	}
+	write(1, "pb\n", 3);
+	push(a, b);
 }
 
 void	pa(t_stack **a, t_stack **b)
 {
-	pb(b, a);
+	write(1, "pa\n", 3);
+	push(b, a);
 }

@@ -32,7 +32,7 @@ int 	checkunderkeynbr(t_stack *a, int key_nbr)
 	return (0);
 }
 
-void 	stackop(t_stack **a, t_stack **b, int middle, int key_nbr)
+void 	stackop(t_stack **a, int middle, int key_nbr)
 {
 	int index;
 
@@ -45,7 +45,7 @@ void 	stackop(t_stack **a, t_stack **b, int middle, int key_nbr)
 		ra(a);
 }
 
-void	sort10to100(t_stack **a, t_stack **b, int len)
+void	sort10to100(t_stack **a, t_stack **b, int len, int num)
 {
 	int 	key_nbr;
 	t_stack *k;
@@ -54,11 +54,12 @@ void	sort10to100(t_stack **a, t_stack **b, int len)
 
 	k = NULL;
 	length = len;
-	while (length > len / 4)
+	while (length > len / num)
 	{
+		middle = length / 2 + length % 2;
 		k = duplist(*a);
 		sortk(&k);
-		getnum(length / 4, k, &key_nbr);
+		getnum(length / num, k, &key_nbr);
 		while (checkunderkeynbr(*a, key_nbr))
 		{
 			if ((*a)->num <= key_nbr)
@@ -67,7 +68,8 @@ void	sort10to100(t_stack **a, t_stack **b, int len)
 				length--;
 			}
 			else
-				stackop(a, b, middle, key_nbr);
+				stackop(a, middle, key_nbr);
 		}
+		freestack(&k);
 	}
 }

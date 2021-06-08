@@ -2,46 +2,31 @@
 
 void	ra(t_stack **a)
 {
-	t_stack *tmp;
-
-	if (*a)
-	{
-		tmp = *a;
-		*a = (*a)->next;
-		tmp->next = NULL;
-		addback(a, tmp);
-	}
+	write(1, "ra\n", 3);
+	rotate(a);
 }
 
 void	rb(t_stack **b)
 {
-	ra(b);
+	write(1, "rb\n", 3);
+	rotate(b);
 }
 
 void	rr(t_stack **a, t_stack **b)
 {
-	ra(a);
-	ra(b);
+	write(1, "rr\n", 3);
+	rotate(a);
+	rotate(b);
 }
 
 void	rra(t_stack **a)
 {
-	t_stack *tmp1;
-	t_stack	*tmp2;
-
-	tmp1 = *a;
-	while ((*a)->next)
-	{
-		if ((*a)->next->next == NULL)
-			tmp2 = *a;
-		*a = (*a)->next;
-	}
-	(*a)->next = tmp1;
-	tmp1 = *a;
-	tmp2->next = NULL;
+	write(1, "rra\n", 4);
+	revrotate(a);
 }
 
 void	rrb(t_stack **b)
 {
-	rra(b);
+	write(1, "rrb\n", 4);
+	revrotate(b);
 }
