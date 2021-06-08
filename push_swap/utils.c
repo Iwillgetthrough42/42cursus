@@ -1,8 +1,9 @@
 #include "lib.h"
 
-int		addback(t_stack **a, t_stack *new)
+int	addback(t_stack **a, t_stack *new)
 {
-	t_stack *lst;
+	t_stack	*lst;
+
 	lst = last(*a);
 	if (lst)
 		lst->next = new;
@@ -11,7 +12,7 @@ int		addback(t_stack **a, t_stack *new)
 	return (1);
 }
 
-t_stack		*last(t_stack *lst)
+t_stack	*last(t_stack *lst)
 {
 	while (lst)
 	{

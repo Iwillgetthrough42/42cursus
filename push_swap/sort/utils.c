@@ -2,9 +2,9 @@
 
 void 	sortk(t_stack **stack)
 {
-	t_stack *tmp;
-	t_stack *node;
-	int 	temp;
+	t_stack	*tmp;
+	t_stack	*node;
+	int		temp;
 
 	tmp = NULL;
 	node = *stack;
@@ -27,10 +27,10 @@ void 	sortk(t_stack **stack)
 
 int 	getsize(t_stack *a)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(a)
+	while (a)
 	{
 		i++;
 		a = a->next;
@@ -40,11 +40,10 @@ int 	getsize(t_stack *a)
 
 int 	findmin(t_stack *a)
 {
-	int min;
+	int	min;
 
 	min = a->num;
-
-	while(a)
+	while (a)
 	{
 		if (min > a->num)
 			min = a->num;
@@ -55,7 +54,7 @@ int 	findmin(t_stack *a)
 
 int 	getindex(t_stack *a, int min)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (a)
@@ -70,7 +69,7 @@ int 	getindex(t_stack *a, int min)
 
 int 	getnum(int index, t_stack *a, int *num)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (a)

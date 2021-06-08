@@ -1,27 +1,28 @@
 #include "lib.h"
 
-int		initstack(t_stack **a, char **argv, int argc)
+int	initstack(t_stack **a, char **argv, int argc)
 {
-	int 		i;
-	t_stack 	*new;
+	int		i;
+	t_stack	*new;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (!(new = (t_stack *)(malloc(sizeof(t_stack)))))
+		new = (t_stack *)(malloc(sizeof(t_stack)));
+		if (!new)
 			return (0);
 		new->num = ft_atoi(argv[i]);
 		new->next = NULL;
 		addback(a, new);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
-int 	dublicates(int argc, char **argv)
+int	dublicates(int argc, char **argv)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (i < argc)
@@ -38,9 +39,9 @@ int 	dublicates(int argc, char **argv)
 	return (1);
 }
 
-int 	range(int argc, char **argv)
+int	range(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (i < argc)
@@ -52,10 +53,10 @@ int 	range(int argc, char **argv)
 	return (1);
 }
 
-int 	isnumbers(int argc, char **argv)
+int	isnumbers(int argc, char **argv)
 {
-	int 	i;
-	size_t 	j;
+	int		i;
+	size_t	j;
 
 	i = 1;
 	while (i < argc)
@@ -63,7 +64,7 @@ int 	isnumbers(int argc, char **argv)
 		j = 0;
 		while (j < ft_strlen(argv[i]))
 		{
-			if (!ft_isdigit(argv[i][j]) && !(argv[i][j] == '-' &&\
+			if (!ft_isdigit(argv[i][j]) && !(argv[i][j] == '-' && \
 				 ft_isdigit(argv[i][j + 1])))
 				return (0);
 			j++;
@@ -73,11 +74,10 @@ int 	isnumbers(int argc, char **argv)
 	return (1);
 }
 
-
-int 	main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_stack *a;
-	t_stack *b;
+	t_stack	*a;
+	t_stack	*b;
 
 	if (argc == 1)
 		return (0);

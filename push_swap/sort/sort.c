@@ -2,7 +2,7 @@
 
 void 	sort3(t_stack **a)
 {
-	int min;
+	int	min;
 
 	min = findmin(*a);
 	if ((*a)->num < (*a)->next->num && (*a)->next->next->num == min)
@@ -36,9 +36,9 @@ void	pushback(t_stack **a, t_stack **b)
 
 void	sortto10(t_stack **a, t_stack **b)
 {
-	int 	min;
-	int 	middle;
-	int 	len;
+	int	min;
+	int	middle;
+	int	len;
 
 	len = getsize(*a);
 	while (len > 3)
@@ -75,7 +75,7 @@ void 	sort1to10(t_stack **a, t_stack **b, int len)
 
 void	sort(t_stack **a, t_stack **b)
 {
-	int len;
+	int	len;
 
 	len = getsize(*a);
 	if (len <= 10)

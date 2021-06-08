@@ -2,7 +2,7 @@
 
 void	swap(t_stack *a)
 {
-	int tmp;
+	int	tmp;
 
 	if (a && a->next)
 	{
@@ -14,9 +14,9 @@ void	swap(t_stack *a)
 
 void	push(t_stack **a, t_stack **b)
 {
-	t_stack *tmp;
-	t_stack *new;
-	
+	t_stack	*tmp;
+	t_stack	*new;
+
 	if (*a && !(*b))
 	{
 		tmp = *a;
@@ -43,7 +43,7 @@ void	push(t_stack **a, t_stack **b)
 
 void	rotate(t_stack **a)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	if (*a)
 	{
@@ -56,9 +56,9 @@ void	rotate(t_stack **a)
 
 void	revrotate(t_stack **a)
 {
-	t_stack *tmp1;
+	t_stack	*tmp1;
 	t_stack	*tmp2;
-	
+
 	tmp1 = *a;
 	while ((*a)->next)
 	{
@@ -70,4 +70,3 @@ void	revrotate(t_stack **a)
 	tmp1 = *a;
 	tmp2->next = NULL;
 }
-

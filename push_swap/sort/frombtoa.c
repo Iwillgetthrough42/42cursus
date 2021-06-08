@@ -2,9 +2,9 @@
 
 void	frombtoa(t_stack **a, t_stack **b)
 {
-	int max;
-	int middle;
-	int len;
+	int	max;
+	int	middle;
+	int	len;
 
 	len = getsize(*b);
 	while (*b)

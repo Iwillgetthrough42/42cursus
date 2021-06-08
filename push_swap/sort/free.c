@@ -2,7 +2,7 @@
 
 void 	freestack(t_stack **stack)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	if (*stack)
 	{

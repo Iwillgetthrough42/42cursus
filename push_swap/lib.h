@@ -1,13 +1,13 @@
 #ifndef LIB_H
 # define LIB_H
 
-#include "libft/libft.h"
-#include <unistd.h>
-#include <stdio.h>
+# include "libft/libft.h"
+# include <unistd.h>
+# include <stdio.h>
 
-typedef struct 	s_stack
+typedef struct s_stack
 {
-	int 			num;
+	int				num;
 	struct s_stack	*next;
 
 }				t_stack;
@@ -31,16 +31,16 @@ void			rra(t_stack **a);
 void			rrb(t_stack **b);
 void			rrr(t_stack **a, t_stack **b);
 void			sort(t_stack **a, t_stack **b);
-int 			getsize(t_stack *a);
-int 			findmin(t_stack *a);
-int 			getindex(t_stack *a, int min);
+int				getsize(t_stack *a);
+int				findmin(t_stack *a);
+int				getindex(t_stack *a, int min);
 void			sort10to100(t_stack **a, t_stack **b, int len, int num);
-void 			sortk(t_stack **stack);
-int 			getnum(int index, t_stack *a, int *num);
-int 			checkunderkeynbr(t_stack *a, int key_nbr);
-int 			getindexk(t_stack *a, int key_nbr);
-int 			getmax(t_stack *b);
+void			sortk(t_stack **stack);
+int				getnum(int index, t_stack *a, int *num);
+int				checkunderkeynbr(t_stack *a, int key_nbr);
+int				getindexk(t_stack *a, int key_nbr);
+int				getmax(t_stack *b);
 void			frombtoa(t_stack **a, t_stack **b);
-void 			freestack(t_stack **stack);
+void			freestack(t_stack **stack);
 
 #endif

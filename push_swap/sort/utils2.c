@@ -2,7 +2,7 @@
 
 int 	getindexk(t_stack *a, int key_nbr)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (a)
@@ -17,7 +17,7 @@ int 	getindexk(t_stack *a, int key_nbr)
 
 int 	getmax(t_stack *b)
 {
-	int max;
+	int	max;
 
 	max = b->num;
 	while (b)
