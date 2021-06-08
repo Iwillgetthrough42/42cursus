@@ -81,6 +81,8 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		return (0);
+	else if (argc == 2)
+		return (0);
 	if (dublicates(argc, argv) == 0 || \
 		range(argc, argv) == 0 || \
 		isnumbers(argc, argv) == 0)
@@ -92,7 +94,7 @@ int	main(int argc, char **argv)
 	}
 	initstack(&a, argv, argc);
 	sort(&a, &b);
-	freestack(&a);
+	/*freestack(&a);
 	freestack(&b);
-	return (1);
+	return (1);*/
 }

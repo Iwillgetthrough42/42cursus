@@ -64,7 +64,7 @@ void 	sort1to10(t_stack **a, t_stack **b, int len)
 {
 	if (len == 2)
 	{
-		if (*a > (*a)->next)
+		if ((*a)->num > (*a)->next->num)
 			sa(*a);
 	}
 	else if (len == 3)
