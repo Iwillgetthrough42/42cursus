@@ -94,7 +94,7 @@ int	main(int argc, char **argv)
 	}
 	initstack(&a, argv, argc);
 	sort(&a, &b);
-	/*freestack(&a);
+	freestack(&a);
 	freestack(&b);
-	return (1);*/
+	return (1);
 }

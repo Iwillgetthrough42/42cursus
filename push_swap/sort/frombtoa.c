@@ -21,6 +21,6 @@ void	frombtoa(t_stack **a, t_stack **b)
 				rrb(b);
 		}
 		pa(a, b);
-		len = getsize(*b);
+		len--;
 	}
 }

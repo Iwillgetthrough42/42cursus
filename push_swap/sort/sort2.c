@@ -38,9 +38,7 @@ void 	stackop(t_stack **a, int middle, int key_nbr)
 	int	index;
 
 	index = getindexk(*a, key_nbr);
-	if (getindex(*a, (*a)->next->num) == index)
-		sa(*a);
-	else if (index > middle)
+	if (index > middle)
 		rra(a);
 	else
 		ra(a);
