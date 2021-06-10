@@ -93,6 +93,8 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	initstack(&a, argv, argc);
+	if (issorted(a))
+		return (0);
 	sort(&a, &b);
 	freestack(&a);
 	freestack(&b);

@@ -30,3 +30,24 @@ void	addfront(t_stack **lst, t_stack *new)
 	new->next = *lst;
 	*lst = new;
 }
+
+int 	issorted(t_stack *stack)
+{
+	t_stack	*tmp;
+	t_stack	*node;
+
+	tmp = NULL;
+	node = stack;
+	while (node != NULL)
+	{
+		tmp = node->next;
+		while (tmp != NULL)
+		{
+			if (tmp->num < node->num)
+				return (0);
+			tmp = tmp->next;
+		}
+		node = node->next;
+	}
+	return (1);
+}

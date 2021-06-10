@@ -42,5 +42,6 @@ int				getindexk(t_stack *a, int key_nbr);
 int				getmax(t_stack *b);
 void			frombtoa(t_stack **a, t_stack **b);
 void			freestack(t_stack **stack);
+int 			issorted(t_stack *stack);
 
 #endif
