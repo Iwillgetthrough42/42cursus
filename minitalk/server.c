@@ -8,7 +8,7 @@ void	getbitbybit(int bit)
 	g_msgbit.size++;
 	if (g_msgbit.size == 7)
 	{
-		write(1, &g_msgbit.num, g_msgbit.size);
+		write(1, &g_msgbit.num, 1);
 		g_msgbit.num = 0;
 		g_msgbit.size = 0;
 	}
