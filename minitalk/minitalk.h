@@ -7,8 +7,8 @@
 
 typedef struct s_msg
 {
-  int num;
-  int size;
-}              t_msg;
+	int	num;
+	int	size;
+}				t_msg;
 
 #endif
