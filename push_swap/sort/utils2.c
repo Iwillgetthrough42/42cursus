@@ -12,7 +12,7 @@ int 	getindexk(t_stack *a, int key_nbr)
 		a = a->next;
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
 int 	getmax(t_stack *b)

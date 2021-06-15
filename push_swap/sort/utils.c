@@ -64,7 +64,7 @@ int 	getindex(t_stack *a, int min)
 		a = a->next;
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
 int 	getnum(int index, t_stack *a, int *num)
