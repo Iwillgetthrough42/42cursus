@@ -1,7 +1,7 @@
 NAME = philo_one
 
 SRCS = 	main.c \
-		philo.c \
+		simulation.c \
 		tools.c \
 		
 OBJS = ${SRCS:.c=.o}

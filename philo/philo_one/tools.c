@@ -103,3 +103,12 @@ int 		gettime()
 	return (time);
 }
 
+void  		ft_sleep(long mili)
+{
+	long start_time;
+
+	start_time = gettime();
+	while (gettime() - start_time < mili)
+		usleep(mili / 10);
+
+}
