@@ -16,6 +16,7 @@ typedef struct 	s_philo_one
 	int  			time_to_sleep;
 	int  			musteat;
 	int  			died;
+	int  			eaten;
 	int  			nb;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
