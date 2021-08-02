@@ -1,12 +1,58 @@
 #include "philo_one.h"
 
+int	isnumbers(int argc, char **argv)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (j < ft_strlen(argv[i]))
+		{
+			if (!ft_isdigit(argv[i][j]) && !(argv[i][j] == '-' && \
+				 ft_isdigit(argv[i][j + 1])))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	range(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (ft_atoi(argv[i]) > 2147483647 || ft_atoi(argv[i]) < -2147483648)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int checkarg(int argc, char **argv)
+{
+	if (!isnumbers(argc, argv))
+		return (0);
+	if (!range(argc, argv))
+		return (0);
+	return (1);
+}
+
 int start(t_philo_one *philo)
 {
 	int 		i;
-	pthread_t 	phil[philo->num_of_philo];
+	pthread_t 	phil;
 	t_philo  	*ph;
+	int 		l;
 
-	ph = (t_philo *)malloc(sizeof(t_philo) * (philo->num_of_philo + 1));
+	l = 0;
+	ph = (t_philo *)malloc(sizeof(t_philo) * philo->num_of_philo);
 	pthread_mutex_init(&philo->print, NULL);
 	pthread_mutex_init(&philo->death, NULL);
 	philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philo->num_of_philo);
@@ -20,22 +66,28 @@ int start(t_philo_one *philo)
 	i = 0;
 	while (i < philo->num_of_philo)
 	{
-		ph[i].nb = i;
+		ph[i].nb = i + 1;
 		ph[i].info = philo;
 		i++;
 	}
 	i = 0;
 	while (i < philo->num_of_philo)
 	{
-		if (pthread_create(&phil[i], NULL, &simulation, &ph[i]) != 0)
+		if (pthread_create(&phil, NULL, &simulation, &ph[i]) != 0)
 			return (0);
 		i++;
 	}
 	i = 0;
 	while (i < philo->num_of_philo)
 	{
-		if (pthread_join(phil[i], NULL) != 0)
-			return (0);
+		if (l == 0)
+			if (pthread_join(phil, NULL) != 0)
+				return (0);
+		if (philo->died == 1)
+		{
+			l = 1;
+			pthread_detach(phil);
+		}
 		i++;
 	}
 	i = 0;
@@ -57,7 +109,13 @@ int main(int argc, char **argv)
 		ft_print("Error argument\n");
 		return (0);
 	}
+	if (!checkarg(argc, argv))
+	{
+		ft_print("Error argument\n");
+		return (0);
+	}
 	philo.musteat = 0;
+	philo.hasmusteat = 0;
 	philo.eaten = 0;
 	philo.num_of_philo = ft_atoi(argv[1]);
 	philo.time_to_die = ft_atoi(argv[2]);
@@ -65,7 +123,10 @@ int main(int argc, char **argv)
 	philo.time_to_sleep = ft_atoi(argv[4]);
 	philo.died = 0;
 	if (argc == 6)
+	{
+		philo.hasmusteat = 1;
 		philo.musteat = ft_atoi(argv[5]);
+	}
 	philo.died = 0;
 	return (start(&philo));
 }

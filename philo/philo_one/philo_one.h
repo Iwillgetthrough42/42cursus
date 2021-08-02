@@ -15,6 +15,7 @@ typedef struct 	s_philo_one
 	int  			time_to_eat;
 	int  			time_to_sleep;
 	int  			musteat;
+	int  			hasmusteat;
 	int  			died;
 	int  			eaten;
 	int  			nb;
@@ -40,6 +41,7 @@ int 			gettime();
 void 			ft_printing(int i, int tim, char *str, t_philo *ph);
 void 			*simulation(void *ph);
 void  			ft_sleep(long mili);
+int				ft_isdigit(int c);
 
 
 #endif

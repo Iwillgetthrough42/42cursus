@@ -2,10 +2,13 @@
 
 void sleepthink(t_philo *ph)
 {
-	ft_printing(ph->nb, gettime() - ph->timestart, "is sleeping", ph);
-	ft_sleep(ph->info->time_to_sleep);
-	ft_printing(ph->nb, gettime() - ph->timestart, "is Thinking", ph);
-	//usleep(100);
+	if (ph->info->died == 0)
+	{
+		ft_printing(ph->nb, gettime() - ph->timestart, "is sleeping", ph);
+		ft_sleep(ph->info->time_to_sleep);
+	}
+	if (ph->info->died == 0)
+		ft_printing(ph->nb, gettime() - ph->timestart, "is Thinking", ph);
 }
 
 void *check_death(void *tmp)
@@ -24,9 +27,9 @@ void *check_death(void *tmp)
 			pthread_mutex_unlock(&ph->info->death);
 			return (NULL);
 		}
-		if (ph->info->died)
-			return (NULL);
 		pthread_mutex_unlock(&ph->info->death);
+		if (ph->info->died)
+			return (NULL);	
 	}
 }
 
@@ -37,7 +40,11 @@ void checkifenough(t_philo *ph)
 	if (ph->info->eaten >= ph->info->musteat)
 	{
 		if (!ph->info->died)
-			ft_print("everyone has eaten enough");
+		{
+			pthread_mutex_lock(&ph->info->print);
+			ft_print("everyone has eaten enough\n");
+			pthread_mutex_unlock(&ph->info->print);
+		}
 		ph->info->died = 1;
 		pthread_mutex_unlock(&ph->info->death);
 	}
@@ -49,26 +56,32 @@ int eat(t_philo *ph)
 	int left;
 	int right;
 
-	left = ph->nb;
-	right = (ph->nb + 1) % (ph->info->num_of_philo);
+	left = ph->nb - 1;
+	right = ((ph->nb) % (ph->info->num_of_philo));
 	if (ph->nb % 2 == 1)
 	{
-		pthread_mutex_lock(&ph->info->forks[right]);
-		ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
 		pthread_mutex_lock(&ph->info->forks[left]);
-		ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
+		if (!ph->info->died)
+			ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
+		pthread_mutex_lock(&ph->info->forks[right]);
+		if (!ph->info->died)
+			ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
 	}
 	else if (ph->nb % 2 == 0)
 	{
-		pthread_mutex_lock(&ph->info->forks[left]);
-		ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
 		pthread_mutex_lock(&ph->info->forks[right]);
-		ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
+		if (!ph->info->died)
+			ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
+		pthread_mutex_lock(&ph->info->forks[left]);
+		if (!ph->info->died)
+			ft_printing(ph->nb, gettime()-ph->timestart, "has taken a fork", ph);
 	}
 	ph->time_last_meal = gettime();
-	ft_printing(ph->nb, gettime()-ph->timestart, "is eating", ph);
-	ft_sleep(ph->info->time_to_eat);
-	if (ph->info->musteat != 0)
+	if (!ph->info->died)
+		ft_printing(ph->nb, gettime()-ph->timestart, "is eating", ph);
+	if (!ph->info->died)
+		ft_sleep(ph->info->time_to_eat);
+	if (ph->info->hasmusteat != 0 && !ph->info->died)
 		checkifenough(ph);
 	pthread_mutex_unlock(&ph->info->forks[right]);
 	pthread_mutex_unlock(&ph->info->forks[left]);
@@ -84,11 +97,14 @@ void 	*simulation(void *ph)
 	((t_philo *)ph)->timestart = gettime();
 	((t_philo *)ph)->time_last_meal = gettime();
 	pthread_create(&control, NULL, &check_death, ph);
-	while (((t_philo *)ph)->info->died == 0)
+	while (1)
 	{
 		eat((t_philo *)ph);
 		sleepthink((t_philo *)ph);
+		if (((t_philo *)ph)->info->died == 1)
+		{
+			pthread_detach(control);
+			return (NULL);
+		}
 	}
-	pthread_join(control, NULL);
-	return (NULL);
 }

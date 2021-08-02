@@ -112,3 +112,8 @@ void  		ft_sleep(long mili)
 		usleep(mili / 10);
 
 }
+
+int		ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
