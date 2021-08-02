@@ -44,6 +44,41 @@ int checkarg(int argc, char **argv)
 	return (1);
 }
 
+int startthreads(pthread_t *phil, t_philo *ph)
+{
+	int i;
+
+	i = 0;
+	while (i < ph[0].info->num_of_philo)
+	{
+		if (pthread_create(&phil[i], NULL, &simulation, &ph[i]) != 0)
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (i < ph[0].info->num_of_philo)
+	{
+		while (!ph[0].info->died)
+			;
+		if (pthread_detach(phil[i]) != 0)
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (i < ph[0].info->num_of_philo)
+	{
+		if (pthread_mutex_destroy(&ph[0].info->forks[i]) != 0)
+			return (0);
+		i++;
+	}
+	if (pthread_mutex_destroy(&ph[0].info->print) != 0)
+			return (0);
+	if (pthread_mutex_destroy(&ph[0].info->print) != 0)
+		return (0);
+	return (1);
+
+}
+
 int start(t_philo_one *philo)
 {
 	int 		i;
@@ -60,7 +95,10 @@ int start(t_philo_one *philo)
 	while (i < philo->num_of_philo)
 	{
 		if (pthread_mutex_init(&philo->forks[i], NULL) != 0)
+		{
+			ft_free(ph, philo);
 			return (0);
+		}
 		i++;
 	}
 	i = 0;
@@ -70,29 +108,13 @@ int start(t_philo_one *philo)
 		ph[i].info = philo;
 		i++;
 	}
-	i = 0;
-	while (i < philo->num_of_philo)
+	if (!startthreads(phil, ph))
 	{
-		if (pthread_create(&phil[i], NULL, &simulation, &ph[i]) != 0)
-			return (0);
-		i++;
+		ft_free(ph, philo);
+		return (0);
 	}
-	i = 0;
-	while (i < philo->num_of_philo)
-	{
-		while (!philo->died)
-			;
-		if (pthread_detach(phil[i]) != 0)
-			return (0);
-		i++;
-	}
-	i = 0;
-	while (i < philo->num_of_philo)
-	{
-		if (pthread_mutex_destroy(&philo->forks[i]) != 0)
-			return (0);
-		i++;
-	}
+	getchar();
+	ft_free(ph, philo);
 	return (1);
 }
 

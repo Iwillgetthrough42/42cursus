@@ -3,6 +3,7 @@ NAME = philo_one
 SRCS = 	main.c \
 		simulation.c \
 		tools.c \
+		ft_free.c \
 		
 OBJS = ${SRCS:.c=.o}
 

@@ -42,6 +42,7 @@ void 			ft_printing(int i, int tim, char *str, t_philo *ph);
 void 			*simulation(void *ph);
 void  			ft_sleep(long mili);
 int				ft_isdigit(int c);
+void 			ft_free(t_philo *ph, t_philo_one *philo);
 
 
 #endif
