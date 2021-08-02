@@ -113,7 +113,6 @@ int start(t_philo_one *philo)
 		ft_free(ph, philo);
 		return (0);
 	}
-	getchar();
 	ft_free(ph, philo);
 	return (1);
 }
