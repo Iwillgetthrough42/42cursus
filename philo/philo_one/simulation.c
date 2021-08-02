@@ -57,7 +57,7 @@ int eat(t_philo *ph)
 	int right;
 
 	left = ph->nb - 1;
-	right = ((ph->nb) % (ph->info->num_of_philo));
+	right = ((ph->nb) % (ph->info->num_of_philo));	
 	if (ph->nb % 2 == 1)
 	{
 		pthread_mutex_lock(&ph->info->forks[left]);
@@ -93,14 +93,13 @@ void 	*simulation(void *ph)
 {
 	pthread_t control;
 
-	(void)control;
 	((t_philo *)ph)->timestart = gettime();
 	((t_philo *)ph)->time_last_meal = gettime();
 	pthread_create(&control, NULL, &check_death, ph);
 	while (1)
 	{
-		eat((t_philo *)ph);
-		sleepthink((t_philo *)ph);
+		if (eat((t_philo *)ph))
+			sleepthink((t_philo *)ph);
 		if (((t_philo *)ph)->info->died == 1)
 		{
 			pthread_detach(control);

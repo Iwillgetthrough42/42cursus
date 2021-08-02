@@ -47,7 +47,7 @@ int checkarg(int argc, char **argv)
 int start(t_philo_one *philo)
 {
 	int 		i;
-	pthread_t 	phil;
+	pthread_t 	phil[philo->num_of_philo];
 	t_philo  	*ph;
 	int 		l;
 
@@ -73,21 +73,17 @@ int start(t_philo_one *philo)
 	i = 0;
 	while (i < philo->num_of_philo)
 	{
-		if (pthread_create(&phil, NULL, &simulation, &ph[i]) != 0)
+		if (pthread_create(&phil[i], NULL, &simulation, &ph[i]) != 0)
 			return (0);
 		i++;
 	}
 	i = 0;
 	while (i < philo->num_of_philo)
 	{
-		if (l == 0)
-			if (pthread_join(phil, NULL) != 0)
-				return (0);
-		if (philo->died == 1)
-		{
-			l = 1;
-			pthread_detach(phil);
-		}
+		while (!philo->died)
+			;
+		if (pthread_detach(phil[i]) != 0)
+			return (0);
 		i++;
 	}
 	i = 0;
