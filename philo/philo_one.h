@@ -17,8 +17,6 @@ typedef struct 	s_philo_one
 	int  			musteat;
 	int  			hasmusteat;
 	int  			died;
-	int  			eaten;
-	int  			nb;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
@@ -26,6 +24,7 @@ typedef struct 	s_philo_one
 
 typedef struct 	s_philo
 {
+	int  		eaten;
 	int 		nb;
 	t_philo_one *info;
 	long  		timestart;

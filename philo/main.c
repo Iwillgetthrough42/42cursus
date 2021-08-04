@@ -119,8 +119,9 @@ int start(t_philo_one *philo)
 
 int main(int argc, char **argv)
 {
-	t_philo_one philo;
+	t_philo_one *philo;
 
+	philo = (t_philo_one *)malloc(sizeof(t_philo_one));
 	if (argc != 5 && argc != 6)
 	{
 		ft_print("Error argument\n");
@@ -131,19 +132,18 @@ int main(int argc, char **argv)
 		ft_print("Error argument\n");
 		return (0);
 	}
-	philo.musteat = 0;
-	philo.hasmusteat = 0;
-	philo.eaten = 0;
-	philo.num_of_philo = ft_atoi(argv[1]);
-	philo.time_to_die = ft_atoi(argv[2]);
-	philo.time_to_eat = ft_atoi(argv[3]);
-	philo.time_to_sleep = ft_atoi(argv[4]);
-	philo.died = 0;
+	philo->musteat = 0;
+	philo->hasmusteat = 0;
+	philo->num_of_philo = ft_atoi(argv[1]);
+	philo->time_to_die = ft_atoi(argv[2]);
+	philo->time_to_eat = ft_atoi(argv[3]);
+	philo->time_to_sleep = ft_atoi(argv[4]);
+	philo->died = 0;
 	if (argc == 6)
 	{
-		philo.hasmusteat = 1;
-		philo.musteat = ft_atoi(argv[5]);
+		philo->hasmusteat = 1;
+		philo->musteat = ft_atoi(argv[5]);
 	}
-	philo.died = 0;
-	return (start(&philo));
+	philo->died = 0;
+	return (start(philo));
 }

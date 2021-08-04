@@ -35,17 +35,17 @@ void *check_death(void *tmp)
 
 void checkifenough(t_philo *ph)
 {
+
 	pthread_mutex_lock(&ph->info->death);
-	ph->info->eaten++;
-	if (ph->info->eaten >= ph->info->musteat)
+	ph->eaten++;
+	if (ph->eaten > ph->info->musteat)
 	{
 		if (!ph->info->died)
 		{
 			pthread_mutex_lock(&ph->info->print);
-			ft_print("everyone has eaten enough\n");
-			pthread_mutex_unlock(&ph->info->print);
+			ph->info->died = 1;
 		}
-		ph->info->died = 1;
+		
 		pthread_mutex_unlock(&ph->info->death);
 	}
 		pthread_mutex_unlock(&ph->info->death);
@@ -93,6 +93,7 @@ void 	*simulation(void *ph)
 {
 	pthread_t control;
 
+	((t_philo *)ph)->eaten = 0;
 	((t_philo *)ph)->timestart = gettime();
 	((t_philo *)ph)->time_last_meal = gettime();
 	pthread_create(&control, NULL, &check_death, ph);
