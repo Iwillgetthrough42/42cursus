@@ -44,6 +44,35 @@ int checkarg(int argc, char **argv)
 	return (1);
 }
 
+void checkenough(t_philo *ph)
+{
+	int j;
+	int l;
+
+	pthread_mutex_lock(&ph->info->death);
+	if (ph[0].info->hasmusteat && ph[0].info->num_of_philo != 1)
+	{
+		l = 1;
+		j = 0;
+		while (j < ph[0].info->num_of_philo)
+		{
+			if (ph[j].eaten < ph[0].info->musteat)
+			{
+				l = 0;
+				break ;
+			}
+			j++;
+		}
+		if (l == 1)
+		{
+			pthread_mutex_lock(&ph->info->print);
+			ph->info->died = 1;
+			pthread_mutex_unlock(&ph->info->death);
+		}
+	}
+	pthread_mutex_unlock(&ph->info->death);
+}
+
 int startthreads(pthread_t *phil, t_philo *ph)
 {
 	int i;
@@ -59,7 +88,7 @@ int startthreads(pthread_t *phil, t_philo *ph)
 	while (i < ph[0].info->num_of_philo)
 	{
 		while (!ph[0].info->died)
-			;
+			checkenough(ph);
 		if (pthread_detach(phil[i]) != 0)
 			return (0);
 		i++;
@@ -73,10 +102,9 @@ int startthreads(pthread_t *phil, t_philo *ph)
 	}
 	if (pthread_mutex_destroy(&ph[0].info->print) != 0)
 			return (0);
-	if (pthread_mutex_destroy(&ph[0].info->print) != 0)
+	if (pthread_mutex_destroy(&ph[0].info->death) != 0)
 		return (0);
 	return (1);
-
 }
 
 int start(t_philo_one *philo)
@@ -124,11 +152,13 @@ int main(int argc, char **argv)
 	philo = (t_philo_one *)malloc(sizeof(t_philo_one));
 	if (argc != 5 && argc != 6)
 	{
+		free(philo);
 		ft_print("Error argument\n");
 		return (0);
 	}
 	if (!checkarg(argc, argv))
 	{
+		free(philo);
 		ft_print("Error argument\n");
 		return (0);
 	}
@@ -145,5 +175,11 @@ int main(int argc, char **argv)
 		philo->musteat = ft_atoi(argv[5]);
 	}
 	philo->died = 0;
-	return (start(philo));
+	philo->count = 0;
+	if (!start(philo))
+	{
+		free(philo);
+		return (0);
+	}
+	return (1);
 }

@@ -14,7 +14,9 @@ void sleepthink(t_philo *ph)
 void *check_death(void *tmp)
 {
 	t_philo *ph;
+	int  	l;
 
+	l = 1;
 	ph = (t_philo *)tmp;
 	while (1)
 	{
@@ -31,24 +33,6 @@ void *check_death(void *tmp)
 		if (ph->info->died)
 			return (NULL);	
 	}
-}
-
-void checkifenough(t_philo *ph)
-{
-
-	pthread_mutex_lock(&ph->info->death);
-	ph->eaten++;
-	if (ph->eaten > ph->info->musteat)
-	{
-		if (!ph->info->died)
-		{
-			pthread_mutex_lock(&ph->info->print);
-			ph->info->died = 1;
-		}
-		
-		pthread_mutex_unlock(&ph->info->death);
-	}
-		pthread_mutex_unlock(&ph->info->death);
 }
 
 int eat(t_philo *ph)
@@ -82,7 +66,7 @@ int eat(t_philo *ph)
 	if (!ph->info->died)
 		ft_sleep(ph->info->time_to_eat);
 	if (ph->info->hasmusteat != 0 && !ph->info->died)
-		checkifenough(ph);
+		ph->eaten++;
 	pthread_mutex_unlock(&ph->info->forks[right]);
 	pthread_mutex_unlock(&ph->info->forks[left]);
 	return (1);

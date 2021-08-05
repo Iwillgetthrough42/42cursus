@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <stdio.h>
+//#include <stdio.h>
 
 
 typedef struct 	s_philo_one
@@ -17,6 +17,7 @@ typedef struct 	s_philo_one
 	int  			musteat;
 	int  			hasmusteat;
 	int  			died;
+	int  			count;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
