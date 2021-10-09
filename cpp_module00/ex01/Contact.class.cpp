@@ -23,7 +23,7 @@ Contact::Contact()
 
 void Contact::Add()
 {
-	if (index > 8)
+	if (index >= 8)
 	{
 		std::cout << "more then 8 contacts";
 		return ;
@@ -52,12 +52,9 @@ void Contact::search(int i)
 		std::cout << "index is not valid" << std::endl;
 		return ;
 	}
-	std::cout << std::setw(10) << printable(std::to_string(i));
-	std::cout << " | ";
-	for (int j = 0; j < 3; j++)
+	for (int j = 0; j < 11; j++)
 	{
-		std::cout << std::setw(10) << printable(vars[j][i - 1]);
-		std::cout << " | ";
+		std::cout <<  vars[j][i - 1] << std::endl;
 	}
 	std::cout << std::endl;
 
