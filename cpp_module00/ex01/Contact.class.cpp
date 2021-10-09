@@ -54,7 +54,7 @@ void Contact::search(int i)
 	}
 	for (int j = 0; j < 11; j++)
 	{
-		std::cout <<  vars[j][i - 1] << std::endl;
+		std::cout <<  fields[j] + ": " + vars[j][i - 1] << std::endl;
 	}
 	std::cout << std::endl;
 
