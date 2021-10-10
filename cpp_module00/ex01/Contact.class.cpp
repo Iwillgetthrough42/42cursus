@@ -2,38 +2,35 @@
 #include <iomanip>
 #include "Contact.class.hpp"
 
-std::string Contact::fields[11] = {
-		"name",
-		"last name",
-		"nick name",
-		"login",
-		"postal",
-		"email",
-		"phone number",
-		"birthday",
-		"favorite meal",
-		"underwear color",
-		"darkest secret"
-	};
-
 Contact::Contact()
 {
-	this->index = 0;
+
 }
 
 void Contact::Add()
 {
-	if (index >= 8)
-	{
-		std::cout << "more then 8 contacts";
-		return ;
-	}
-	for (int i = 0; i < 11; i++)
-	{
-		std::cout << "input " + fields[i] + " ";
-		std::getline(std::cin, vars[i][index]);
-	}
-	index++;
+	std::cout << "input name ";
+	std:: getline(std::cin, fields.name);
+	std::cout << "input last name ";
+	std:: getline(std::cin, fields.lastName);
+	std::cout << "input nickname ";
+	std:: getline(std::cin, fields.nickName);
+	std::cout << "input login ";
+	std:: getline(std::cin, fields.login);
+	std::cout << "input postal code ";
+	std:: getline(std::cin, fields.postal);
+	std::cout << "input email ";
+	std:: getline(std::cin, fields.email);
+	std::cout << "input phonenum ";
+	std:: getline(std::cin, fields.phoneNum);
+	std::cout << "input birthday ";
+	std:: getline(std::cin, fields.birthday);
+	std::cout << "input favorite meal ";
+	std:: getline(std::cin, fields.meal);
+	std::cout << "input underwear color ";
+	std:: getline(std::cin, fields.underwCol);
+	std::cout << "input darkest secret ";
+	std:: getline(std::cin, fields.secret);
 }
 
 std::string Contact::printable(std::string str)
@@ -45,55 +42,29 @@ std::string Contact::printable(std::string str)
 	return (str);
 }
 
-void Contact::search(int i)
-{
-	if (i > index || i < 1)
-	{
-		std::cout << "index is not valid" << std::endl;
-		return ;
-	}
-	for (int j = 0; j < 11; j++)
-	{
-		std::cout <<  fields[j] + ": " + vars[j][i - 1] << std::endl;
-	}
-	std::cout << std::endl;
-
-}
-
 void Contact::print()
 {
-	std::cout << std::setw(10) << printable("Number");
+	std::cout << std::setw(10) << printable(fields.name);
 	std::cout << " | ";
-	for (int j = 0; j < 3; j++)
-	{
-		std::cout << std::setw(10) << printable(fields[j]);
-		std::cout << " | ";
-	}
-	std::cout << std::endl;
-	for (int i = 0; i < index; i++)
-	{
-		std::cout << std::setw(10) << printable(std::to_string(i + 1));
-		std::cout << " | ";
-		for (int j = 0; j < 3; j++)
-		{
-			std::cout << std::setw(10) << printable(vars[j][i]);
-			std::cout << " | ";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;
-	int i;
-	std::cout << "input index : ";
-	std::cin >> i;
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-	if (std::cin.fail())
-	{
-		std::cout << "you've entered wrong imput";
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		return ;
-	}
-	search(i);
+	std::cout << std::setw(10) << printable(fields.lastName);
+	std::cout << " | ";
+	std::cout << std::setw(10) << printable(fields.nickName);
+	std::cout << " | " << std::endl;
+}
+
+void Contact::printAll()
+{
+	std::cout << "name: " + fields.name << std::endl;
+	std::cout << "last name: " + fields.lastName << std::endl;
+	std::cout << "nickname: " + fields.nickName << std::endl;
+	std::cout << "login: " + fields.login << std::endl;
+	std::cout << "postal code: " + fields.postal << std::endl;
+	std::cout << "email: " + fields.email << std::endl;
+	std::cout << "phonenum: " + fields.phoneNum << std::endl;
+	std::cout << "birthday: " + fields.birthday << std::endl;
+	std::cout << "favorite meal: " + fields.meal << std::endl;
+	std::cout << "underwear color: " + fields.underwCol << std::endl;
+	std::cout << "darkest secret: " + fields.secret << std::endl;
 }
 
 Contact::~Contact()

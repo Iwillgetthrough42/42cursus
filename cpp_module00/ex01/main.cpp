@@ -1,6 +1,4 @@
-#include <iostream>
-#include <iomanip>
-#include "Contact.class.hpp"
+#include "Phonebook.class.hpp"
 
 std::string	upper(std::string s)
 {
@@ -14,7 +12,7 @@ std::string	upper(std::string s)
 int main()
 {
 	std::string str;
-	Contact contact;
+	Phonebook phonebook;
 
 	std :: cout << "\033[33m WELCOME TO PHONEBOOK" << std::endl;
 	std::cout << "\033[0m" << std::endl;
@@ -23,11 +21,14 @@ int main()
 		std::getline(std::cin, str);
 		str = upper(str);
 		if (str == "ADD")
-			contact.Add();
+			phonebook.fillContact();
 		else if (str == "EXIT")
 			break ;
 		else if (str == "SEARCH")
-			contact.print();
+		{
+			phonebook.printInfo();
+			phonebook.search();
+		}
 		else if (str.length() != 0)
 			std::cout << "TRY AGAIN" << std::endl;
 	}

@@ -1,19 +1,34 @@
 #ifndef CONTACT_CLASS_HPP
 # define CONTACT_CLASS_HPP
 
+#include <string>
+
 class Contact
 {
 	public:
 		Contact(void);
 		~Contact(void);
 		void Add();
+		std::string printable(std::string str);
 		void print();
-		std::string printable(std:: string);
-		void search(int i);
+		void printAll();
+		
 	private:
-		static std::string fields[11];
-		std::string vars[11][8];
-		int index;
+		struct vars
+		{
+			std::string name;
+			std::string lastName;
+			std::string nickName;
+			std::string login;
+			std::string postal;
+			std::string email;
+			std::string phoneNum;
+			std::string birthday;
+			std::string meal;
+			std::string underwCol;
+			std::string secret;
+		};
+		struct vars fields;
 };
 
 #endif
