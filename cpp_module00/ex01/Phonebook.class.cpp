@@ -12,12 +12,7 @@ Phonebook::~Phonebook()
 
 void Phonebook::fillContact()
 {
-	if (index >= 8)
-	{
-		std::cout << "more then 8 contacts" << std::endl;
-		return ;
-	}
-	contacts[index].Add();
+	contacts[index % 8].Add();
 	index++;
 }
 
@@ -34,12 +29,12 @@ void Phonebook::search()
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return ;
 	}
-	if (i > index || i < 1)
+	if (i > index || i > 8 || i < 1)
 	{
 		std::cout << "index is not valid" << std::endl;
 		return ;
 	}
-	contacts[i - 1].printAll();
+	contacts[(i - 1) % 8].printAll();
 }
 
 void Phonebook::printInfo()
@@ -54,8 +49,10 @@ void Phonebook::printInfo()
 	std::cout << " | " << std::endl;
 	for (int i = 0; i < index; i++)
 	{
+		if (i >= 8)
+			return ;
 		std::cout << std::setw(10) << i + 1;
 		std::cout << " | ";
-		contacts[i].print();
+		contacts[i % 8].print();
 	}
 }

@@ -14,18 +14,12 @@ class Contact
 		void printAll();
 		
 	private:
-		struct vars
+		struct vasrs
 		{
 			std::string name;
 			std::string lastName;
 			std::string nickName;
-			std::string login;
-			std::string postal;
-			std::string email;
 			std::string phoneNum;
-			std::string birthday;
-			std::string meal;
-			std::string underwCol;
 			std::string secret;
 		};
 		struct vars fields;
