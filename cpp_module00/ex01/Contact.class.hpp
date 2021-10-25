@@ -14,7 +14,7 @@ class Contact
 		void printAll();
 		
 	private:
-		struct vasrs
+		struct vars
 		{
 			std::string name;
 			std::string lastName;
