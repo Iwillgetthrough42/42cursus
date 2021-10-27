@@ -1,5 +1,23 @@
 #include "Phonebook.class.hpp"
 
+
+void Add(Contact &ob)
+{
+	std::string name, lastName, nickName, phoneNum, secret;
+
+	std::cout << "input name ";
+	std:: getline(std::cin, name);
+	std::cout << "input last name ";
+	std:: getline(std::cin, lastName);
+	std::cout << "input nickname ";
+	std:: getline(std::cin, nickName);
+	std::cout << "input phone number ";
+	std:: getline(std::cin, phoneNum);
+	std::cout << "input darkest secret ";
+	std:: getline(std::cin, secret);
+	ob.setdata(name, lastName, nickName, phoneNum, secret);
+}
+
 std::string	upper(std::string s)
 {
 	for (size_t i = 0; i < s.length(); i++)

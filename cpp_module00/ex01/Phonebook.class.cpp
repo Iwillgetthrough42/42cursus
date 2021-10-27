@@ -1,5 +1,7 @@
 #include "Phonebook.class.hpp"
 
+void Add(Contact &ob);
+
 Phonebook::Phonebook()
 {
 	this->index = 0;
@@ -12,7 +14,7 @@ Phonebook::~Phonebook()
 
 void Phonebook::fillContact()
 {
-	contacts[index % 8].Add();
+	Add(contacts[index % 8]);
 	index++;
 }
 

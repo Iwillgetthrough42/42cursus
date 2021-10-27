@@ -7,18 +7,14 @@ Contact::Contact()
 
 }
 
-void Contact::Add()
+void Contact::setdata(std::string name, std::string lastName, std::string\
+			nickName, std::string phoneNum, std::string secret)
 {
-	std::cout << "input name ";
-	std:: getline(std::cin, fields.name);
-	std::cout << "input last name ";
-	std:: getline(std::cin, fields.lastName);
-	std::cout << "input nickname ";
-	std:: getline(std::cin, fields.nickName);
-	std::cout << "input phone number ";
-	std:: getline(std::cin, fields.phoneNum);
-	std::cout << "input darkest secret ";
-	std:: getline(std::cin, fields.secret);
+	this->fields.name = name;
+	this->fields.lastName = lastName;
+	this->fields.nickName = nickName;
+	this->fields.phoneNum = phoneNum;
+	this->fields.secret = secret;
 }
 
 std::string Contact::printable(std::string str)

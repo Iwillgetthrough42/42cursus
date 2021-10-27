@@ -8,7 +8,8 @@ class Contact
 	public:
 		Contact(void);
 		~Contact(void);
-		void Add();
+		void setdata(std::string name, std::string lastName, std::string\
+					 nickName, std::string phoneNum, std::string secret);
 		std::string printable(std::string str);
 		void print();
 		void printAll();
