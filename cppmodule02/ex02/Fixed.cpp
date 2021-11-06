@@ -104,12 +104,12 @@ Fixed Fixed::operator-(Fixed const &other)
 
 Fixed Fixed::operator*(Fixed const &other)
 {
-	return Fixed((((this->val >> this->frac) * (other.getRawBits() >> this->frac)) << (this->frac * this->frac)));
+	return Fixed(this->toFloat() * other.toFloat());
 }
 
 Fixed Fixed::operator/(Fixed const &other)
 {
-	return (Fixed(this->val / other.getRawBits() * (1 << this->frac)));
+	return (Fixed(this->toFloat() / other.toFloat()));
 }
 
 Fixed &Fixed::operator++()
