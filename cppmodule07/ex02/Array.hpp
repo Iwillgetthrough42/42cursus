@@ -1,0 +1,62 @@
+#ifndef ARRAY_HPP
+# define ARRAY_HPP
+
+#include <exception>
+
+template <typename T>
+
+class Array
+{
+	private:
+		unsigned int length;
+		T *arr;
+	public:
+		Array()
+		{
+			this->length = 0;
+			this->array = new T();
+		}
+		Array(unsigned int n)
+		{
+			this->length = n;
+			this->arr = new T[n];
+
+		}
+		Array(Array &other)
+		{
+			*this = other;
+		}
+		Array &operator=(Array &other)
+		{	
+			T *tmp;
+			if (this == &other)
+				return (*this);
+			this->length = other.getlength();
+			tmp = this->arr;
+			this->arr = new T[this->length];
+			delete [] tmp;
+			for (int i = 0; i < this->length; i++)
+			{
+				this->arr[i] =other[i];
+			}
+			return (*this);
+		}
+		T &operator[](T index)
+		{
+			if (index < 0 || index > this->length)
+				throw std::exception();
+			return (this->arr[index]);
+
+		}
+		unsigned int size() const
+		{
+			return (this->length);
+		}
+
+		unsigned int getlength() const
+		{
+			return (this->length);
+		}
+};
+
+#endif
