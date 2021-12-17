@@ -26,7 +26,9 @@ If you have questions - iwillgetthrough42@gmail.com
 -------------|------------
 |8.philosophers |  In this project, you will learn the basics of threading a process. You willlearn how to make threads. You will discover the mutex.
 ----------------|----------
-9.minishell | The objective of this project is for you to create a simple shell. Yes, yourlittle bash or zsh. You will learn a lot about processes and file descriptors.
+|9.minishell | The objective of this project is for you to create a simple shell. Yes, yourlittle bash or zsh. You will learn a lot about processes and file descriptors.
+--------------------------
+|10.netpractice | NetPractice is a general practical exercise to let you discover networking.
 ------------|-------
 cppmodules(0-8)| OOP in c++
 ----------------------------
