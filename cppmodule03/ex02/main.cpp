@@ -3,9 +3,10 @@
 int main()
 {
 	FragTrap frag("lol");
-	frag.attack("coucou");
-	frag.takeDamage(3);
-	frag.beRepaired(2);
-	frag.highFivesGuys();
+	FragTrap fr(frag);
+	fr.attack("coucou");
+	fr.takeDamage(3);
+	fr.beRepaired(2);
+	fr.highFivesGuys();
 	
 }

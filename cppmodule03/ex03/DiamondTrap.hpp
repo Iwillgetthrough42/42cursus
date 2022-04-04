@@ -11,6 +11,9 @@ class DiamondTrap : public FragTrap, public ScavTrap
 	public:
 		DiamondTrap(std::string name);
 		~DiamondTrap();
+		DiamondTrap();
+		DiamondTrap(DiamondTrap const &other);
+		DiamondTrap& operator=(DiamondTrap const &other);
 		void whoami();
 		void attack(std::string const &attack);
 };
