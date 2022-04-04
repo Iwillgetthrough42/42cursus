@@ -18,6 +18,7 @@ ScavTrap::ScavTrap()
 
 ScavTrap::ScavTrap(ScavTrap const &other)
 {
+	std::cout << "ScavTrap copy constructor called " << std::endl;
 	*this = other;
 }
 
@@ -25,10 +26,10 @@ ScavTrap& ScavTrap::operator=(ScavTrap const &other)
 {
 	if (this == &other)
 		return (*this);
-	this->name = other.getName();
-	this->hitPoints = other.getHitPoints();
-	this->energyPoints = other.getEnergyPoints();
-	this->attackDamage = other.getAttackDamage();
+	this->name = other.name;
+	this->hitPoints = other.hitPoints;
+	this->energyPoints = other.energyPoints;
+	this->attackDamage = other.attackDamage;
 	return (*this);
 }
 
