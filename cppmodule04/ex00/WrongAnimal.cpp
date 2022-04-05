@@ -1,14 +1,31 @@
 #include "WrongAnimal.hpp"
 
-WrongAnimal::WrongAnimal()
+WrongAnimal::WrongAnimal(std::string type)
 {
-	this->type = "Animal";
-	std::cout << "Animal Constructor" << std::endl;
+	this->type = type;
+	std::cout << "WrongAnimal Constructor" << std::endl;
 }
 
 WrongAnimal::~WrongAnimal()
 {
-	std::cout << "Animal Destructor" << std::endl;
+	std::cout << "WrongAnimal Destructor" << std::endl;
+}
+
+WrongAnimal::WrongAnimal()
+{
+	std::cout << "WrongAnimal default constructor" << std::endl;
+}
+
+WrongAnimal::WrongAnimal(WrongAnimal const &other)
+{
+	std::cout << "WrongAnimal copy constructor" << std::endl;
+	*this = other;
+}
+
+WrongAnimal &WrongAnimal::operator=(WrongAnimal const &other)
+{
+	this->type = other.type;
+	return (*this);
 }
 
 void WrongAnimal::makeSound() const

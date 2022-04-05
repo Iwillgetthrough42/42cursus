@@ -1,17 +1,29 @@
 #include "WrongCat.hpp"
 
-WrongCat::WrongCat()
+WrongCat::WrongCat() : WrongAnimal("WrongCat")
 {
-	this->type = "cat";
 	std::cout << "Constructor cat" << std::endl;
 }
 
 WrongCat::~WrongCat()
 {
-	std::cout << "Cat destructor" << std::endl;
+	std::cout << "WrongCat destructor" << std::endl;
 }
 
 void WrongCat::makeSound() const
 {
-	std::cout << "cat's sound" << std::endl;
+	std::cout << "Wrong cat's sound" << std::endl;
+}
+
+WrongCat::WrongCat(WrongCat const &other) : WrongAnimal("WrongCat")
+{
+	std::cout << "WrongCat copy constructor" << std::endl;
+	*this = other;
+}
+
+WrongCat &WrongCat::operator=(WrongCat const &other)
+{
+	
+	this->type = other.type;
+	return (*this);
 }

@@ -1,14 +1,33 @@
 #include "Animal.hpp"
 
+Animal::Animal(std::string type)
+{
+	this->type = type;
+	std::cout << "Animal Constructor" << std::endl;
+}
+
 Animal::Animal()
 {
-	this->type = "Animal";
-	std::cout << "Animal Constructor" << std::endl;
+	std::cout << "Animal default constructor" << std::endl;
+	this->type = "";
 }
 
 Animal::~Animal()
 {
 	std::cout << "Animal Destructor" << std::endl;
+}
+
+Animal::Animal(Animal const &other)
+{
+	std::cout << "Animal copy constructor" << std::endl;
+	*this = other;
+}
+
+Animal& Animal::operator=(Animal const &other)
+{
+	
+	this->type = other.type;
+	return (*this);
 }
 
 void Animal::makeSound() const
@@ -19,17 +38,4 @@ void Animal::makeSound() const
 std::string Animal::getType() const
 {
 	return (this->type);
-}
-
-Animal::Animal(Animal const &other)
-{
-	*this = other;
-	std::cout << "Copy constructor Animal" << std::endl;
-}
-
-Animal &Animal::operator=(Animal const &other)
-{
-	this->type = other.type;
-	return (*this);
-	std::cout << "Animal assignment operator" << std::endl;
 }

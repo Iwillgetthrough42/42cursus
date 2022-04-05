@@ -7,4 +7,6 @@ int main()
 	std::cout << i->getType() << " " << std::endl;
 	i->makeSound(); //will not output the cat sound!
 	meta->makeSound();
+	delete meta;
+	delete i;
 }
