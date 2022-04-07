@@ -3,7 +3,7 @@
 
 int main()
 {
-	const Animal* j = new Dog();
+	const Animal *j = new Dog();
 	const Animal* i = new Cat();
 	Dog shpic;
 	shpic.getBrain().addIdea("eat a cat");

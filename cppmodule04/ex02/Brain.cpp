@@ -2,13 +2,14 @@
 
 Brain::Brain()
 {
+	std::cout << "Brain default constructos" << std::endl;
 	for (int i = 0; i < 100; i++)
 		this->ideas[i] = "";
 }
 
 Brain::~Brain()
 {
-
+	std::cout << "Brain destructor" << std::endl;
 }
 
 Brain::Brain(Brain const &other)
