@@ -11,6 +11,7 @@ class RobotomyRequestForm : public Form
 		std::string target;
 	public:
 		RobotomyRequestForm();
+		~RobotomyRequestForm();
 		RobotomyRequestForm(std::string target);
 		RobotomyRequestForm(RobotomyRequestForm &other);
 		RobotomyRequestForm &operator=(RobotomyRequestForm &other);

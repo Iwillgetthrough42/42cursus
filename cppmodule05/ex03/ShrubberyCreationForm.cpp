@@ -1,7 +1,13 @@
 #include "ShrubberyCreationForm.hpp"
 #include <fstream>
+#include <iostream>
 
 ShrubberyCreationForm::ShrubberyCreationForm() : target(""), Form("ShrubberyCreationForm", 145, 137)\
+{
+
+}
+
+ShrubberyCreationForm::~ShrubberyCreationForm()
 {
 
 }

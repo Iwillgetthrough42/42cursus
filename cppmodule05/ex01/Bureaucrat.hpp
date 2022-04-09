@@ -1,19 +1,19 @@
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
+#include "Form.hpp"
 #include <iostream>
 #include <string>
-
-class Form;
 
 class Bureaucrat
 {
 	private:
-		std::string const name;
+		std::string name;
 		int grade;
 	public:
 		Bureaucrat(std::string name, int grade);
 		Bureaucrat();
+		~Bureaucrat();
 		Bureaucrat(Bureaucrat const &other);
 		Bureaucrat &operator=(Bureaucrat const &other);
 		class GradeTooHighException : public std::exception

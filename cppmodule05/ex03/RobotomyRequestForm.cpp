@@ -1,6 +1,12 @@
 #include "RobotomyRequestForm.hpp"
+#include <iostream>
 
 RobotomyRequestForm::RobotomyRequestForm() : Form("RobotomyRequestForm", 72, 45),  target("")
+{
+
+}
+
+RobotomyRequestForm::~RobotomyRequestForm()
 {
 
 }
@@ -34,6 +40,8 @@ void RobotomyRequestForm::action()
 	if (rand())
 		std::cout << "dskdlsdlsdklkdld " << this->target << \
 	" has been robotomized succesfuly " << std::endl;
+	else
+		std::cout << "robotomy failed " << std::endl;
 }
 
 void RobotomyRequestForm::setTarget(std::string const target)

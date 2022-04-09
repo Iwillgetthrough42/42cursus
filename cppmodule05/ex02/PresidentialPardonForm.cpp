@@ -1,6 +1,12 @@
 #include "PresidentialPardonForm.hpp"
+#include <iostream>
 
 PresidentialPardonForm::PresidentialPardonForm() : target(target), Form("PresidentialPardonForm", 25, 5)
+{
+
+}
+
+PresidentialPardonForm::~PresidentialPardonForm()
 {
 
 }
@@ -19,6 +25,7 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &other) : 
 PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm &other)
 {
 	this->target = other.getTarget();
+	return (*this);
 }
 
 std::string PresidentialPardonForm::getTarget() const

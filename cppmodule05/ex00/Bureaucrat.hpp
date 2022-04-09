@@ -12,6 +12,7 @@ class Bureaucrat
 	public:
 		Bureaucrat(std::string name, int grade);
 		Bureaucrat();
+		~Bureaucrat();
 		Bureaucrat(Bureaucrat const &other);
 		Bureaucrat &operator=(Bureaucrat const &other);
 		class GradeTooHighException : public std::exception

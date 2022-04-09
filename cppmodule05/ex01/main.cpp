@@ -6,7 +6,7 @@ int main()
 	try
 	{
 		Bureaucrat b("ben", 70);
-		Form f("f1", false, 75, 140);
+		Form f("f1", 75, 140);
 		std::cout << f << std::endl;
 		b.signForm(f);
 	}

@@ -6,8 +6,13 @@ Form::Form():name(" "), isSigned(false), signRequired(150), execRequired(150)
 
 }
 
-Form::Form(std::string name, bool isSigned,\
-int const signRequired, int const execRequired) : name(name),isSigned(isSigned),\
+Form::~Form()
+{
+
+}
+
+Form::Form(std::string name, \
+int const signRequired, int const execRequired) : name(name),isSigned(false),\
 signRequired(signRequired), execRequired(execRequired)
 {
 	if (this->signRequired > 150 || this->execRequired > 150)
@@ -37,6 +42,12 @@ std::string const Form::getName() const
 	return (this->name);
 }
 
+Form &Form::operator=(Form const &other)
+{
+	this->isSigned = other.isSigned;
+	return (*this);
+}
+
 bool Form::getIsSigned() const
 {
 	return (this->isSigned);
@@ -61,7 +72,7 @@ void Form::beSigned(Bureaucrat &b)
 
 std::ostream &operator<<(std::ostream &o, Form const &other)
 {
-	o << " Form " << other.getName() << " Signed " << other.getIsSigned() <<\
+	o << " Form " << other.getName() << 
 	" required grade to sign " << other.getSignRequired() << \
 	" required grade to exec " << other.getExecRequired();
 	return (o);

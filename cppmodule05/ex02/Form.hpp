@@ -2,8 +2,6 @@
 # define FORM_HPP
 
 #include <string>
-#include <iostream>
-#include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
@@ -16,8 +14,8 @@ class Form
 		int const execRequired;
 	public:
 		Form();
-		Form(std::string name,\
-		int const signRequired, int const execRequired);
+		~Form();
+		Form(std::string name, int const signRequired, int const execRequired);
 		Form(Form const &other);
 		class GradeTooHighException : public std::exception
 		{
@@ -36,7 +34,7 @@ class Form
 		int const getExecRequired() const;
 		void beSigned(Bureaucrat &b);
 		void execute(Bureaucrat const & executor);
-		void virtual action() = 0;
+		void virtual action() = 0;		
 };
 
 std::ostream &operator<<(std::ostream &o, Form const &other);
