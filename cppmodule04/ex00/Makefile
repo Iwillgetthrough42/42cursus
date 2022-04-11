@@ -18,10 +18,10 @@ WRONGOBJS = ${WRONGSRCS:.cpp=.o}
 all:${NAME}
 
 ${NAME}:	${OBJS}
-		g++ -Wall -Wextra -Werror -o ${NAME} ${OBJS}
+		c++ -Wall -Wextra -Werror -o ${NAME} ${OBJS}
 
 ${WRONG}:	${WRONGOBJS}
-		g++ -Wall -Wextra -Werror -o ${WRONG} ${WRONGOBJS}
+		c++ -Wall -Wextra -Werror -o ${WRONG} ${WRONGOBJS}
 
 clean:
 	rm -f ${OBJS}
