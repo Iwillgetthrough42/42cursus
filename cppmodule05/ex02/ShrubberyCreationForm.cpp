@@ -48,16 +48,7 @@ void ShrubberyCreationForm::action()
 		std::cout << "something went wrong" << std::endl;
 		return ;
 	}
-	std::string str[5] =	{"lllllll",
-							  "llll",
-							  	"ll",
-							  	 "ll"
-							  	 "l"};
-	for (int i = 0; i < 5; i++)
-	{
-		f << str[i];
-		f << '\n';
-	}
+	f << ASCII_TREE;
 	f.close();
 	std::cout << "file created" << std::endl;	
 }
