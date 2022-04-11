@@ -14,7 +14,7 @@ class Form
 		int const execRequired;
 	public:
 		Form();
-		~Form();
+		virtual ~Form();
 		Form(std::string name, int const signRequired, int const execRequired);
 		Form(Form const &other);
 		class GradeTooHighException : public std::exception
