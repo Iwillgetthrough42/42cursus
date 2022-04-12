@@ -1,106 +1,112 @@
 #include <iostream>
+#include <sstream>
+#include <limits>
 
-int ischar(std::string str)
+template <typename T, typename V>
+
+int detectoverflow(V value)
 {
-	if (str.length() == 1 && std::isprint(str[0]))
+	if (!(value >= std::numeric_limits<T>::lowest() && value <= std::numeric_limits<T>::max()))
+	{
 		return (1);
+	}
 	return (0);
 }
+
+
 
 int isnan(std::string str)
 {
-	if (str == "inf" || str == "-inf" ||\
-		str == "+inf" || str == "inff" ||\
-		str == "+inff" || str == "-inff" ||\
-		str == "nan" || str == "nanf")
+	if (str == "inf" || str == "-inf" ||
+		str == "+inf" || str == "nan")
+	{
+		std::cout << "Char:Impossible" << std::endl;
+		std::cout << "Int:Impossible" << std::endl;
+		std::cout << "Double:" << str << std::endl;
+		std::cout << "Float:" << str << "f" << std::endl;
 		return (1);
+	}
+	else if (str == "inff" || str == "+inff" ||
+			 str == "-inff" || str == "nanf")
+	{
+		std::cout << "Char:Impossible" << std::endl;
+		std::cout << "Int:Impossible" << std::endl;
+		std::cout << "Double:" << str.substr(0, 3) << std::endl;
+		std::cout << "Float:" << str << std::endl;
+		return (1);
+	}
 	return (0);
 }
 
-void tochar(std::string str)
+void tochar(double d)
 {
 	char c;
-
-	if (ischar(str))
+	if (detectoverflow<char, double>(d))
+		std::cout << "char: Impossible " << std::endl;
+	else
 	{
-		std::cout << "Char:" << str << std::endl;
-		return ;
-	}
-	try
-	{
-		c = static_cast<char>(std::stod(str));
+		c = static_cast<char>(d);
 		if (c > 31 && c < 127)
-			std::cout <<"Char:" << c <<std::endl;
-		else
-			std::cout << "non printable" << std::endl;
-
-	}
-	catch(std::exception &e)
-	{
-		std::cout << "Char: impossible" << std::endl;
+				std::cout << "Char:" << c << std::endl;
+			else
+				std::cout << "Char: non printable" << std::endl;
 	}
 }
 
-void toint(std::string str)
+void toint(double d)
 {
 	int i;
-
-	if (ischar(str))
+	if (detectoverflow<int, double>(d))
+		std::cout << "int: Impossible " << std::endl;
+	else
 	{
-		std::cout << "Int:" << static_cast<int>(str[0]) << std::endl;
-		return ;
-	}
-	try
-	{
-		i = static_cast<int>(std::stod(str));
+		i = static_cast<int>(d);
 		std::cout << "Int:" << i << std::endl;
 	}
-	catch(std::exception &e)
-	{
-		std::cout << "Int: impossible" << std::endl;
-	}
 }
 
-void todouble(std::string str)
+void todouble(double d)
 {
-	double d;
+	double dd;
 
-	if (ischar(str))
+	if (detectoverflow<double, double>(d))
+		std::cout << "double: Impossible " << std::endl;
+	else
 	{
-		std::cout << "Double:" << static_cast<double>(str[0]) << std::endl;
-		return ;
-	}
-	try
-	{
-		d = std::stod(str);
-		std::cout << "Double:" << d << std::endl;
-	}
-	catch(std::exception &e)
-	{
-		std::cout << "Double: impossible" << std::endl;
+		dd = static_cast<double>(d);
+		std::cout << "Double:" << dd << std::endl;
 	}
 }
 
-
-void tofloat(std::string str)
+void tofloat(double d)
 {
 	float f;
 
-	if (ischar(str))
+	if (detectoverflow<float, double>(d))
+		std::cout << "float: Impossible " << std::endl;
+	else
 	{
-		std::cout << "Float:" << static_cast<float>(str[0]) \
-		<< "f" << std::endl;
-		return ;
+		f = static_cast<float>(d);
+		std::cout << "float:" << f << "f" << std::endl;
 	}
-	try
+}
+
+int isnumber(char *str)
+{
+	int i;
+
+	std::string st = std::string(str);
+	i = 0;
+	while (str[i] != '\0')
 	{
-		f = std::stof(str);
-		std::cout << "Float:" << f << "f" << std::endl;
+		if (!(str[i] >= '0' && str[i] <= '9') && !(i == 0 && str[0] == '-') \
+			&& !(i != 0 && i != st.length() - 1 && str[i] == '.'))
+		{
+			return (0);
+		}
+		i++;
 	}
-	catch(std::exception &e)
-	{
-		std::cout << "Float: Impossible" << std::endl;
-	}
+	return (1);
 }
 
 int main(int argc, char **argv)
@@ -110,19 +116,25 @@ int main(int argc, char **argv)
 		std::cout << "wrong number of arguments" << std::endl;
 		return (1);
 	}
+	if (!(isnumber(argv[1])))
+	{
+		std::cout << "invalid input" << std::endl;
+		return (0);
+	}
+	double d;
+	std::stringstream ss;
+	ss << argv[1];
+	ss >> d;
 	if (isnan(argv[1]))
 	{
-		std::cout << "Char:Impossible" << std::endl;
-		std::cout << "Int:Impossible" << std::endl;
-		std::cout << "Double:" << std::stod(argv[1]) << std::endl;
-		std::cout << "Float:" << std::stof(argv[1]) << "f" << std::endl;
+		;
 	}
 	else
 	{
-		tochar(argv[1]);
-		toint(argv[1]);
-		todouble(argv[1]);
-		tofloat(argv[1]);
+		tochar(d);
+		toint(d);
+		todouble(d);
+		tofloat(d);
 	}
 	return (0);
 }
