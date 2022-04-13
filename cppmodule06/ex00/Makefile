@@ -4,6 +4,9 @@ SRCS = 	main.cpp \
 
 OBJS = ${SRCS:.cpp=.o}
 
+.cpp.o:
+		c++ -Wall -Wextra -Werror -std=c++98 -c $< -o $(<:.cpp=.o)
+
 all: ${NAME}
 
 ${NAME}: 	$(OBJS)

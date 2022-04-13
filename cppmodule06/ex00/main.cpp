@@ -6,7 +6,9 @@ template <typename T, typename V>
 
 int detectoverflow(V value)
 {
-	if (!(value >= std::numeric_limits<T>::lowest() && value <= std::numeric_limits<T>::max()))
+	T t;
+	t = static_cast<T>(value);
+	if (static_cast<V>(t) != value)
 	{
 		return (1);
 	}
@@ -41,7 +43,7 @@ int isnan(std::string str)
 void tochar(double d)
 {
 	char c;
-	if (detectoverflow<char, double>(d))
+	if (!(d >= std::numeric_limits<char>::min() && d <= std::numeric_limits<char>::max()))
 		std::cout << "char: Impossible " << std::endl;
 	else
 	{
@@ -56,7 +58,7 @@ void tochar(double d)
 void toint(double d)
 {
 	int i;
-	if (detectoverflow<int, double>(d))
+	if (!(d >= std::numeric_limits<int>::min() && d <= std::numeric_limits<int>::max()))
 		std::cout << "int: Impossible " << std::endl;
 	else
 	{
@@ -67,15 +69,7 @@ void toint(double d)
 
 void todouble(double d)
 {
-	double dd;
-
-	if (detectoverflow<double, double>(d))
-		std::cout << "double: Impossible " << std::endl;
-	else
-	{
-		dd = static_cast<double>(d);
-		std::cout << "Double:" << dd << std::endl;
-	}
+		std::cout << "Double:" << d << std::endl;
 }
 
 void tofloat(double d)
@@ -100,7 +94,7 @@ int isnumber(char *str)
 	while (str[i] != '\0')
 	{
 		if (!(str[i] >= '0' && str[i] <= '9') && !(i == 0 && str[0] == '-') \
-			&& !(i != 0 && i != st.length() - 1 && str[i] == '.'))
+			&& !(i != 0 && i != (int)st.length() - 1 && str[i] == '.'))
 		{
 			return (0);
 		}
@@ -125,6 +119,14 @@ int main(int argc, char **argv)
 	std::stringstream ss;
 	ss << argv[1];
 	ss >> d;
+	if (ss.fail())
+	{
+		std::cout << "Double: impossible" << std::endl;
+		std::cout << "Float impossible" << std::endl;
+		std::cout << "Char impossible" << std::endl;
+		std::cout << "Int: impossible" << std::endl;
+		return (0);
+	}
 	if (isnan(argv[1]))
 	{
 		;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "data.hpp"
+#include <stdint.h>
 
 Data* deserialize(uintptr_t raw)
 {
