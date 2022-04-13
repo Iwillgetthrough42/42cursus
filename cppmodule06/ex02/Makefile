@@ -11,7 +11,7 @@ OBJS = ${SRCS:.cpp=.o}
 all: ${NAME}
 
 ${NAME}: 	$(OBJS)
-			g++ -Wall -Wextra -Werror -o ${NAME} ${OBJS}
+			c++ -Wall -Wextra -Werror -std=c++98 -o ${NAME} ${OBJS}
 
 clean:
 			rm -f $(OBJS)
