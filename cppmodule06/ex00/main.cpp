@@ -2,21 +2,6 @@
 #include <sstream>
 #include <limits>
 
-template <typename T, typename V>
-
-int detectoverflow(V value)
-{
-	T t;
-	t = static_cast<T>(value);
-	if (static_cast<V>(t) != value)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-
-
 int isnan(std::string str)
 {
 	if (str == "inf" || str == "-inf" ||
