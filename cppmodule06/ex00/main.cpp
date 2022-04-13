@@ -72,15 +72,17 @@ void todouble(double d)
 		std::cout << "Double:" << d << std::endl;
 }
 
-void tofloat(double d)
+void tofloat(char *str)
 {
 	float f;
+	std::stringstream s;
 
-	if (detectoverflow<float, double>(d))
+	s << str;
+	s >> f;
+	if (s.fail())
 		std::cout << "float: Impossible " << std::endl;
 	else
 	{
-		f = static_cast<float>(d);
 		std::cout << "float:" << f << "f" << std::endl;
 	}
 }
@@ -136,7 +138,7 @@ int main(int argc, char **argv)
 		tochar(d);
 		toint(d);
 		todouble(d);
-		tofloat(d);
+		tofloat(argv[1]);
 	}
 	return (0);
 }
