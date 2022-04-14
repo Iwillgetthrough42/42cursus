@@ -97,7 +97,11 @@ int main(int argc, char **argv)
 		std::cout << "wrong number of arguments" << std::endl;
 		return (1);
 	}
-	if (!(isnumber(argv[1])))
+	if (isnan(argv[1]))
+	{
+		return (0);
+	}
+	else if (!(isnumber(argv[1])))
 	{
 		std::cout << "invalid input" << std::endl;
 		return (0);
@@ -113,10 +117,6 @@ int main(int argc, char **argv)
 		std::cout << "Char impossible" << std::endl;
 		std::cout << "Int: impossible" << std::endl;
 		return (0);
-	}
-	if (isnan(argv[1]))
-	{
-		;
 	}
 	else
 	{
