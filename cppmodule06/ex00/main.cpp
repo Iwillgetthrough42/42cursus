@@ -81,7 +81,7 @@ int isnumber(char *str)
 	while (str[i] != '\0')
 	{
 		if (!(str[i] >= '0' && str[i] <= '9') && !(i == 0 && str[0] == '-') \
-			&& !(i != 0 && i != (int)st.length() - 1 && str[i] == '.'))
+			&& !(i != 0 && i != (int)st.length() - 1 && str[i] == '.') && !(str[st.length() - 1] == 'f'))
 		{
 			return (0);
 		}
