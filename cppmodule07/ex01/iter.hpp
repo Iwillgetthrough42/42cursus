@@ -3,7 +3,7 @@
 
 template <typename T>
 
-void iter(T *arr, T length, void (*func)(T num))
+void iter(T *arr, int length, void func(const T &))
 {
 	for (int i = 0; i < length; i++)
 	{

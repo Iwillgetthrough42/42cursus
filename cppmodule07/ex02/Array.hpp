@@ -2,6 +2,7 @@
 # define ARRAY_HPP
 
 #include <exception>
+#include <stdexcept>
 
 template <typename T>
 
@@ -14,7 +15,11 @@ class Array
 		Array()
 		{
 			this->length = 0;
-			this->array = new T();
+			this->arr = new T();
+		}
+		~Array()
+		{
+			delete[] this->arr;
 		}
 		Array(unsigned int n)
 		{
@@ -41,19 +46,14 @@ class Array
 			}
 			return (*this);
 		}
-		T &operator[](T index)
+		T &operator[](unsigned int index)
 		{
-			if (index < 0 || index > this->length)
-				throw std::exception();
+			if (index > this->length)
+				throw std::out_of_range("index out of range");
 			return (this->arr[index]);
 
 		}
 		unsigned int size() const
-		{
-			return (this->length);
-		}
-
-		unsigned int getlength() const
 		{
 			return (this->length);
 		}

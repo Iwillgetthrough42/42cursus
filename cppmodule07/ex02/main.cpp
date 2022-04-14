@@ -6,11 +6,11 @@ int main()
 	try
 	{
 		Array<int> intarray(10);
-		for (int i = 0; i < intarray.getlength(); i++)
+		for (int i = 0; i < 10; i++)
 		{
 			intarray[i] = i;
 		}
-		for (int i = 0; i < intarray.getlength(); i++)
+		for (int i = 0; i < 10; i++)
 		{
 			std::cout << intarray[i] << std::endl;
 		}
