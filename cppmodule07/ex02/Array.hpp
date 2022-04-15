@@ -24,7 +24,7 @@ class Array
 		Array(unsigned int n)
 		{
 			this->length = n;
-			this->arr = new T[n];
+			this->arr = new T[n]();
 
 		}
 		Array(Array &other)
