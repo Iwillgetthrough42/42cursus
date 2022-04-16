@@ -6,6 +6,8 @@
 42 cursus has two groups of projects, the first is inner circle, where projects  mainly in C and the second is outer circle
 the inner circle is the basic curriculum
 the outer circle allows students to . specialize whatever subject they prefer.
+
+
 ![image](https://user-images.githubusercontent.com/77893589/163683095-6c120b63-df37-4d7c-9e60-b3b0eb67e8cb.png)
 
 
