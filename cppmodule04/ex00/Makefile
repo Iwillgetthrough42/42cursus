@@ -15,13 +15,16 @@ OBJS = ${SRCS:.cpp=.o}
 
 WRONGOBJS = ${WRONGSRCS:.cpp=.o}
 
+.cpp.o:
+		c++ -Wall -Wextra -Werror -std=c++98 -c $< -o $(<:.cpp=.o)
+
 all:${NAME}
 
 ${NAME}:	${OBJS}
-		c++ -Wall -Wextra -Werror -o ${NAME} ${OBJS}
+		c++ -Wall -Wextra -Werror -std=c++98 -o ${NAME} ${OBJS}
 
 ${WRONG}:	${WRONGOBJS}
-		c++ -Wall -Wextra -Werror -o ${WRONG} ${WRONGOBJS}
+		c++ -Wall -Wextra -Werror -std=c++98 -o ${WRONG} ${WRONGOBJS}
 
 clean:
 	rm -f ${OBJS}
