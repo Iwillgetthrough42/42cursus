@@ -30,8 +30,8 @@ class Form
 		Form &operator=(Form const &other);
 		std::string const  getName() const;
 		bool getIsSigned() const;
-		int const getSignRequired() const;
-		int const getExecRequired() const;
+		int getSignRequired() const;
+		int	getExecRequired() const;
 		void beSigned(Bureaucrat &b);
 		void execute(Bureaucrat const & executor);
 		void virtual action() = 0;		

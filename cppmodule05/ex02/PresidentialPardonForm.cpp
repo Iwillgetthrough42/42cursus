@@ -1,7 +1,7 @@
 #include "PresidentialPardonForm.hpp"
 #include <iostream>
 
-PresidentialPardonForm::PresidentialPardonForm() : target(""), Form("PresidentialPardonForm", 25, 5)
+PresidentialPardonForm::PresidentialPardonForm() : Form("PresidentialPardonForm", 25, 5), target("")
 {
 
 }
@@ -11,13 +11,13 @@ PresidentialPardonForm::~PresidentialPardonForm()
 
 }
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target) : target(target), \
-Form("PresidentialPardonForm", 25, 5)
+PresidentialPardonForm::PresidentialPardonForm(std::string target) :  \
+Form("PresidentialPardonForm", 25, 5), target(target)
 {
 
 }
 
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &other) : target(other.getTarget())
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &other) : Form(other), target(other.getTarget())
 {
 
 }

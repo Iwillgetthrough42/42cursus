@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-ShrubberyCreationForm::ShrubberyCreationForm() : target(""), Form("ShrubberyCreationForm", 145, 137)\
+ShrubberyCreationForm::ShrubberyCreationForm() : Form("ShrubberyCreationForm", 145, 137),  target("")\
 {
 
 }
@@ -18,7 +18,7 @@ Form("ShrubberyCreationForm", 145, 137), target(target)
 	
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &other) : \
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &other) : Form(other), \
 target(other.getTarget())
 {
 
@@ -42,7 +42,7 @@ void ShrubberyCreationForm::setTarget(std::string const target)
 
 void ShrubberyCreationForm::action()
 {
-	std::ofstream f(this->target, std::ofstream::out);
+	std::ofstream f(this->target.c_str(), std::ofstream::out);
 	if (!f.is_open())
 	{
 		std::cout << "something went wrong" << std::endl;

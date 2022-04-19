@@ -20,6 +20,7 @@ Intern::Intern(Intern const &other)
 
 Intern &Intern::operator=(Intern const &other)
 {
+	(void) other;
 	return (*this);	
 }
 

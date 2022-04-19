@@ -53,12 +53,12 @@ bool Form::getIsSigned() const
 	return (this->isSigned);
 }
 
-int const Form::getSignRequired() const
+int Form::getSignRequired() const
 {
 	return (this->signRequired);
 }
 
-int const Form::getExecRequired() const
+int Form::getExecRequired() const
 {
 	return (this->execRequired);
 }

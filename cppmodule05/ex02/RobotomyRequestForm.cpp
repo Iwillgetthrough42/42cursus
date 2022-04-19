@@ -1,5 +1,6 @@
 #include "RobotomyRequestForm.hpp"
 #include <iostream>
+#include <cstdlib>
 
 RobotomyRequestForm::RobotomyRequestForm() : Form("RobotomyRequestForm", 72, 45),  target("")
 {
@@ -17,7 +18,7 @@ Form("RobotomyRequestForm", 72, 45), target(target)
 
 }
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other)
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other) : Form(other)
 {
 	*this = other;
 }
