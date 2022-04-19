@@ -8,7 +8,7 @@ the inner circle is the basic curriculum
 the outer circle allows students to . specialize whatever subject they prefer.
 
 
-![image](https://user-images.githubusercontent.com/77893589/163683095-6c120b63-df37-4d7c-9e60-b3b0eb67e8cb.png)
+![image](https://user-images.githubusercontent.com/77893589/164014567-acf9c7b4-ede7-411f-ba8b-578d9c4b792e.png)
 
 
 **if you don't like my skills, just close the window.**
