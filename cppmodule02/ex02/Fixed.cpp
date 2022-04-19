@@ -120,6 +120,7 @@ Fixed &Fixed::operator++()
 
 Fixed Fixed::operator++(int num)
 {
+	(void)num;
 	Fixed tmp(*this);
 	this->val = this->val + 1;
 	return (tmp);
@@ -133,6 +134,7 @@ Fixed &Fixed::operator--()
 
 Fixed Fixed::operator--(int num)
 {
+	(void) num;
 	Fixed tmp(*this);
 	this->val -= 1;
 	return (tmp);
