@@ -36,4 +36,6 @@ the outer circle allows students to . specialize whatever subject they prefer.
 |10.netpractice | NetPractice is a general practical exercise to let you discover networking.
 ------------|-------
 cppmodules(0-8)| OOP in c++
-----------------------------
+-------------|---------------
+|Inception | This project aims to broaden your knowledge of system administration by using Docker. You will virtualize several Docker images, creating them in your new personal virtual machine.
+-----------------------
