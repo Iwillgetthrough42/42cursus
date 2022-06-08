@@ -24,8 +24,6 @@ the outer circle allows students to . specialize whatever subject they prefer.
 |4. ft_server | This is a System Administration subject. You will discover Docker and youwill set up your first web server.
 -------------|------------------
 |5. minitalk | The purpose of this project is to code a small data exchange program usingUNIX signals.
--------------|--------
-|6. CUB3D | This project is inspired by the world-famous Wolfenstein 3D game, whichwas the first FPS ever. It will enable you to explore ray-casting. Your goal will be tomake a dynamic view inside a maze, in which you’ll have to find your way.
 ----------|--------------
 |7.push_swap | This project will make you sort data on a stack, with a limited set of instructions, usingthe lowest possible number of actions. To succeed you’ll have to manipulate varioustypes of algorithms and choose the one (of many) most appropriate solution for anoptimized data sorting.
 -------------|------------
