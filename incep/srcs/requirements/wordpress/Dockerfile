@@ -6,6 +6,7 @@ ADD https://wordpress.org/wordpress-5.9.3.tar.gz /var/www/
 RUN cd /var/www && tar -xzvf wordpress-5.9.3.tar.gz
 RUN rm -f /var/www/wordpress-5.9.3.tar.gz
 RUN rm -f /var/www/wordpress/wp-config-sample.php
-COPY ./conf/wp-config.php /var/www/wordpress/
-RUN mkdir ./run/php/
+COPY ./conf/wp-config.php .
+COPY ./tools/script.sh .
+ENTRYPOINT ["bash", "script.sh"]
 CMD ./usr/sbin/php-fpm7.3 -F
