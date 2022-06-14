@@ -3,7 +3,7 @@ version: "3.8"
 services:
   wordpress:
     build: ./requirements/wordpress
-    container_name: worpress_debian
+    container_name: wordpress_debian
     volumes:
       - wordpress:/var/www/
     networks:
