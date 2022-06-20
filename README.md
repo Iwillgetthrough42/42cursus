@@ -10,10 +10,6 @@ the outer circle allows students to . specialize whatever subject they prefer.
 
 ![image](https://user-images.githubusercontent.com/77893589/170834024-d0bca643-1ff0-4f76-bd8f-c638980e1efb.png)
 
-
-
-**if you don't like my skills, just close the window.**
-
 -----------------------
 |1. Libft |This project is your very first project as a student at 42. You will need to recode a few functions of the C standard library as well as some other utility functions that you will use during your whole cursus.|
 ----------|---------------------
