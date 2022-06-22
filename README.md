@@ -7,8 +7,7 @@
 the inner circle is the basic curriculum
 the outer circle allows students to . specialize whatever subject they prefer.
 
-
-![image](https://user-images.githubusercontent.com/77893589/170834024-d0bca643-1ff0-4f76-bd8f-c638980e1efb.png)
+![image](https://user-images.githubusercontent.com/77893589/175018796-96db9b1d-236e-49af-9362-b9a5b6801a4b.png)
 
 -----------------------
 |1. Libft |This project is your very first project as a student at 42. You will need to recode a few functions of the C standard library as well as some other utility functions that you will use during your whole cursus.|
