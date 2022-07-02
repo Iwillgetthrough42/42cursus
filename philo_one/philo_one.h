@@ -32,7 +32,7 @@ typedef struct 	s_philo
 	long  		time_last_meal;
 }				t_philo;
 
-int				ft_atoi(const char *str);
+long				ft_atoi(const char *str);
 void 			ft_putchar(char c);
 void 			ft_putnbr(int nb);
 void 			ft_print(char *str);
