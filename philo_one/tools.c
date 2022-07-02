@@ -6,7 +6,7 @@ static	int		ft_isspace(char c)
 			c == ' ');
 }
 
-int				ft_atoi(const char *str)
+long				ft_atoi(const char *str)
 {
 	int		i;
 	long	num;
