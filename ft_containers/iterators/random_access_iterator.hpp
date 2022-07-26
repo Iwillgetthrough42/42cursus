@@ -20,11 +20,35 @@ namespace ft
             }
             random_access_iterator(const random_access_iterator &other)
             {
-                this->p = otjer.p;
+                this->p = other.p;
             }
             random_access_iterator &operator=(const random_access_iterator &other)
             {
                 this->p = other.p;
+            }
+            reference operator*(){return (*p)}
+            pointer operator->(){return (p)}
+            random_access_iterator &operator++()
+            {
+                this->p++;
+                return (*this);
+            }
+            random_access_iterator &operator++(int t)
+            {
+                random_access_iterator tmp = *this;
+                this->p++;
+                return (tmp);
+            }
+            random_access_iterator &operator--()
+            {
+                this->p--;
+                return (*this);
+            }
+            random_access_iterator &operator--(int t)
+            {
+                random_access_iterator tmp = *this;
+                this->p--;
+                return (tmp);
             }
         protected:
             pointer p;
