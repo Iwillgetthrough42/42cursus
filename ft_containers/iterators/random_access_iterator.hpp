@@ -50,9 +50,31 @@ namespace ft
                 this->p--;
                 return (tmp);
             }
+            random_access_iterator operator+(size_t n)
+            {
+                return random_access_iterator(this->p + n);
+            }
+            random_access_iterator operator-(size_t n)
+            {
+                return random_access_iterator(this->p - n);
+            }
+            difference_type operator-(const random_access_iterator &rhs)
+            {
+                return (this->p - rhs.p);
+            }
+            reference operator[](size_t n){return (this->p[n]);}
+            random_access_iterator &operator+=(size_t n){this->p += n; return (*this);}
+            random_access_iterator &operator-=(size_t n){this->p -= n; return (*this)}
+            friend difference_type operator-(size_t n, random_access_iterator &rhs);
+            friend difference_type operator+(size_t n, random_access_iterator &rhs);
         protected:
             pointer p;
     };
+    template <class T>
+    typename random_access_iterator<T>::difference_type operator-(size_t n, random_access_iterator<T> &rhs)
+    {
+
+    }
 }
 
 
