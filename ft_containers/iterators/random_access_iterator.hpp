@@ -65,6 +65,22 @@ namespace ft
             reference operator[](size_t n){return (this->p[n]);}
             random_access_iterator &operator+=(size_t n){this->p += n; return (*this);}
             random_access_iterator &operator-=(size_t n){this->p -= n; return (*this)}
+            bool operator<(random_access_iterator rhs)
+            {
+                return (this->p < rhs.p);
+            }
+            bool operator>(random_access_iterator rhs)
+            {
+                return (this->p > rhs.p);
+            }
+            bool operator<=(random_access_iterator rhs)
+            {
+                return (this->p <= rhs.p);
+            }
+            bool operator>=(random_access_iterator rhs)
+            {
+                return (this->p >= rhs.p);
+            }
             friend difference_type operator-(size_t n, random_access_iterator &rhs);
             friend difference_type operator+(size_t n, random_access_iterator &rhs);
         protected:
@@ -73,8 +89,9 @@ namespace ft
     template <class T>
     typename random_access_iterator<T>::difference_type operator-(size_t n, random_access_iterator<T> &rhs)
     {
-
+        return (rhs.p -= n);
     }
+
 }
 
 
