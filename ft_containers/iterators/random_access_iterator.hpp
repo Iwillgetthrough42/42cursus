@@ -87,9 +87,9 @@ namespace ft
             pointer p;
     };
     template <class T>
-    typename random_access_iterator<T>::difference_type operator-(size_t n, random_access_iterator<T> &rhs)
+    typename random_access_iterator<T>::difference_type operator+(size_t n, random_access_iterator<T> &rhs)
     {
-        return (rhs.p -= n);
+        return (rhs.p += n);
     }
 
 }
