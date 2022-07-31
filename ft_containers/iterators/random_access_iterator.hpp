@@ -81,7 +81,6 @@ namespace ft
             {
                 return (this->p >= rhs.p);
             }
-            friend difference_type operator-(size_t n, random_access_iterator &rhs);
             friend difference_type operator+(size_t n, random_access_iterator &rhs);
         protected:
             pointer p;
