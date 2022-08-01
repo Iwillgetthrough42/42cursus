@@ -13,4 +13,7 @@ int main()
 	std::cout << "getideas of shpic - " << shpic.getBrain().getIdeas() << std::endl;
 	delete j;//should not create a leak
 	delete i;
+	Cat cat1;
+	Cat cat2;
+	cat1 = cat2;
 }
