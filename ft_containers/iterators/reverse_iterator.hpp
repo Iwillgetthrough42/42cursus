@@ -20,6 +20,10 @@ namespace ft{
             {
                 iter(rev_it.base());
             }
+            iterator_type base() const
+            {
+                return (this->iter);
+            }
         protected:
             iterator_type iter;
     };
