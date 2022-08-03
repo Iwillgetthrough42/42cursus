@@ -24,6 +24,59 @@ namespace ft{
             {
                 return (this->iter);
             }
+            reference operator *() const
+            {
+                iterator_type tmp = iter;
+                return (*(--tmp));
+            }
+            reverse_iterator operator+(difference_type n) const
+            {
+                return (reverse_ieterator(iter - n));
+            }
+            reverse_iterator& operator++()
+            {
+                --iter;
+                return (*this);
+            }
+            reverse_iterator  operator++(int)
+            {
+                reverse_iterator temp = *this;
+                ++(*this);
+                return temp;
+            }
+            reverse_iterator& operator+=(difference_type n)
+            {
+                this->iter -= n;
+                return (*this);
+            }
+            reverse_iterator operator-(difference_type n) const
+            {
+                return (reverse_iterator(this->iter + n));
+            }
+            reverse_iterator& operator--()
+            {
+                ++iter;
+                return (*this);
+            }
+            reverse_iterator  operator--(int)
+            {
+                reverse_iterator temp = *this;
+                --(*this);
+                return temp;
+            }
+            reverse_iterator& operator-=(difference_type n)
+            {
+                this->iter += n;
+                return (*this);
+            }
+            pointer operator->() const
+            {
+                return &(operator*());
+            }
+            reference operator[] (difference_type n) const
+            {
+                return (this->iter[-n - 1]);
+            }
         protected:
             iterator_type iter;
     };
