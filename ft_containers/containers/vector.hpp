@@ -56,6 +56,16 @@ namespace ft
 			    for (size_type i = 0; i < _size; ++i) { _alloc.destroy(&_vector[i]); }
 			    _alloc.deallocate(_vector, _capacity);
 		    }
+            vector (const vector& x) : _size(x._size), _capacity(s._capacity),
+            _alloc(x._alloc) 
+            {
+                _vector = _alloc.allocate(_capacity);
+                pointer other = x._vector;
+                for(size_type i = 0 ; i < _size; i++)
+                {
+                    _alloc.construct(&vector[i], other[i]);
+                }
+            }
         private:
             pointer _vector;
             allocator_type _alloc;
