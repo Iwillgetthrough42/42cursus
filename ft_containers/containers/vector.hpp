@@ -38,11 +38,24 @@ namespace ft
                 }
             }
             template <class InputIterator>
-            vector (InputIterator first, InputIterator last,
-            const allocator_type& alloc = allocator_type())
+            vector (ft::enable_if<!ft::is_integral<InputIterator>, InputIterator> first,\
+            ft::enable_if<!ft::is_integral<InputIterator>, InputIterator> last,
+            const allocator_type& alloc = allocator_type()) : _size(last - first),\
+            _capacity(last - first), _alloc(alloc)
             {
-                
+                if (size <= 0)
+                    return ;
+                _vector = _alloc.allocate(_capacity);
+                for ( InputIterator i = first; i < last; i++)
+                {
+                    _alloc.construct(&_vec[i], *i);
+                }
             }
+            virtual ~vector()
+		    {
+			    for (size_type i = 0; i < _size; ++i) { _alloc.destroy(&_vector[i]); }
+			    _alloc.deallocate(_vector, _capacity);
+		    }
         private:
             pointer _vector;
             allocator_type _alloc;
