@@ -22,15 +22,32 @@ namespace ft
             typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
             typedef size_t size_type;
 
-            explicit vector (const allocator_type& alloc = allocator_type())
+            explicit vector (const allocator_type& alloc = allocator_type()) : _size(0),
+            _capacity(0), alloc(_alloc)
+            {
+                _vector = _alloc.allocate(_capacity);
+            }
+            explicit vector (size_type n, const value_type& val = value_type(),
+            const allocator_type& alloc = allocator_type()) : _alloc(alloc),
+            _size(n), _capacity(n)
+            {
+                _vector = _alloc.allocate(_capacity);
+                for(int i = 0; i < _size; i++)
+                {
+                    _alloc.construct(&_vector[i], val);
+                }
+            }
+            template <class InputIterator>
+            vector (InputIterator first, InputIterator last,
+            const allocator_type& alloc = allocator_type())
             {
                 
             }
         private:
             pointer _vector;
             allocator_type _alloc;
-            size_type size;
-            size_type capacity;
+            size_type _size;
+            size_type _capacity;
 
     };
 }
