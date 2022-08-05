@@ -2,7 +2,7 @@
 # define VECTOR_HPP
 #include <memory>
 #include "random_access_iterator.hpp"
-
+#include "reverse_iterator.hpp"
 namespace ft
 {
     template <class T, class Alloc = std::allocator<T> >
@@ -18,7 +18,7 @@ namespace ft
             typedef typename ft::random_access_iterator<value_type> iterator;
             typedef typename ft::random_access_iterator<const value_type> const_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
-            typedef typename ft::reverse_iterator<const iterator> reverse_iterator;
+            typedef typename ft::reverse_iterator<const iterator> const_reverse_iterator;
             typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
             typedef size_t size_type;
 
@@ -66,6 +66,55 @@ namespace ft
                     _alloc.construct(&vector[i], other[i]);
                 }
             }
+            iterator beigin()
+            {
+                return (iterator(_vector));
+            }
+            const_iterator begin() const
+            {
+                return (const_iterator(_vector));
+            }
+            iterator end()
+            {
+                return(iterator(_vector + _size));
+            }
+            const_iterator end() const
+            {
+                return (const_iterator(_vector + _size));
+            }
+            reverse_iterator rbegin()
+            {
+                return (reverse_iterator(_vector + _size));
+            }
+            const_reverse_iterator rbegin() const
+            {
+                return (const_reverse_iterator(_vector + _size));
+            }
+            reverse_iterator rend()
+            {
+                return (reverse_iterator(_vector));
+            }
+            const_reverse_iterator rend() const
+            {
+                return (const_reverse_iterator(_vector));
+            }
+            size_type size() const
+            {
+                return (_size);
+            }
+            size_type max_size() const
+            {
+                return (_alloc.max_size());
+            }
+            void resize (size_type n, value_type val = value_type())
+            {
+
+            }
+            size_type capacity() const
+            {
+                return (_capacity);
+            }
+            
         private:
             pointer _vector;
             allocator_type _alloc;
