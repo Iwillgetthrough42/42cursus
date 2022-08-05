@@ -114,6 +114,50 @@ namespace ft
             {
                 return (_capacity);
             }
+            bool empty() const
+            {
+                return (_size==0);
+            }
+            void reserve (size_type n)
+            {
+
+            }
+            reference operator[] (size_type n)
+            {
+                return (_vector[n]);
+            }
+            const_reference operator[] (size_type n) const
+            {
+                return (_vector[n]);
+            }
+            reference at (size_type n)
+            {
+                if (n >= size)
+                    throw std::out_of_range("out of range");
+                return(_vector[n]);
+            }
+            const_reference at (size_type n) const
+            {
+                if (n >= size)
+                    throw std::out_of_range("out of range");
+                return(_vector[n]);
+            }
+            reference front()
+            {
+                return (*_vector);
+            }
+            const_reference front() const
+            {
+                return (*_vector);
+            }
+            reference back()
+            {
+                return (_vector[_size - 1]);
+            }
+            const_reference back() const
+            {
+                return (_vector[_size - 1]);
+            }
             
         private:
             pointer _vector;
