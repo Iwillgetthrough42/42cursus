@@ -108,7 +108,24 @@ namespace ft
             }
             void resize (size_type n, value_type val = value_type())
             {
-
+                if (n < _size)
+                {
+                    for (size_type i = n; i < _size; i++)
+                    {
+                        _alloc.destroy(&_vector[i]);
+                    }
+                }
+                else if (n > _size)
+                {
+                    for (size_type i = _size; i < n; i++)
+                    {
+                        _alloc.construct(&_vector[i], val);
+                    }
+                    if (n > _capacity)
+                    {
+                        _vector = reallocate()
+                    }
+                }
             }
             size_type capacity() const
             {
@@ -158,7 +175,7 @@ namespace ft
             {
                 return (_vector[_size - 1]);
             }
-            
+
         private:
             pointer _vector;
             allocator_type _alloc;
