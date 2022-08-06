@@ -1,8 +1,9 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 #include <memory>
-#include "random_access_iterator.hpp"
-#include "reverse_iterator.hpp"
+#include "../iterators/random_access_iterator.hpp"
+#include "../iterators/reverse_iterator.hpp"
+#include "type_traits.hpp"
 namespace ft
 {
     template <class T, class Alloc = std::allocator<T> >
@@ -23,7 +24,7 @@ namespace ft
             typedef size_t size_type;
 
             explicit vector (const allocator_type& alloc = allocator_type()) : _size(0),
-            _capacity(0), alloc(_alloc)
+            _capacity(0), _alloc(_alloc)
             {
                 _vector = _alloc.allocate(_capacity);
             }
@@ -38,17 +39,18 @@ namespace ft
                 }
             }
             template <class InputIterator>
-            vector (ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type first,\
-            ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type last,
-            const allocator_type& alloc = allocator_type()) : _size(last - first),//vectorint>(5, 0);
+            vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first,\
+            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last,
+            const allocator_type& alloc = allocator_type()) : _size(last - first),\
             _capacity(last - first), _alloc(alloc)
             {
                 if (size <= 0)
                     return ;
                 _vector = _alloc.allocate(_capacity);
+                size_type j = 0;
                 for ( InputIterator i = first; i < last; i++)
                 {
-                    _alloc.construct(&_vec[i], *i);
+                    _alloc.construct(&_vector[j++], *i);
                 }
             }
             virtual ~vector()
@@ -56,17 +58,17 @@ namespace ft
 			    for (size_type i = 0; i < _size; ++i) { _alloc.destroy(&_vector[i]); }
 			    _alloc.deallocate(_vector, _capacity);
 		    }
-            vector (const vector& x) : _size(x._size), _capacity(s._capacity),
+            vector (const vector& x) : _size(x._size), _capacity(x._capacity),\
             _alloc(x._alloc) 
             {
                 _vector = _alloc.allocate(_capacity);
                 pointer other = x._vector;
                 for(size_type i = 0 ; i < _size; i++)
                 {
-                    _alloc.construct(&vector[i], other[i]);
+                    _alloc.construct(&_vector[i], other[i]);
                 }
             }
-            iterator beigin()
+            iterator begin()
             {
                 return (iterator(_vector));
             }
@@ -183,8 +185,8 @@ namespace ft
                 return (_vector[_size - 1]);
             }
             template <class InputIterator>
-            void assign (ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type first,\
-            ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type last)
+            void assign (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first,\
+            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last)
             {
                 for (size_type i = 0; i < _size; i++)
                 {
@@ -200,7 +202,7 @@ namespace ft
                 size_type i = 0;
                 for (; first != last; first++)
                 {
-                    _alloc.construct(&vector[i], *fitst);
+                    _alloc.construct(&_vector[i], *first);
                     i++;
                 }
                 _size = i;
@@ -220,7 +222,7 @@ namespace ft
                 }
                 for (size_type i = 0; i < n; i++)
                 {
-                    _alloc.construct(&vector[i], val);
+                    _alloc.construct(&_vector[i], val);
                 }
             }
             void push_back (const value_type& val)
@@ -229,7 +231,7 @@ namespace ft
                 {
                     _capacity == 0 ? reallocate(1) : reallocate(_capacity * 2);
                 }
-                _alloc.construct(&vector[_size++], val);
+                _alloc.construct(&_vector[_size++], val);
             }
             void pop_back()
             {
@@ -238,13 +240,17 @@ namespace ft
             }
             iterator insert (iterator position, const value_type& val)
             {
+                difference_type diff = this->end() - position;
                 if (_size + 1 > _capacity)
                     _capacity == 0? reallocate(1) : reallocate(_capacity * 2);
-                difference_type diff = this->end() - position;//
+                size_type cnt = _size;
                 while (diff--)
                 {
-                    _alloc.construct(&vec[])
+                    _alloc.construct(&_vector[cnt], _vector[cnt - 1]);
+                    cnt--;
                 }
+                _alloc.construct(&_vector[cnt], val);
+                return (iterator(&_vector[cnt]));
             }
         private:
             pointer _vector;
@@ -257,14 +263,14 @@ namespace ft
                 pointer tmp = _alloc.allocate(new_capacity);
                 for (size_type i = 0; i < _size; i++)
                 {
-                    _alloc.construct(&tmp[i], &vector[i]);
+                    _alloc.construct(&tmp[i], _vector[i]);
                 }
                 this->~vector();
-                _capacity = new_vapacity;
+                _capacity = new_capacity;
                 _vector = tmp;
             }
 
     };
-}
+};
 
 # endif
