@@ -38,9 +38,9 @@ namespace ft
                 }
             }
             template <class InputIterator>
-            vector (ft::enable_if<!ft::is_integral<InputIterator>, InputIterator> first,\
-            ft::enable_if<!ft::is_integral<InputIterator>, InputIterator> last,
-            const allocator_type& alloc = allocator_type()) : _size(last - first),\
+            vector (ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type first,\
+            ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type last,
+            const allocator_type& alloc = allocator_type()) : _size(last - first),//vectorint>(5, 0);
             _capacity(last - first), _alloc(alloc)
             {
                 if (size <= 0)
@@ -114,6 +114,7 @@ namespace ft
                     {
                         _alloc.destroy(&_vector[i]);
                     }
+                    _size = n;
                 }
                 else if (n > _size)
                 {
@@ -121,9 +122,10 @@ namespace ft
                     {
                         _alloc.construct(&_vector[i], val);
                     }
+                    _size = n;
                     if (n > _capacity)
                     {
-                        _vector = reallocate()
+                        _vector = reallocate(n);
                     }
                 }
             }
@@ -137,7 +139,12 @@ namespace ft
             }
             void reserve (size_type n)
             {
-
+                if ( n > this->max_size())
+                    throw std::length_error("greater then max_size");
+                if (n > _capacity)
+                {
+                    reallocate(n);
+                }
             }
             reference operator[] (size_type n)
             {
@@ -153,7 +160,7 @@ namespace ft
                     throw std::out_of_range("out of range");
                 return(_vector[n]);
             }
-            const_reference at (size_type n) const
+            const_reference at(size_type n) const
             {
                 if (n >= size)
                     throw std::out_of_range("out of range");
@@ -175,12 +182,66 @@ namespace ft
             {
                 return (_vector[_size - 1]);
             }
-
+            template <class InputIterator>
+            void assign (ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type first,\
+            ft::enable_if<!ft::is_integral<InputIterator>, InputIterator>::type last)
+            {
+                for (size_type i = 0; i < _size; i++)
+                {
+                    _alloc.destroy(_vector[i]);
+                }
+                if (last - first > _capacity)
+                {
+                    pointer tmp = _alloc.allocate(last - first);
+                    _alloc.deallocate(_vector, _capacity);
+                    _vector = tmp;
+                    _capacity = last - first;
+                }
+                size_type i = 0;
+                for (; first != last; first++)
+                {
+                    _alloc.construct(&vector[i], *fitst);
+                    i++;
+                }
+                _size = i;
+            }
+            void push_back (const value_type& val)
+            {
+                if (_size + 1 > _capacity)
+                {
+                    _capacity == 0 ? reallocate(1) : reallocate(_capacity * 2);
+                }
+                _alloc.construct(&vector[_size++], val);
+            }
+            void pop_back()
+            {
+                if (_size)
+                    _alloc.destroy(_vector[--size]);
+            }
+            iterator insert (iterator position, const value_type& val)
+            {
+                if (_size + 1 > _capacity)
+                    _capacity == 0? reallocate(1) : reallocate(_capacity * 2);
+                difference_type diff = this->end() - position;
+                
+            }
         private:
             pointer _vector;
             allocator_type _alloc;
             size_type _size;
             size_type _capacity;
+
+            void reallocate(size_type new_capacity)
+            {
+                pointer tmp = _alloc.allocate(new_capacity);
+                for (size_type i = 0; i < _size; i++)
+                {
+                    _alloc.construct(&tmp[i], &vector[i]);
+                }
+                this->~vector();
+                _capacity = new_vapacity;
+                _vector = tmp;
+            }
 
     };
 }
