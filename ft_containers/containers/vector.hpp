@@ -205,6 +205,24 @@ namespace ft
                 }
                 _size = i;
             }
+            void assign (size_type n, const value_type& val)
+            {
+                 for (size_type i = 0; i < _size; i++)
+                {
+                    _alloc.destroy(_vector[i]);
+                }
+                if ( n > _capacity)
+                {
+                     pointer tmp = _alloc.allocate(n);
+                    _alloc.deallocate(_vector, _capacity);
+                    _vector = tmp;
+                    _capacity = n;
+                }
+                for (size_type i = 0; i < n; i++)
+                {
+                    _alloc.construct(&vector[i], val);
+                }
+            }
             void push_back (const value_type& val)
             {
                 if (_size + 1 > _capacity)
@@ -222,8 +240,11 @@ namespace ft
             {
                 if (_size + 1 > _capacity)
                     _capacity == 0? reallocate(1) : reallocate(_capacity * 2);
-                difference_type diff = this->end() - position;
-                
+                difference_type diff = this->end() - position;//
+                while (diff--)
+                {
+                    _alloc.construct(&vec[])
+                }
             }
         private:
             pointer _vector;
