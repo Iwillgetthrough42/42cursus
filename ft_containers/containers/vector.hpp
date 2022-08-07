@@ -236,7 +236,7 @@ namespace ft
             void pop_back()
             {
                 if (_size)
-                    _alloc.destroy(_vector[--size]);
+                    _alloc.destroy(&_vector[--_size]);
             }
             iterator insert (iterator position, const value_type& val)
             {
@@ -247,11 +247,74 @@ namespace ft
                 while (diff--)
                 {
                     _alloc.construct(&_vector[cnt], _vector[cnt - 1]);
+                    _alloc.destroy(&_vector[cnt - 1]);
                     cnt--;
                 }
                 _alloc.construct(&_vector[cnt], val);
                 ++_size;
                 return (iterator(&_vector[cnt]));
+            }
+            void insert (iterator position, size_type n, const value_type& val)
+            {
+                difference_type diff = this->end() - position;
+                if (_size + n > _capacity)
+                   reallocate(_capacity + n);
+                size_type cnt = _size + n - 1;
+                while (diff--)
+                {
+                    _alloc.construct(&_vector[cnt], _vector[cnt - n]);
+                    _alloc.destroy(&_vector[cnt - n]);
+                    cnt--;
+                }
+                while (n--)
+                {
+                    _alloc.construct(&_vector[cnt--], val);
+                    ++_size;
+                }
+            }
+            template <class InputIterator>
+            void insert (iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first,\
+            InputIterator last)
+            {
+                difference_type diff = this->end() - position;
+                difference_type range = last - first;
+                if (_size + range > _capacity)
+                   reallocate(_capacity + range);
+                size_type cnt = _size + range - 1;
+                while (diff--)
+                {
+                    _alloc.construct(&_vector[cnt], _vector[cnt - range]);
+                    _alloc.destroy(&_vector[cnt - range]);
+                    cnt--;
+                }
+                while (first != last)
+                {
+                    _alloc.construct(&_vector[cnt--], *first);
+                    ++_size;
+                    first++;
+                }
+            }
+            iterator erase (iterator position)
+            {
+                iterator temp(position);
+                _alloc.destroy(&(*position));
+                while (position != this->end() - 1)
+                {
+                    *position = *(position + 1);
+                    position++;
+                }
+                _size--;
+                return (temp);
+            }
+            iterator erase(iterator first, iterator last)
+            {
+                difference_type diff = last - first;
+                while (diff--)
+                {
+                    erase(first);
+                }
+                return (iterator(last));
+
             }
         private:
             pointer _vector;

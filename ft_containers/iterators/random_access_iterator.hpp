@@ -42,9 +42,9 @@ namespace ft
             }
             random_access_iterator &operator++(int t)
             {
-                random_access_iterator tmp = *this;
+                random_access_iterator *tmp = this;
                 this->p++;
-                return (tmp);
+                return (*tmp);
             }
             random_access_iterator &operator--()
             {
@@ -53,9 +53,9 @@ namespace ft
             }
             random_access_iterator &operator--(int t)
             {
-                random_access_iterator tmp = *this;
+                random_access_iterator *tmp = this;
                 this->p--;
-                return (tmp);
+                return (*tmp);
             }
             random_access_iterator operator+(size_t n)
             {
@@ -87,6 +87,14 @@ namespace ft
             bool operator>=(random_access_iterator rhs)
             {
                 return (this->p >= rhs.p);
+            }
+            bool operator==(random_access_iterator rhs)
+            {
+                return (this->p == rhs.p);
+            }
+            bool operator!=(random_access_iterator rhs)
+            {
+                return (this->p != rhs.p);
             }
             friend difference_type operator+(size_t n, random_access_iterator &rhs)
             {
