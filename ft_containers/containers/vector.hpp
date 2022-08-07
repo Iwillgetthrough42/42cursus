@@ -326,8 +326,8 @@ namespace ft
             void swap (vector& x)
             {
                 vector tmp = x;
-                x = _vector;
-                _vector = tmp;
+                x = *this;
+                *this = tmp;
             }
             allocator_type get_allocator() const
             {
