@@ -250,6 +250,7 @@ namespace ft
                     cnt--;
                 }
                 _alloc.construct(&_vector[cnt], val);
+                ++_size;
                 return (iterator(&_vector[cnt]));
             }
         private:
