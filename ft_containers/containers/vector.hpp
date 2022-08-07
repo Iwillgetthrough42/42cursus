@@ -314,7 +314,24 @@ namespace ft
                     erase(first);
                 }
                 return (iterator(last));
-
+            }
+            void clear()
+            {
+                for (size_type i = 0; i < this->size(); i++)
+                {
+                    _alloc.destroy(&_vector[i]);
+                }
+                _size = 0;
+            }
+            void swap (vector& x)
+            {
+                vector tmp = x;
+                x = _vector;
+                _vector = tmp;
+            }
+            allocator_type get_allocator() const
+            {
+                return (_alloc);
             }
         private:
             pointer _vector;
