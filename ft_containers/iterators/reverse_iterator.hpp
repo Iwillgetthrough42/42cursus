@@ -20,6 +20,10 @@ namespace ft{
             {
                 iter(rev_it.base());
             }
+            operator reverse_iterator<const Iterator> () const
+            {
+                return (reverse_iterator<const Iterator>(this->iter));
+            }
             iterator_type base() const
             {
                 return (this->iter);

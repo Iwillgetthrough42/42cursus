@@ -21,5 +21,5 @@ int main()
     ft::vector<int> v(5, 0);
     ft::vector<int>vec(v.begin(), v.end());
     vec.assign(100, 1);
-    ft::vector<int>::iterator it = v.end();
+    ft::vector<int>::reverse_iterator it = v.rend() + 1;
 }
