@@ -69,6 +69,14 @@ namespace ft
                     _alloc.construct(&_vector[i], other[i]);
                 }
             }
+            vector& operator= (const vector& x)
+            {
+                if (this != &x)
+                {
+                    this->assign(x.begin(), x.end());
+                    return (*this);
+                }
+            }
             iterator begin()
             {
                 return (iterator(_vector));
