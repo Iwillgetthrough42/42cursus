@@ -25,7 +25,6 @@ namespace ft
             }
             operator random_access_iterator<const T> () const
             {
-                std::cout << "hi" << std::endl;
                 return (random_access_iterator<const T>(this->p));
             }
             random_access_iterator &operator=(const random_access_iterator &other)
@@ -40,7 +39,7 @@ namespace ft
                 this->p++;
                 return (*this);
             }
-            pointer base() const
+            pointer const base() const
             {
                 return (this->p);
             }
@@ -85,33 +84,33 @@ namespace ft
         protected:
             pointer p;
     };
-    template<class T>
-    bool operator<(const random_access_iterator<T> lhs, const random_access_iterator<T> rhs)
+    template<class T1, class T2>
+    bool operator<(const random_access_iterator<T1> lhs, const random_access_iterator<T2> rhs)
     {
         return (lhs.base() < rhs.base());
     }
-    template<class T>
-    bool operator>(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    template<class T1, class T2>
+    bool operator>(random_access_iterator<T1> lhs, random_access_iterator<T2> rhs)
     {
         return (lhs.base() > rhs.base());
     }
-    template<class T>
-    bool operator<=(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    template<class T1, class T2>
+    bool operator<=(random_access_iterator<T1> lhs, random_access_iterator<T2> rhs)
     {
         return (lhs.base() <= rhs.base());
     }
-    template<class T>
-    bool operator>=(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    template<class T1, class T2>
+    bool operator>=(random_access_iterator<T1> lhs, random_access_iterator<T2> rhs)
     {
         return (lhs.base() >= rhs.base());
     }
-    template<class T>
-    bool operator==(const random_access_iterator<T> lhs, const random_access_iterator<T> rhs)
+    template<class T1, class T2>
+    bool operator==(const random_access_iterator<T1> lhs, const random_access_iterator<T2> rhs)
     {
         return (lhs.base() == rhs.base());
     }
-    template<class T>
-    bool operator!=(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    template<class T1, class T2>
+    bool operator!=(random_access_iterator<T1> lhs, random_access_iterator<T2> rhs)
     {
         return (lhs.base() != rhs.base());
     }
