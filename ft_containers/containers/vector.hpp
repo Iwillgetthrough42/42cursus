@@ -127,17 +127,17 @@ namespace ft
                     }
                     _size = n;
                 }
-                else if (n > _size)
+                else if (n > _capacity)
+                {
+                    reallocate(n);
+                }
+                if (n > _size)
                 {
                     for (size_type i = _size; i < n; i++)
                     {
                         _alloc.construct(&_data[i], val);
                     }
                     _size = n;
-                    if (n > _capacity)
-                    {
-                        reallocate(n);
-                    }
                 }
             }
             size_type capacity() const
@@ -148,7 +148,7 @@ namespace ft
             {
                 return (_size==0);
             }
-            void reserve (size_type n)
+            void reserve(size_type n)
             {
                 if ( n > this->max_size())
                     throw std::length_error("greater then max_size");

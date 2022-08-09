@@ -35,7 +35,7 @@ namespace ft{
             }
             reverse_iterator operator+(difference_type n) const
             {
-                return (reverse_ieterator(iter - n));
+                return (reverse_iterator(iter - n));
             }
             reverse_iterator& operator++()
             {

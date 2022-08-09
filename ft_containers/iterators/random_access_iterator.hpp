@@ -57,11 +57,11 @@ namespace ft
                 this->p--;
                 return (*tmp);
             }
-            random_access_iterator operator+(size_t n)
+            random_access_iterator operator+(size_t n) const
             {
                 return random_access_iterator(this->p + n);
             }
-            random_access_iterator operator-(size_t n)
+            random_access_iterator operator-(size_t n) const
             {
                 return random_access_iterator(this->p - n);
             }
