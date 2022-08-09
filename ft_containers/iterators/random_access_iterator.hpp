@@ -40,8 +40,13 @@ namespace ft
                 this->p++;
                 return (*this);
             }
+            pointer base() const
+            {
+                return (this->p);
+            }
             random_access_iterator &operator++(int t)
             {
+                (void) t;
                 random_access_iterator *tmp = this;
                 this->p++;
                 return (*tmp);
@@ -53,6 +58,7 @@ namespace ft
             }
             random_access_iterator &operator--(int t)
             {
+                (void) t;
                 random_access_iterator *tmp = this;
                 this->p--;
                 return (*tmp);
@@ -65,44 +71,50 @@ namespace ft
             {
                 return random_access_iterator(this->p - n);
             }
-            difference_type operator-(const random_access_iterator &rhs)
+            difference_type operator-(const random_access_iterator &rhs) const
             {
                 return (this->p - rhs.p);
             }
             reference operator[](size_t n){return (this->p[n]);}
             random_access_iterator &operator+=(size_t n){this->p += n; return (*this);}
             random_access_iterator &operator-=(size_t n){this->p -= n; return (*this);}
-            bool operator<(random_access_iterator rhs)
+            friend random_access_iterator operator+(size_t n, random_access_iterator &rhs)
             {
-                return (this->p < rhs.p);
-            }
-            bool operator>(random_access_iterator rhs)
-            {
-                return (this->p > rhs.p);
-            }
-            bool operator<=(random_access_iterator rhs)
-            {
-                return (this->p <= rhs.p);
-            }
-            bool operator>=(random_access_iterator rhs)
-            {
-                return (this->p >= rhs.p);
-            }
-            bool operator==(random_access_iterator rhs)
-            {
-                return (this->p == rhs.p);
-            }
-            bool operator!=(random_access_iterator rhs)
-            {
-                return (this->p != rhs.p);
-            }
-            friend difference_type operator+(size_t n, random_access_iterator &rhs)
-            {
-                return (rhs.p += n);
+                return (random_access_iterator(rhs.p + n));
             }
         protected:
             pointer p;
     };
+    template<class T>
+    bool operator<(const random_access_iterator<T> lhs, const random_access_iterator<T> rhs)
+    {
+        return (lhs.base() < rhs.base());
+    }
+    template<class T>
+    bool operator>(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    {
+        return (lhs.base() > rhs.base());
+    }
+    template<class T>
+    bool operator<=(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    {
+        return (lhs.base() <= rhs.base());
+    }
+    template<class T>
+    bool operator>=(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    {
+        return (lhs.base() >= rhs.base());
+    }
+    template<class T>
+    bool operator==(const random_access_iterator<T> lhs, const random_access_iterator<T> rhs)
+    {
+        return (lhs.base() == rhs.base());
+    }
+    template<class T>
+    bool operator!=(random_access_iterator<T> lhs, random_access_iterator<T> rhs)
+    {
+        return (lhs.base() != rhs.base());
+    }
 
 }
 

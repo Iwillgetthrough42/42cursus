@@ -24,8 +24,8 @@ namespace ft
             typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
             typedef size_t size_type;
 
-            explicit vector (const allocator_type& alloc = allocator_type()) : _size(0),
-            _capacity(0), _alloc(alloc)
+            explicit vector (const allocator_type& alloc = allocator_type()) :
+            _alloc(alloc), _size(0),_capacity(0)
             {
                 _data = _alloc.allocate(_capacity);
             }
@@ -34,7 +34,7 @@ namespace ft
             _size(n), _capacity(n)
             {
                 _data = _alloc.allocate(_capacity);
-                for(int i = 0; i < _size; i++)
+                for(size_type i = 0; i < _size; i++)
                 {
                     _alloc.construct(&_data[i], val);
                 }
@@ -42,8 +42,8 @@ namespace ft
             template <class InputIterator>
             vector (typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first,\
             InputIterator last,
-            const allocator_type& alloc = allocator_type()) : _size(last - first),\
-            _capacity(last - first), _alloc(alloc)
+            const allocator_type& alloc = allocator_type()) : _alloc(alloc), _size(last - first),\
+            _capacity(last - first)
             {
                 if (_size <= 0)
                     return ;
@@ -59,8 +59,7 @@ namespace ft
 			    for (size_type i = 0; i < _size; ++i) { _alloc.destroy(&_data[i]); }
 			    _alloc.deallocate(_data, _capacity);
 		    }
-            vector (const vector& x) : _size(x._size), _capacity(x._capacity),\
-            _alloc(x._alloc) 
+            vector (const vector& x) : _alloc(x._alloc), _size(x._size), _capacity(x._capacity)
             {
                 _data = _alloc.allocate(_capacity);
                 pointer other = x._data;
@@ -201,7 +200,7 @@ namespace ft
                 {
                     _alloc.destroy(&_data[i]);
                 }
-                if (last - first > _capacity)
+                if (last - first > (difference_type)_capacity)
                 {
                     pointer tmp = _alloc.allocate(last - first);
                     _alloc.deallocate(_data, _capacity);
