@@ -338,9 +338,15 @@ namespace ft
             }
             void swap (vector& x)
             {
-                vector tmp = x;
-                x = *this;
-                *this = tmp;
+                pointer tmp = _data;
+                _data = x._data;
+                x._data = tmp;
+                size_type tmp_size = _size;
+                _size = x._size;
+                x._size = tmp_size;
+                tmp_size = _capacity;
+                _capacity = x._capacity;
+                x._capacity = tmp_size;
             }
             allocator_type get_allocator() const
             {
@@ -400,9 +406,7 @@ namespace ft
     template <class T, class Alloc>
     void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
     {
-        vector<T,Alloc> tmp = x;
-        x = y;
-        y = tmp;  
+        x.swap(y);
     }
 };
 
