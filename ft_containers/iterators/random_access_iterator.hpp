@@ -43,24 +43,24 @@ namespace ft
             {
                 return (this->p);
             }
-            random_access_iterator &operator++(int t)
+            random_access_iterator operator++(int t)
             {
                 (void) t;
-                random_access_iterator *tmp = this;
+                random_access_iterator tmp = *this;
                 this->p++;
-                return (*tmp);
+                return (tmp);
             }
             random_access_iterator &operator--()
             {
                 this->p--;
                 return (*this);
             }
-            random_access_iterator &operator--(int t)
+            random_access_iterator operator--(int t)
             {
                 (void) t;
-                random_access_iterator *tmp = this;
+                random_access_iterator tmp = *this;
                 this->p--;
-                return (*tmp);
+                return (tmp);
             }
             random_access_iterator operator+(size_t n) const
             {
@@ -74,10 +74,10 @@ namespace ft
             {
                 return (this->p - rhs.p);
             }
-            reference operator[](size_t n){return (this->p[n]);}
-            random_access_iterator &operator+=(size_t n){this->p += n; return (*this);}
-            random_access_iterator &operator-=(size_t n){this->p -= n; return (*this);}
-            friend random_access_iterator operator+(size_t n, random_access_iterator &rhs)
+            reference operator[](size_t n) const{return (this->p[n]);}
+            random_access_iterator &operator+=(difference_type n){this->p += n; return (*this);}
+            random_access_iterator &operator-=(difference_type n){this->p -= n; return (*this);}
+            friend random_access_iterator operator+(difference_type n, random_access_iterator &rhs)
             {
                 return (random_access_iterator(rhs.p + n));
             }
