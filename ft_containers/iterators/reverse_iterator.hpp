@@ -22,6 +22,7 @@ namespace ft{
             }
             operator reverse_iterator<const Iterator> () const
             {
+
                 return (reverse_iterator<const Iterator>(this->iter));
             }
             iterator_type base() const
@@ -95,7 +96,7 @@ namespace ft{
     const reverse_iterator<Iterator1>& lhs,
     const reverse_iterator<Iterator2>& rhs)
     {
-        return (lhs.base() - rhs.base());
+        return (rhs.base() - lhs.base());
     }
     template <class Iterator1, class Iterator2>
     bool operator== (const reverse_iterator<Iterator1>& lhs,

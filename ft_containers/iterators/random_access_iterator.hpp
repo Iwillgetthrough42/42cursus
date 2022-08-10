@@ -70,10 +70,6 @@ namespace ft
             {
                 return random_access_iterator(this->p - n);
             }
-            difference_type operator-(const random_access_iterator &rhs) const
-            {
-                return (this->p - rhs.p);
-            }
             reference operator[](size_t n) const{return (this->p[n]);}
             random_access_iterator &operator+=(difference_type n){this->p += n; return (*this);}
             random_access_iterator &operator-=(difference_type n){this->p -= n; return (*this);}
@@ -114,7 +110,12 @@ namespace ft
     {
         return (lhs.base() != rhs.base());
     }
-
+    template<class T1, class T2>
+    typename random_access_iterator<T1>::difference_type operator-(random_access_iterator<T1> lhs, \
+    random_access_iterator<T2> rhs)
+    {
+        return (lhs.base() - rhs.base());
+    }
 }
 
 

@@ -296,11 +296,13 @@ namespace ft
                     _alloc.destroy(&_data[cnt - range]);
                     cnt--;
                 }
-                while (first != last)
+                reverse_iterator rfirst(last);
+                reverse_iterator rlast(first);
+                while (rfirst != rlast)
                 {
-                    _alloc.construct(&_data[cnt--], *first);
+                    _alloc.construct(&_data[cnt--], *rfirst);
                     ++_size;
-                    first++;
+                    rfirst++;
                 }
             }
             iterator erase (iterator position)
