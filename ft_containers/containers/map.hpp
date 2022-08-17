@@ -46,15 +46,16 @@ namespace ft
             
             explicit map (const key_compare& comp = key_compare(),
                 const allocator_type& alloc = allocator_type()) : \
-                _compare(comp), _alloc(alloc), node_alloc(alloc), root(NULL), _size(0)
+                _compare(comp), _alloc(alloc), _node_alloc(alloc), _root(NULL), _size(0)
             {
-                    
+
             }
+            
         private:
             typedef typename Alloc::template rebind<Node<const key_type, mapped_type>>::other node_alloc_type;
             size_type _size;
             key_compare _compare;
-            node_alloc_type node_alloc;
+            node_alloc_type _node_alloc;
             Node<key_type, value_type>* _root;
             allocator_type _alloc;
 
