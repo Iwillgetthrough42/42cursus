@@ -1,5 +1,4 @@
 #include "vector.hpp"
-#include "utility.hpp"
 #include <vector>
 
 int main()
