@@ -3,6 +3,7 @@
 #include<functional>
 #include "pair.hpp"
 #include "node.hpp"
+#include <memory>
 
 namespace ft
 {
@@ -52,19 +53,36 @@ namespace ft
 
             }
             
-        private:
+        protected:
             typedef typename Alloc::template rebind<Node<const key_type, mapped_type>>::other node_alloc_type;
             size_type _size;
             key_compare _compare;
             value_compare _compval;
             node_alloc_type _node_alloc;
-            node* _root;
-            node* _nil;
+            struct red_black_tree *node;
+            Node *_root = node->root;
+            Node *_nil = node->nil;
             allocator_type _alloc;
-
-            void left_rotate(node *x)
+            
+            Node *_min(Node *x)
             {
-                node *y = x->right;
+                while (x->left != _nil)
+                {
+                    x = x->left;
+                }
+                return (x);
+            }
+            Node *_max(Node *x)
+            {
+                while (x->right != _nil)
+                {
+                    x = x->right;
+                }
+                return (x);
+            }
+            void left_rotate(Node *x)
+            {
+                Node *y = x->right;
                 x->right = y->left;
                 if (y->left != _nil)
                 {
@@ -84,9 +102,9 @@ namespace ft
                 y->left = x;
                 x->parent = y;
             }
-            void right_rotate(node *x)
+            void right_rotate(Node *x)
             {
-                node *y = x->left;
+                Node *y = x->left;
                 x->left = y->right;
                 if (y->right != _nil)
                 {
@@ -106,7 +124,7 @@ namespace ft
                 y->right = x;
                 x->parent = y;
             }
-            node *_find(node *x, value_type val)
+            Node *_find(Node *x, value_type val)
             {
                if (x == -nil || (!_compval(*(x->data), val) && !_compval(val, *(x->data))))
                {
@@ -117,10 +135,10 @@ namespace ft
                 else
                     return (_find(x->right, val));
             }
-            void _insert(node *z)
+            void _insert(Node *z)
             {
-                node *y = _nil;
-                node *x = _root;
+                Node *y = _nil;
+                Node *x = _root;
                 while (x != _nil)
                 {
                     y = x;
@@ -143,9 +161,9 @@ namespace ft
                 z->color = RED;
                 _insert_fixup(z);
             }
-        void insert_fixup(node *z)
+        void insert_fixup(Node *z)
         {
-            node *y;
+            Node *y;
 
             while (z->parent->color == RED)
             {
