@@ -54,10 +54,49 @@ namespace ft
             }
             iterator_map &operator++()
             {
-                if (x->right != nil)
+                ft::Node *y;
+
+                if (node->right != nil)
                 {
-                    _min(x);
+                    _min(node->right);
                 }
+                y = node->parent;
+                while (y != nil && node == y->right)
+                {
+                    x = y;
+                    y = y->parent;
+                }
+                return (y);
+            }
+             iterator_map &operator++(int num)
+            {
+               (void) num;
+               iterator_map tmp = *this;
+               ++this;
+               return (tmp);
+            }
+            iterator_map &operator--()
+            {
+                ft::Node *y;
+
+                if (node->left != nil)
+                {
+                    _max(node->left);
+                }
+                y = node->parent;
+                while (y != nil && node == y->left)
+                {
+                    x = y;
+                    y = y->parent;
+                }
+                return (y);
+            }
+             iterator_map &operator--(int num)
+            {
+               (void) num;
+               iterator_map tmp = *this;
+               --this;
+               return (tmp);
             }
         private:
             ft::Node *node;
