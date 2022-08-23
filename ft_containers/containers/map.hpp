@@ -89,7 +89,7 @@ namespace ft
 
                 while (first != last)
                 {
-                    tmp = createnod(*first);
+                    tmp = _createnode(*first);
                     _insert(tmp);
                     first++;
                     _size++;
