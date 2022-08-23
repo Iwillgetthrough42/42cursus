@@ -19,7 +19,7 @@ namespace ft
             typedef typename ft::pair<const key_type, mapped_type> value_type;
             typedef Compare key_compare;
             typedef Alloc allocator_type;
-            typedef Node<const key_type, mapped_type> node;
+            typedef ft::Node<const key_type, mapped_type> node;
             class value_compare:std::binary_function<value_type,value_type,bool>
             {  
                 friend class map;
@@ -39,12 +39,13 @@ namespace ft
             typedef typename allocator_type::const_reference const_referenece;
             typedef typename allocator_type::pointer pointer;
             typedef typename allocator_type::const_pointer const_pointer;
-            typedef typename ft::rb_tree_iterator<value_type> iterator;
-            typedef typename ft::rb_tree_iterator<const value_type> const_iterator;
+            typedef typename ft::map_iterator<value_type> iterator;
+            typedef typename ft::map_iterator<const value_type> const_iterator;
             typedef typename ft::reverse_iterator<iterator> reverse_iterator;
             typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
             typedef typename iterator_traits<iterator>::difference_type difference_type;
             typedef size_t size_type;
+            typedef typename allocator_type::template rebind<node>::other node_alloc_type;
             
             explicit map (const key_compare& comp = key_compare(),
                 const allocator_type& alloc = allocator_type()) : \
@@ -52,19 +53,59 @@ namespace ft
             {
 
             }
-            
+            template <class InputIterator>
+            map (InputIterator first, InputIterator last,
+            const key_compare& comp = key_compare(),
+            const allocator_type& alloc = allocator_type()) : _compare(comp), _alloc(alloc)
+            {
+                
+            }
+            map (const map& x)
+            {
+                this->_root=other
+            }
+            pair<iterator,bool> insert (const value_type& val)
+            {
+                node *n;
+
+                n = _createnode(val);
+                return (_insert(n));
+            }
+            iterator insert (iterator position, const value_type& val)
+            {
+                node *n;
+
+                n = _createnode(val);
+                (void)position;
+                return(_insert(n).first);
+            }
+            template <class InputIterator>
+            void insert (InputIterator first, InputIterator last)
+            {
+                
+            }
         protected:
-            typedef typename Alloc::template rebind<Node<const key_type, mapped_type>>::other node_alloc_type;
             size_type _size;
             key_compare _compare;
             value_compare _compval;
             node_alloc_type _node_alloc;
             struct red_black_tree *node;
-            Node *_root = node->root;
-            Node *_nil = node->nil;
+            node *_root = node->_root;
+            node *_nil = node->_nil;
             allocator_type _alloc;
             
-            Node *_min(Node *x)
+            node *_createnode(const value_type &val)
+            {
+                node *x;
+                
+                x = _node_alloc.allocate(1);
+                x->left = NULL;
+                x->right = NULL;
+                x->parent = NULL;
+                x->data = val;
+                return (x);
+            }
+            node *_min(node *x)
             {
                 while (x->left != _nil)
                 {
@@ -72,7 +113,7 @@ namespace ft
                 }
                 return (x);
             }
-            Node *_max(Node *x)
+            node *_max(node *x)
             {
                 while (x->right != _nil)
                 {
@@ -80,9 +121,9 @@ namespace ft
                 }
                 return (x);
             }
-            void left_rotate(Node *x)
+            void left_rotate(node *x)
             {
-                Node *y = x->right;
+                node *y = x->right;
                 x->right = y->left;
                 if (y->left != _nil)
                 {
@@ -102,9 +143,9 @@ namespace ft
                 y->left = x;
                 x->parent = y;
             }
-            void right_rotate(Node *x)
+            void right_rotate(node *x)
             {
-                Node *y = x->left;
+                node *y = x->left;
                 x->left = y->right;
                 if (y->right != _nil)
                 {
@@ -124,9 +165,9 @@ namespace ft
                 y->right = x;
                 x->parent = y;
             }
-            Node *_find(Node *x, value_type val)
+            node *_find(node *x, value_type val)
             {
-               if (x == -nil || (!_compval(*(x->data), val) && !_compval(val, *(x->data))))
+               if (x == _nil || (!_compval(*(x->data), val) && !_compval(val, *(x->data))))
                {
                     return (x);
                }
@@ -135,10 +176,14 @@ namespace ft
                 else
                     return (_find(x->right, val));
             }
-            void _insert(Node *z)
+            ft_pair<iterator, bool> _insert(node *z)
             {
-                Node *y = _nil;
-                Node *x = _root;
+                node *y = _nil;
+                node *x = _root;
+                node *found;
+
+                if (found = _find(_root,z) != _nil)
+                    return (ft::make_pair(iterator(found), false));
                 while (x != _nil)
                 {
                     y = x;
@@ -160,10 +205,11 @@ namespace ft
                 z->right = _nil;
                 z->color = RED;
                 _insert_fixup(z);
+                return ft::make_pair(iterator(z), true);
             }
-        void insert_fixup(Node *z)
+        void insert_fixup(node *z)
         {
-            Node *y;
+            node *y;
 
             while (z->parent->color == RED)
             {

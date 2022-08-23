@@ -23,8 +23,8 @@ namespace ft
     template <class T1, class T2>
     struct red_black_tree : public ft::map<T1, T2>
     {
-        Node *nil;
-        Node *root;
+        Node *_nil;
+        Node *_root;
 
         red_black_tree()
         {
