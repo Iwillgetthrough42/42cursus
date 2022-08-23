@@ -82,7 +82,14 @@ namespace ft
             template <class InputIterator>
             void insert (InputIterator first, InputIterator last)
             {
-                
+                node *tmp;
+
+                while (first != last)
+                {
+                    tmp = createnod(*first);
+                    _insert(tmp);
+                    first++;
+                }
             }
         protected:
             size_type _size;
