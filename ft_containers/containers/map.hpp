@@ -56,19 +56,21 @@ namespace ft
             template <class InputIterator>
             map (InputIterator first, InputIterator last,
             const key_compare& comp = key_compare(),
-            const allocator_type& alloc = allocator_type()) : _compare(comp), _alloc(alloc)
+            const allocator_type& alloc = allocator_type()) : _compare(comp), _alloc(alloc), _node_alloc(alloc)\
+            _size(0)
             {
-                
+                this->insert(first, last);
             }
-            map (const map& x)
+            map (const map& x) _compare(x._compare), _alloc(x._alloc), _node_alloc(x._node_alloc), _size(0)
             {
-                this->_root=other
+                this->insert(x.begin(), x.end());
             }
             pair<iterator,bool> insert (const value_type& val)
             {
                 node *n;
 
                 n = _createnode(val);
+                _size++;
                 return (_insert(n));
             }
             iterator insert (iterator position, const value_type& val)
@@ -77,6 +79,7 @@ namespace ft
 
                 n = _createnode(val);
                 (void)position;
+                _size++;
                 return(_insert(n).first);
             }
             template <class InputIterator>
@@ -89,6 +92,7 @@ namespace ft
                     tmp = createnod(*first);
                     _insert(tmp);
                     first++;
+                    _size++;
                 }
             }
         protected:
