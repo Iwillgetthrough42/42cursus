@@ -4,14 +4,13 @@
 #include "pair.hpp"
 #include "node.hpp"
 #include <memory>
-#include "rbtree.hpp"
 
 namespace ft
 {
     template < class Key,                                     
     class T,                                      
     class Compare = std::less<Key>,         
-    class Alloc = std::allocator<pair<const Key,T> >
+    class Alloc = std::allocator<ft::pair<const Key,T> >
     > class map
     {
         public:
@@ -20,7 +19,7 @@ namespace ft
             typedef typename ft::pair<const key_type, mapped_type> value_type;
             typedef Compare key_compare;
             typedef Alloc allocator_type;
-            typedef ft::Node<const key_type, mapped_type> node;
+            typedef typename ft::Node<const key_type, mapped_type> node;
             class value_compare:std::binary_function<value_type,value_type,bool>
             {  
                 friend class map;
@@ -106,13 +105,8 @@ namespace ft
             size_type _size;
             key_compare _compare;
             value_compare _compval;
-            node_alloc_type _node_alloc;
-            struct red_black_tree *node;
-            node *_root = node->_root;
-            node *_nil = node->_nil;
             allocator_type _alloc;
-    };
-    
+        };
 }
 
 #endif
