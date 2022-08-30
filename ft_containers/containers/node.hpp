@@ -60,13 +60,73 @@ namespace ft
             typedef typename iterator_traits<iterator>::difference_type difference_type;
             typedef size_t size_type;
             typedef typename Alloc::template rebind<Node<const key_type, mapped_type> >::other node_alloc;
+
+
+            red_black_tree() : _compare(key_compare()), _size(0)
+            {
+                node *nil = _node_alloc.allocate(1);
+                nil->left = NULL;
+                nil->right = NULL;
+                nil->parent = NULL;
+                nil->data = NULL;
+                nil->color = BLACK;
+                _nil = nil;
+                _root = _nil;
+            }
+
+            ~red_black_tree()
+            {
+                delete_tree(_root);
+                _node_alloc.destroy(_nil);
+                _node.deallocate(_nil, 1);
+            }
+
+            iterator begin()
+            {
+                return (iterator(_min(_root), _nil));
+            }
+            const_iterator begin() const
+            {
+                return (const_iterator(_min(_root), _nil))
+            }
+            iterator end()
+            {
+                return (iterator(_nil, _nil));
+            }
+            const_iterator end() const
+            {
+                return (const_iterator(_nil, _nil));
+            }
+            reverse_iterator rbegin()
+            {
+                return reverse_iterator(this->end());
+            }
+            const_reverse_iterator rbegin() const
+            {
+                return reverse_iterator(this->end());
+            }
         protected:
             size_type _size;
             key_compare _compare;
             value_compare _compval;
-            node_alloc node_all;
+            node_alloc _node_alloc;
+            allocator_type _alloc;
             node *_root;
             node *_nil;
+
+            void delete_tree()
+            {
+                if (_root == NULL)
+                    return ;
+                else if (_root->left)
+                    delete_tree(_root->left);
+                else if (_root->right)
+                    delete_tree(_root->right);
+                _alloc.destroy(_root->data);
+                _alloc.deallocate(_root->data, 1);
+                _node_alloc.destroy(_root);
+                _node_alloc.deallocate(_root, 1);
+            }
 
             node *_createnode(const value_type &val)
             {       
@@ -76,7 +136,7 @@ namespace ft
                 x->left = NULL;
                 x->right = NULL;
                 x->parent = NULL;
-                x->data = val;
+                _node_alloc.construct(x->data, &val);
                 return (x);
             }   
             node *_min(node *x)
