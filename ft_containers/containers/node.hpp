@@ -105,6 +105,43 @@ namespace ft
             {
                 return reverse_iterator(this->end());
             }
+            bool empty() const
+            {
+                return (_size == 0);
+            }
+            size_type size() const
+            {
+                return (_size);
+            }
+            size_type max_size() const
+            {
+                return (_node_alloc.max_size());
+            }
+            pair<iterator,bool> insert (const value_type& val)
+            {
+                node *z = _createnode(val);
+                _size++;
+                return (_insert(z));
+            }
+            iterator insert (iterator position, const value_type& val)
+            {
+                (void) position;
+                _size++;
+                node *z = _createnode(val);
+                return (_insert(z).first);
+            }
+            void insert (InputIterator first, InputIterator last)
+            {
+                node *tmp;
+
+                while (first != last)
+                {
+                    tmp = _createnode(*first);
+                    _insert(tmp);
+                    first++;
+                    _size++;
+                }
+            }
         protected:
             size_type _size;
             key_compare _compare;
@@ -217,7 +254,7 @@ namespace ft
                 node *found;
 
                 if (found = _find(_root,z) != _nil)
-                    return (ft::make_pair(iterator(found), false));
+                    return (ft::make_pair(iterator(found, _nil), false));
                 while (x != _nil)
                 {
                     y = x;
@@ -239,7 +276,7 @@ namespace ft
                 z->right = _nil;
                 z->color = RED;
                 _insert_fixup(z);
-                return ft::make_pair(iterator(z), true);
+                return ft::make_pair(iterator(z, _nil), true);
             }
             void insert_fixup(node *z)
             {
