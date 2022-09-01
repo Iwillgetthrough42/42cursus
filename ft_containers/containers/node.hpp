@@ -182,7 +182,36 @@ namespace ft
             {
                 return (_compval);
             }
-            
+            void swap(red_black_tree const &other)
+            {
+                size_type tmpsize = _size;
+                node *tmproot = _root;
+                node *tmpnil = _nil;
+                _size =other._size;
+                _root = other._root;
+                _nil = other._nil;
+                other._size = tmpsize;
+                other._root = tmproot;
+                other._nil = tmpnil;
+            }
+            iterator find (const key_type& k)
+            {
+                node *z = _find(x, k);
+                if (z == _nil)
+                    return (this->end());
+                return (iterator(z, _nil));
+            }
+            const_iterator find (const key_type& k) const
+            {
+                node *z = _find(x, k);
+                if (z == _nil)
+                    return (this->end());
+                return (const_iterator(z, _nil));
+            }
+            size_type count (const key_type& k) const
+            {
+                
+            }
         protected:
             size_type _size;
             key_compare _compare;
