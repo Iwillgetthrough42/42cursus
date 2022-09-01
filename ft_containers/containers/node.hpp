@@ -78,7 +78,7 @@ namespace ft
             {
                 delete_tree(_root);
                 _node_alloc.destroy(_nil);
-                _node.deallocate(_nil, 1);
+                _node_alloc.deallocate(_nil, 1);
             }
 
             iterator begin()
@@ -130,6 +130,7 @@ namespace ft
                 node *z = _createnode(val);
                 return (_insert(z).first);
             }
+            template <class InputIterator>
             void insert (InputIterator first, InputIterator last)
             {
                 node *tmp;
@@ -142,6 +143,46 @@ namespace ft
                     _size++;
                 }
             }
+            void erase (iterator position)
+            {
+                erase(position->first);
+            }
+            size_type erase(const key_type& k)
+            {
+                node *z = _find(_root, key);
+                if (z != _nil)
+                {
+                    _delete(z);
+                    _size--;
+                    return (1);
+                }
+                return (0);
+            }
+            void erase(iterator first, iterator last)
+            {
+                iterator tmp = first;
+                while (tmp != last)
+                {
+                    erase(first->first);
+                    first++;
+                    tmp++;
+                }
+            }
+            void clear()
+            {
+                delete_tree(_root);
+                _node_alloc.destroy(_nil);
+                _node_alloc.deallocate(_nil, 1);
+            }
+            key_compare key_comp() const
+            {
+                return (_compare);
+            }
+            value_compare value_comp() const
+            {
+                return (_compval);
+            }
+            
         protected:
             size_type _size;
             key_compare _compare;
@@ -246,6 +287,17 @@ namespace ft
                     return (_find(x->left, val));
                 else
                     return (_find(x->right, val));
+            }
+            node *_find(node *x, key_type key)
+            {
+                if (x == _nil || (!_compare(x->data->first, key) && !_compare(key, x->data->first))
+                {
+                    return (x);
+                }
+                if (_compare(key, x->data->first))
+                    return (_find(x->left, key));
+                else
+                    return (_find(x->right, key));
             }
             ft_pair<iterator, bool> _insert(node *z)
             {
