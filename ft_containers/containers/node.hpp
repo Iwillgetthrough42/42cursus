@@ -196,22 +196,30 @@ namespace ft
             }
             iterator find (const key_type& k)
             {
-                node *z = _find(x, k);
+                node *z = _find(_root, k);
                 if (z == _nil)
                     return (this->end());
                 return (iterator(z, _nil));
             }
             const_iterator find (const key_type& k) const
             {
-                node *z = _find(x, k);
+                node *z = _find(_root, k);
                 if (z == _nil)
                     return (this->end());
                 return (const_iterator(z, _nil));
             }
             size_type count (const key_type& k) const
             {
-                
+                node *z = _find(_root, k);
+                if (z != _nil)
+                    return (1);
+                return (0);
             }
+            allocator_type get_allocator() const
+            {
+                return (_alloc);
+            }
+            
         protected:
             size_type _size;
             key_compare _compare;
