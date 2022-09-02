@@ -73,39 +73,67 @@ namespace ft
 
             pair<iterator,bool> insert (const value_type& val)
             {
-                node *n;
-
-                n = _createnode(val);
-                _size++;
-                return (_insert(n));
+                tree.insert(val);
             }
             iterator insert (iterator position, const value_type& val)
             {
-                node *n;
-
-                n = _createnode(val);
-                (void)position;
-                _size++;
-                return(_insert(n).first);
+                tree.insert(position, val);
             }
             template <class InputIterator>
             void insert (InputIterator first, InputIterator last)
             {
-                node *tmp;
-
-                while (first != last)
-                {
-                    tmp = _createnode(*first);
-                    _insert(tmp);
-                    first++;
-                    _size++;
-                }
+                tree.insert(first, last);
+            }
+            iterator begin()
+            {
+                return (tree.begin());
+            }
+            const_iterator begin() const
+            {
+                return (tree.begin());
+            }
+            iterator end()
+            {
+                return (tree.end());
+            }
+            const_iterator end() const
+            {
+                return (tree.end());
+            }
+            reverse_iterator rbegin()
+            {
+                return (tree.rbegin());
+            }
+            const_reverse_iterator rbegin() const
+            {
+                return (tree.rbegin());
+            }
+            reverse_iterator rend()
+            {
+                return (tree.rend());
+            }
+            const_reverse_iterator rend() const
+            {
+                return (tree.rend());
+            }
+            bool empty() const
+            {
+                return (tree.size() == 0);
+            }
+            size_type size() const
+            {
+                return (tree.size());
+            }
+            size_type max_size() const
+            {
+                return (tree.max_size());
             }
         protected:
-            size_type _size;
             key_compare _compare;
             value_compare _compval;
             allocator_type _alloc;
+            ft::red_black_tree<key_type, mapped_type, \
+            key_compare, allocator_type> tree;
         };
 }
 

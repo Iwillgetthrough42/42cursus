@@ -103,7 +103,15 @@ namespace ft
             }
             const_reverse_iterator rbegin() const
             {
-                return reverse_iterator(this->end());
+                return const_reverse_iterator(this->end());
+            }
+            reverse_iterator rend()
+            {
+                return (reverse_iterator(this->begin()));
+            }
+            const_reverse_iterator rend() const
+            {
+                return (const_reverse_iterator(this->begin()));
             }
             bool empty() const
             {
