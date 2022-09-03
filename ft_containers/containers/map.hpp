@@ -182,7 +182,38 @@ namespace ft
             {
                 tree.erase(first, last);
             }
-            
+            void swap (map& x)
+            {
+                tree.swap(s.tree);
+            }
+            void clear()
+            {
+                tree.clear();
+            }
+            key_compare key_comp() const
+            {
+                return (_compare);
+            }
+            value_compare value_comp() const
+            {
+                return (_compval);
+            }
+            allocator_type get_allocator() const
+            {
+                return (_alloc);
+            }
+           iterator find (const key_type& k)
+           {
+            return (tree.find(k));
+           }
+           const_iterator find (const key_type& k) const
+           {
+            return (tree.find(k));
+           }
+           size_type count (const key_type& k) const
+           {
+            return (tree.count(k));
+           }
         protected:
             key_compare _compare;
             value_compare _compval;
