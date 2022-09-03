@@ -4,6 +4,7 @@
 #include "pair.hpp"
 #include "node.hpp"
 #include <memory>
+#include <stdexcept>
 
 namespace ft
 {
@@ -73,16 +74,16 @@ namespace ft
 
             pair<iterator,bool> insert (const value_type& val)
             {
-                tree.insert(val);
+                return (tree.insert(val));
             }
             iterator insert (iterator position, const value_type& val)
             {
-                tree.insert(position, val);
+                return (tree.insert(position, val));
             }
             template <class InputIterator>
             void insert (InputIterator first, InputIterator last)
             {
-                tree.insert(first, last);
+                return (tree.insert(first, last));
             }
             iterator begin()
             {
@@ -128,6 +129,35 @@ namespace ft
             {
                 return (tree.max_size());
             }
+            mapped_type& operator[] (const key_type& k)
+            {
+                return ((*((this->insert(ft::make_pair(k,mapped_type()))).first)).second);
+            }
+            mapped_type& at (const key_type& k)
+            {
+                iterator z = tree.find(k);
+                if (z == tree.end())
+                {
+                    throw std::out_of_range("out of range");
+                }
+                else
+                {
+                    return (*z.second);
+                }
+            }
+            const mapped_type& at (const key_type& k) const
+            {
+                const_iterator z = tree.find(k);
+                if (z == tree.end())
+                {
+                    throw std::out_of_range("out of range");
+                }
+                else
+                {
+                    return (*z.second);
+                }
+            }
+            
         protected:
             key_compare _compare;
             value_compare _compval;
