@@ -157,6 +157,31 @@ namespace ft
                     return (*z.second);
                 }
             }
+            pair<iterator,bool> insert (const value_type& val)
+            {
+                return (tree.insert(val));
+            }
+            iterator insert (iterator position, const value_type& val)
+            {
+                return (tree.insert(position, val));
+            }
+            template <class InputIterator>
+            void insert (InputIterator first, InputIterator last)
+            {
+                tree.insert(first, last);
+            }
+            void erase (iterator position)
+            {
+                tree.erase(position);
+            }
+            size_type erase (const key_type& k)
+            {
+                return (tree.erase(k));
+            }
+            void erase (iterator first, iterator last)
+            {
+                tree.erase(first, last);
+            }
             
         protected:
             key_compare _compare;
