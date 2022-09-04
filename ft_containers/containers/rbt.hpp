@@ -99,14 +99,14 @@ namespace ft
                 {
                     node *z = _createnode(val);
                     _size++;
-                    return (_insert(z));
+                    return (_insert(_root, z));
                 }
                 iterator insert (iterator position, const value_type& val)
                 {
                     (void) position;
                     _size++;
                     node *z = _createnode(val);
-                    return (_insert(z).first);
+                    return (_insert(_root, z).first);
                 }
                 template <class InputIterator>
                 void insert (InputIterator first, InputIterator last)
@@ -116,7 +116,7 @@ namespace ft
                     while (first != last)
                     {
                         tmp = _createnode(*first);
-                        _insert(tmp);
+                        _insert(_root, tmp);
                         first++;
                         _size++;
                     }
@@ -330,7 +330,7 @@ namespace ft
                             else if (z == z->parent->right)
                             {
                                 z = z->parent;
-                                left_rotate(z);
+                               left_rotate(z);
                             }
                             z->parent->color = BLACK;
                             z->parent->parent->color = RED;
@@ -358,10 +358,9 @@ namespace ft
                     }
                     _root->color = BLACK;
                 }
-                ft::pair<iterator, bool> _insert(node *z)
+                ft::pair<iterator, bool> _insert(node *x, node *z)
                 {
                     node *y = _nil;
-                    node *x = _root;
                     node *found;
                     
                     found = _find(_root, z->data->first);
