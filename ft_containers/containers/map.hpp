@@ -52,9 +52,8 @@ namespace ft
             
             explicit map (const key_compare& comp = key_compare(),
                 const allocator_type& alloc = allocator_type()) : \
-                _compare(comp), _alloc(alloc)
+                _compare(comp), _compval(value_compare(_compare)), _alloc(alloc)
             {
-                _compval = value_compare(_compare);
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last,

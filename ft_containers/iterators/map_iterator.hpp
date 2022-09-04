@@ -46,7 +46,7 @@ namespace ft
             {
                 return (this->node != rhs.node);
             }
-            reference operator*()
+            reference operator*() const
             {
                 return (*(node->data));
             }
@@ -54,54 +54,32 @@ namespace ft
             {
                 return (map_iterator<const T>(node, nil));
             }
-            pointer operator->()
+            pointer operator->() const
             {
                 return (node->data);
             }
             map_iterator &operator++()
             {
-                Node *y;
-
-                if (node->right != nil)
-                {
-                    _min(node->right);
-                }
-                y = node->parent;
-                while (y != nil && node == y->right)
-                {
-                    node = y;
-                    y = y->parent;
-                }
-                return (y);
+                node = successor();
+                return (*this);
             }
-            map_iterator &operator++(int num)
+            map_iterator operator++(int num)
             {
                (void) num;
                map_iterator tmp = *this;
-               ++this;
+               ++(*this);
                return (tmp);
             }
             map_iterator &operator--()
             {
-                Node *y;
-
-                if (node->left != nil)
-                {
-                    _max(node->left);
-                }
-                y = node->parent;
-                while (y != nil && node == y->left)
-                {
-                    node = y;
-                    y = y->parent;
-                }
-                return (y);
+                node = predecessor();
+                return (*this);
             }
-            map_iterator &operator--(int num)
+            map_iterator operator--(int num)
             {
                (void) num;
                map_iterator tmp = *this;
-               --this;
+               --(*this);
                return (tmp);
             }
         private:
@@ -115,6 +93,39 @@ namespace ft
                     x = x->left;
                 }
                 return (x);
+            }
+            Node *successor()
+            {
+                Node *y;
+
+                if (node->right != nil)
+                {
+                    return (_min(node->right));
+                }
+                y = node->parent;
+                while (y != nil && node == y->right)
+                {
+                    node = y;
+                    y = y->parent;
+                }
+                return (y);
+
+            }
+            Node *predecessor()
+            {
+                Node *y;
+
+                if (node->left != nil)
+                {
+                    return (_max(node->left));
+                }
+                y = node->parent;
+                while (y != nil && node == y->left)
+                {
+                    node = y;
+                    y = y->parent;
+                }
+                return (y);
             }
             Node *_max(Node *x)
             {
