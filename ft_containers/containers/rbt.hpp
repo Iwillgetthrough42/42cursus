@@ -46,7 +46,7 @@ namespace ft
 
                 ~red_black_tree()
                 {
-                    delete_tree();
+                    delete_tree(_root);
                     _node_alloc.destroy(_nil);
                     _node_alloc.deallocate(_nil, 1);
                 }
@@ -202,18 +202,18 @@ namespace ft
                 node *_root;
                 node *_nil;
 
-                void delete_tree()
+                void delete_tree(node *x)
                 {
-                    if (_root == NULL)
+                    if (x == NULL)
                         return ;
-                    else if (_root->left)
-                        delete_tree(_root->left);
-                    else if (_root->right)
-                        delete_tree(_root->right);
-                    _alloc.destroy(_root->data);
-                    _alloc.deallocate(_root->data, 1);
-                    _node_alloc.destroy(_root);
-                    _node_alloc.deallocate(_root, 1);
+                    else if (x->left)
+                        delete_tree(x->left);
+                    else if (x->right)
+                        delete_tree(x->right);
+                    _alloc.destroy(x->data);
+                    _alloc.deallocate(x->data, 1);
+                    _node_alloc.destroy(x);
+                    _node_alloc.deallocate(x, 1);
                 }
 
                 node *_createnode(const value_type &val)
@@ -224,10 +224,11 @@ namespace ft
                     x->left = NULL;
                     x->right = NULL;
                     x->parent = NULL;
-                    _node_alloc.construct(x->data, &val);
+                    x->data = _alloc.allocate(1);
+                    _alloc.construct(x->data, val);
                     return (x);
                 }   
-                node *_min(node *x)
+                node *_min(node *x) const
                 {
                     while (x->left != _nil)
                     {
@@ -235,7 +236,7 @@ namespace ft
                     }
                     return (x);
                 }
-                node *_max(node *x)
+                node *_max(node *x) const
                 {
                     while (x->right != _nil)
                     {
@@ -310,38 +311,7 @@ namespace ft
                     else
                         return (_find(x->right, key));
                 }
-                ft::pair<iterator, bool> _insert(node *z)
-                {
-                    node *y = _nil;
-                    node *x = _root;
-                    node *found;
-
-                    if ((found = _find(_root,z)) != _nil)
-                        return (ft::make_pair(iterator(found, _nil), false));
-                    while (x != _nil)
-                    {
-                        y = x;
-                        if (_compare(z->data->first, x->data->first))
-                            x = x->left;
-                        else
-                            x = x->right;
-                    }
-                    z->parent = y;
-                    if (y == _nil)
-                    {
-                        _root = z;
-                    }
-                    else if(_compare(z->data->first, y->data->first))
-                        y->left = z;
-                    else
-                        y->right = z;
-                    z->left = _nil;
-                    z->right = _nil;
-                    z->color = RED;
-                    _insert_fixup(z);
-                    return ft::make_pair(iterator(z, _nil), true);
-                }
-                void insert_fixup(node *z)
+                void _insert_fixup(node *z)
                 {
                     node *y;
 
@@ -387,6 +357,38 @@ namespace ft
                         }
                     }
                     _root->color = BLACK;
+                }
+                ft::pair<iterator, bool> _insert(node *z)
+                {
+                    node *y = _nil;
+                    node *x = _root;
+                    node *found;
+                    
+                    found = _find(_root, z->data->first);
+                    if (found != _nil)
+                        return (ft::make_pair(iterator(found, _nil), false));
+                    while (x != _nil)
+                    {
+                        y = x;
+                        if (_compare(z->data->first, x->data->first))
+                            x = x->left;
+                        else
+                            x = x->right;
+                    }
+                    z->parent = y;
+                    if (y == _nil)
+                    {
+                        _root = z;
+                    }
+                    else if(_compare(z->data->first, y->data->first))
+                        y->left = z;
+                    else
+                        y->right = z;
+                    z->left = _nil;
+                    z->right = _nil;
+                    z->color = RED;
+                    _insert_fixup(z);
+                    return ft::make_pair(iterator(z, _nil), true);
                 }
                 void transplant(node *u, node *v)
                 {

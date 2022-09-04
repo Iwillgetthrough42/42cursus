@@ -50,6 +50,10 @@ namespace ft
             {
                 return (*(node->data));
             }
+            operator map_iterator<const T> () const
+            {
+                return (map_iterator<const T>(node, nil));
+            }
             pointer operator->()
             {
                 return (node->data);

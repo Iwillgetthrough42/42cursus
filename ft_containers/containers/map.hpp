@@ -54,16 +54,16 @@ namespace ft
                 const allocator_type& alloc = allocator_type()) : \
                 _compare(comp), _alloc(alloc)
             {
-
+                _compval = value_compare(_compare);
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last,
             const key_compare& comp = key_compare(),
-            const allocator_type& alloc = allocator_type()) : _compare(comp), _alloc(alloc)
+            const allocator_type& alloc = allocator_type()) :_compare(comp),_compval(value_compare(_compare)), _alloc(alloc)
             {
                 this->insert(first, last);
             }
-            map (const map& x) : _compare(x._compare), _alloc(x._alloc)
+            map (const map& x) : _compare(x._compare),  _compval(x._compval), _alloc(x._alloc)
             {
                 this->insert(x.begin(), x.end());
             }
@@ -71,6 +71,7 @@ namespace ft
             {
                 _compare = x._compare;
                 _alloc = x._alloc;
+                _compval = x._compval;
                 this->insert(x.begin(), x.end());
                 return (*this);
             }
