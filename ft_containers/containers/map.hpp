@@ -5,6 +5,8 @@
 #include "node.hpp"
 #include <memory>
 #include <stdexcept>
+#include "rbt.hpp"
+#include "../iterators/map_iterator.hpp"
 
 namespace ft
 {
@@ -26,7 +28,7 @@ namespace ft
                 friend class map;
                 protected:
                     Compare comp;
-                    value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+                    value_compare (Compare c) : comp(c) {}
                 public:
                     typedef bool result_type;
                     typedef value_type first_argument_type;
@@ -50,24 +52,25 @@ namespace ft
             
             explicit map (const key_compare& comp = key_compare(),
                 const allocator_type& alloc = allocator_type()) : \
-                _compare(comp), _alloc(alloc), _node_alloc(alloc), _root(NULL), _size(0)
+                _compare(comp), _alloc(alloc)
             {
 
             }
             template <class InputIterator>
             map (InputIterator first, InputIterator last,
             const key_compare& comp = key_compare(),
-            const allocator_type& alloc = allocator_type()) : _compare(comp), _alloc(alloc), _node_alloc(alloc)\
-            _size(0)
+            const allocator_type& alloc = allocator_type()) : _compare(comp), _alloc(alloc)
             {
                 this->insert(first, last);
             }
-            map (const map& x) _compare(x._compare), _alloc(x._alloc), _node_alloc(x._node_alloc), _size(0)
+            map (const map& x) : _compare(x._compare), _alloc(x._alloc)
             {
                 this->insert(x.begin(), x.end());
             }
-            map& operator= (const map& x) : _compare(x._compare), _alloc(x._alloc), _node_alloc(x._node_alloc), _size(0)
+            map& operator= (const map& x)
             {
+                _compare = x._compare;
+                _alloc = x._alloc;
                 this->insert(x.begin(), x.end());
                 return (*this);
             }
@@ -157,19 +160,6 @@ namespace ft
                     return (*z.second);
                 }
             }
-            pair<iterator,bool> insert (const value_type& val)
-            {
-                return (tree.insert(val));
-            }
-            iterator insert (iterator position, const value_type& val)
-            {
-                return (tree.insert(position, val));
-            }
-            template <class InputIterator>
-            void insert (InputIterator first, InputIterator last)
-            {
-                tree.insert(first, last);
-            }
             void erase (iterator position)
             {
                 tree.erase(position);
@@ -184,7 +174,7 @@ namespace ft
             }
             void swap (map& x)
             {
-                tree.swap(s.tree);
+                tree.swap(x.tree);
             }
             void clear()
             {

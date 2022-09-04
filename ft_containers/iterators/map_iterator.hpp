@@ -1,9 +1,9 @@
 #ifndef MAP_ITERATOR_HPP
 # define MAP_ITERATOR_HPP
 
+
 #include "iterator.hpp"
 #include "../containers/node.hpp"
-#include "../containers/map.hpp"
 
 namespace ft
 {
@@ -11,12 +11,14 @@ namespace ft
     class map_iterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
     {
         public:
-            typedef typename ft::iterator<bidirectional_iterator_tag, T>::iterator_category itertor_category;
+            typedef typename ft::iterator<bidirectional_iterator_tag, T>::iterator_category iterator_category;
             typedef typename ft::iterator<bidirectional_iterator_tag, T>::value_type value_type;
             typedef typename ft::iterator<bidirectional_iterator_tag, T>::difference_type difference_type;
             typedef typename ft::iterator<bidirectional_iterator_tag, T>::pointer pointer;
-            typedef typename ft::iterator<bidirectional_iterator_tag, T>::refernce reference;
-
+            typedef typename ft::iterator<bidirectional_iterator_tag, T>::reference reference;
+            typedef typename value_type::first_type first;
+            typedef typename value_type::second_type second;
+            typedef  ft::Node<first, second> Node;
             map_iterator() : node(NULL), nil(NULL){}
             map_iterator(Node *node, Node *nil)
             {
@@ -52,9 +54,9 @@ namespace ft
             {
                 return (node->data);
             }
-            iterator_map &operator++()
+            map_iterator &operator++()
             {
-                ft::Node *y;
+                Node *y;
 
                 if (node->right != nil)
                 {
@@ -63,21 +65,21 @@ namespace ft
                 y = node->parent;
                 while (y != nil && node == y->right)
                 {
-                    x = y;
+                    node = y;
                     y = y->parent;
                 }
                 return (y);
             }
-             iterator_map &operator++(int num)
+            map_iterator &operator++(int num)
             {
                (void) num;
-               iterator_map tmp = *this;
+               map_iterator tmp = *this;
                ++this;
                return (tmp);
             }
-            iterator_map &operator--()
+            map_iterator &operator--()
             {
-                ft::Node *y;
+                Node *y;
 
                 if (node->left != nil)
                 {
@@ -86,39 +88,38 @@ namespace ft
                 y = node->parent;
                 while (y != nil && node == y->left)
                 {
-                    x = y;
+                    node = y;
                     y = y->parent;
                 }
                 return (y);
             }
-             iterator_map &operator--(int num)
+            map_iterator &operator--(int num)
             {
                (void) num;
-               iterator_map tmp = *this;
+               map_iterator tmp = *this;
                --this;
                return (tmp);
             }
         private:
-            ft::Node *node;
-            ft::Node *nil;
+            Node *node;
+            Node *nil;
 
-            ft::Node *_min(ft::Node *x)
+            Node *_min(Node *x)
             {
-                while (x->left != _nil)
+                while (x->left != nil)
                 {
                     x = x->left;
                 }
                 return (x);
             }
-            ft::Node *_max(ft::Node *x)
+            Node *_max(Node *x)
             {
-                while (x->right != _nil)
+                while (x->right != nil)
                 {
                     x = x->right;
                 }
                 return (x);
             }
-
     };
 }
 
