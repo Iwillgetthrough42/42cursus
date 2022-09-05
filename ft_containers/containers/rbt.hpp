@@ -109,12 +109,9 @@ namespace ft
                 template <class InputIterator>
                 void insert (InputIterator first, InputIterator last)
                 {
-                    node *tmp;
-
                     while (first != last)
                     {
-                        tmp = _createnode(*first);
-                        _insert(_root, tmp);
+                        insert(*first);
                         first++;
                         _size++;
                     }
@@ -266,13 +263,12 @@ namespace ft
                 }
                 void right_rotate(node *x)
                 {
-                    //node *y = x->left;
-                    //x->left = y->right;
-                    /*if (y->right != _nil)
+                    node *y = x->left;
+                    x->left = y->right;
+                    if (y->right != _nil)
                     {
                         y->right->parent = x;
-                    }*/
-                    /*
+                    }
                     y->parent = x->parent;
                     if (x->parent == _nil)
                         _root = y;
@@ -285,7 +281,7 @@ namespace ft
                         x->parent->left = y;
                     }
                     y->right = x;
-                    x->parent = y;*/
+                    x->parent = y;
                 }
                 node *_find(node *x, value_type val)
                 {
@@ -316,7 +312,7 @@ namespace ft
 
                     while (z->parent->color == RED)
                     {
-                        if (z->parent == z->parent->parent->left)
+                       if (z->parent == z->parent->parent->left)
                         {
                             y = z->parent->parent->right;
                             if (y->color == RED)
@@ -348,11 +344,11 @@ namespace ft
                             else if (z == z->parent->left)
                             {
                                 z = z->parent;
-                                left_rotate(z);
+                                right_rotate(z);
                             }
                             z->parent->color = BLACK;
                             z->parent->parent->color = RED;
-                            right_rotate(z->parent->parent);
+                            left_rotate(z->parent->parent);
                         }
                     }
                     _root->color = BLACK;
