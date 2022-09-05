@@ -3,6 +3,7 @@
 
 #include "node.hpp"
 #include "../iterators/map_iterator.hpp"
+#include <iostream>
 
 namespace ft
 {
@@ -34,13 +35,12 @@ namespace ft
 
                 red_black_tree() : _size(0), _compare(key_compare())
                 {
-                    node *nil = _node_alloc.allocate(1);
-                    nil->left = NULL;
-                    nil->right = NULL;
-                    nil->parent = NULL;
-                    nil->data = NULL;
-                    nil->color = BLACK;
-                    _nil = nil;
+                    _nil = _node_alloc.allocate(1);
+                    _nil->left = _nil;
+                    _nil->right = _nil;
+                    _nil->parent = _nil;
+                    _nil->data = NULL;
+                    _nil->color = BLACK;
                     _root = _nil;
                 }
 
@@ -202,16 +202,16 @@ namespace ft
 
                 void delete_tree(node *x)
                 {
-                    if (x == NULL)
+                    if (x == _nil)
                         return ;
-                    else if (x->left)
+                    else if (x->left != _nil)
                         delete_tree(x->left);
-                    else if (x->right)
+                    else if (x->right != _nil)
                         delete_tree(x->right);
-                    _alloc.destroy(x->data);
-                    _alloc.deallocate(x->data, 1);
                     _node_alloc.destroy(x);
                     _node_alloc.deallocate(x, 1);
+                    _alloc.destroy(x->data);
+                    _alloc.deallocate(x->data, 1);
                 }
 
                 node *_createnode(const value_type &val)
@@ -219,9 +219,9 @@ namespace ft
                     node *x;
                     
                     x = _node_alloc.allocate(1);
-                    x->left = NULL;
-                    x->right = NULL;
-                    x->parent = NULL;
+                    x->left = _nil;
+                    x->right = _nil;
+                    x->parent = _nil;
                     x->data = _alloc.allocate(1);
                     _alloc.construct(x->data, val);
                     return (x);
@@ -266,12 +266,13 @@ namespace ft
                 }
                 void right_rotate(node *x)
                 {
-                    node *y = x->left;
-                    x->left = y->right;
-                    if (y->right != _nil)
+                    //node *y = x->left;
+                    //x->left = y->right;
+                    /*if (y->right != _nil)
                     {
                         y->right->parent = x;
-                    }
+                    }*/
+                    /*
                     y->parent = x->parent;
                     if (x->parent == _nil)
                         _root = y;
@@ -284,7 +285,7 @@ namespace ft
                         x->parent->left = y;
                     }
                     y->right = x;
-                    x->parent = y;
+                    x->parent = y;*/
                 }
                 node *_find(node *x, value_type val)
                 {
