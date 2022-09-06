@@ -46,7 +46,9 @@ namespace ft
 
                 ~red_black_tree()
                 {
-                    delete_tree(_root);
+                    this->clear();
+                    _node_alloc.destroy(_nil);
+                    _node_alloc.deallocate(_nil, 1);
                 }
 
                 iterator begin()
@@ -144,8 +146,7 @@ namespace ft
                 void clear()
                 {
                     delete_tree(_root);
-                    _node_alloc.destroy(_nil);
-                    _node_alloc.deallocate(_nil, 1);
+                    _root = _nil;
                 }
                 key_compare key_comp() const
                 {
@@ -201,14 +202,19 @@ namespace ft
                 {
                     if (x == _nil)
                         return ;
-                    else if (x->left != _nil)
+                    if (x->left != _nil)
                         delete_tree(x->left);
-                    else if (x->right != _nil)
+                    if (x->right != _nil)
                         delete_tree(x->right);
+                    delete_node(x);
+                }
+                void delete_node(node *x)
+                {
+                     _alloc.destroy(x->data);
+                    _alloc.deallocate(x->data, 1);
                     _node_alloc.destroy(x);
                     _node_alloc.deallocate(x, 1);
-                    _alloc.destroy(x->data);
-                    _alloc.deallocate(x->data, 1);
+                    --_size;
                 }
 
                 node *_createnode(const value_type &val)

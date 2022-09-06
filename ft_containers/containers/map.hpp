@@ -71,6 +71,7 @@ namespace ft
                 _compare = x._compare;
                 _alloc = x._alloc;
                 _compval = x._compval;
+                this->clear();
                 this->insert(x.begin(), x.end());
                 return (*this);
             }
