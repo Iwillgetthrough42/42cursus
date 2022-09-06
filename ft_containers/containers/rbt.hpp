@@ -322,14 +322,17 @@ namespace ft
                                 z->parent->parent->color = RED;
                                 z = z->parent->parent;
                             }
-                            else if (z == z->parent->right)
+                            else
                             {
-                                z = z->parent;
-                               left_rotate(z);
+                                if (z == z->parent->right)
+                                {
+                                    z = z->parent;
+                                left_rotate(z);
+                                }
+                                z->parent->color = BLACK;
+                                z->parent->parent->color = RED;
+                                right_rotate(z->parent->parent);
                             }
-                            z->parent->color = BLACK;
-                            z->parent->parent->color = RED;
-                            right_rotate(z->parent->parent);
                         }
                         else
                         {
@@ -341,14 +344,17 @@ namespace ft
                                 z->parent->parent->color = RED;
                                 z = z->parent->parent;
                             }
-                            else if (z == z->parent->left)
+                            else
                             {
-                                z = z->parent;
-                                right_rotate(z);
+                                if (z == z->parent->left)
+                                {
+                                    z = z->parent;
+                                    right_rotate(z);
+                                }
+                                z->parent->color = BLACK;
+                                z->parent->parent->color = RED;
+                                left_rotate(z->parent->parent);
                             }
-                            z->parent->color = BLACK;
-                            z->parent->parent->color = RED;
-                            left_rotate(z->parent->parent);
                         }
                     }
                     _root->color = BLACK;

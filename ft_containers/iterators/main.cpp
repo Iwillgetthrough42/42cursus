@@ -3,25 +3,27 @@
 #include "../containers/map.hpp"
 #include <vector>
 #include <map>
+#include <list>
 
 namespace ft
 {
 }
 int main()
 {
-        std::map<int,int> first;
+        std::list<ft::pair<const int, int>> lst;
+        //std::list<std::pair<const int, int>>::iterator it = lst.begin();
+        //std::list<std::pair<const int, int>>::iterator ite = lst.end();
+        for (int i = 0; i < 7; i++ )
+                lst.push_back(ft::pair<const int, int>(i, i));
+        ft::map<const int, int> mp(lst.begin(), lst.end());
 
-        first[0]=10;
-        first[1]=30;
-        first[2]=50;
-        first[3]=70;
-        first[4]=20;
-        first[5] = 5;
+       //ft::map<const int, int> mp2(mp.begin(), mp.end());
+        ft::map<const int, int>::iterator it = mp.begin();
+        ft::map<const int, int>::iterator ite = mp.end();
+        while (it != ite)
+        {
+                std::cout << (*it).first << std::endl;
+                it++;
+        }
 
-        std::cout << first[2] << std::endl;
-        /*ft::map<int,int>::iterator it = first.begin();
-        ft::map<int,int>::iterator ite = first.end();
-        ft::map<int, int> mp(it, ite);*/
-
-        //typedef typename ft:: Node<int, int> Node;
 }

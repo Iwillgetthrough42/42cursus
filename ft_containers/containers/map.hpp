@@ -134,7 +134,8 @@ namespace ft
             }
             mapped_type& operator[] (const key_type& k)
             {
-                return ((*((this->insert(ft::make_pair(k,mapped_type()))).first)).second);
+                this->insert(ft::pair<const key_type, mapped_type>(k , mapped_type()));
+                return (this->find(k)->second);
             }
             mapped_type& at (const key_type& k)
             {
