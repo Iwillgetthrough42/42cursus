@@ -42,12 +42,12 @@ namespace ft
             template<class L>
             bool operator==(map_iterator<L> const &rhs) const
             {
-                return (this->node == rhs.node);
+                return (this->node == rhs.base());
             }
             template<class L>
             bool operator!=(map_iterator<L> const &rhs) const
             {
-                return (this->node != rhs.node);
+                return (this->node != rhs.base());
             }
             reference operator*() const
             {
@@ -55,11 +55,15 @@ namespace ft
             }
             operator map_iterator<const T> () const
             {
-                return (map_iterator<const T>(node, nil));
+                return (map_iterator<const T>(node, nil, root));
             }
             pointer operator->() const
             {
                 return (node->data);
+            }
+            Node *base() const
+            {
+                return (node);
             }
             map_iterator &operator++()
             {

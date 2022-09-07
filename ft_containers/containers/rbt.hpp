@@ -4,6 +4,7 @@
 #include "node.hpp"
 #include "../iterators/map_iterator.hpp"
 #include <iostream>
+#include "algorithm.hpp"
 
 namespace ft
 {
@@ -149,7 +150,7 @@ namespace ft
                 {
                     return (_compare);
                 }
-                void swap(red_black_tree const &other)
+                void swap(red_black_tree &other)
                 {
                     size_type tmpsize = _size;
                     node *tmproot = _root;
@@ -298,7 +299,7 @@ namespace ft
                     else
                         return (_find(x->right, val));
                 }
-                node *_find(node *x, key_type key)
+                node *_find(node *x, key_type key) const
                 {
                     if (x == _nil || ((!_compare(x->data->first, key) && !_compare(key, x->data->first))))
                     {
