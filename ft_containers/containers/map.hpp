@@ -232,13 +232,13 @@ namespace ft
         bool operator<( const ft::map<Key,T,Compare,Alloc>& lhs,
         const ft::map<Key,T,Compare,Alloc>& rhs )
         {
-            return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), lhs.value_comp()));
+            return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
         }
         template< class Key, class T, class Compare, class Alloc >
         bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs,
         const ft::map<Key,T,Compare,Alloc>& rhs )
         {
-            return (!(rhs > lhs));
+            return (!(rhs < lhs));
         }        
         template< class Key, class T, class Compare, class Alloc >
         bool operator>( const ft::map<Key,T,Compare,Alloc>& lhs,
