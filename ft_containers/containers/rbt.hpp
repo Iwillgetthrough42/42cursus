@@ -53,19 +53,19 @@ namespace ft
 
                 iterator begin()
                 {
-                    return (iterator(_min(_root), _nil));
+                    return (iterator(_min(_root), _nil, _root));
                 }
                 const_iterator begin() const
                 {
-                    return (const_iterator(_min(_root), _nil));
+                    return (const_iterator(_min(_root), _nil, _root));
                 }
                 iterator end()
                 {
-                    return (iterator(_nil, _nil));
+                    return (iterator(_nil, _nil, _root));
                 }
                 const_iterator end() const
                 {
-                    return (const_iterator(_nil, _nil));
+                    return (const_iterator(_nil, _nil, _root));
                 }
                 reverse_iterator rbegin()
                 {
@@ -98,13 +98,11 @@ namespace ft
                 ft::pair<iterator,bool> insert (const value_type& val)
                 {
                     node *z = _createnode(val);
-                    _size++;
                     return (_insert(_root, z));
                 }
                 iterator insert (iterator position, const value_type& val)
                 {
                     (void) position;
-                    _size++;
                     node *z = _createnode(val);
                     return (_insert(_root, z).first);
                 }
@@ -115,7 +113,6 @@ namespace ft
                     {
                         insert(*first);
                         first++;
-                        _size++;
                     }
                 }
                 void erase (iterator position)
@@ -169,14 +166,14 @@ namespace ft
                     node *z = _find(_root, k);
                     if (z == _nil)
                         return (this->end());
-                    return (iterator(z, _nil));
+                    return (iterator(z, _nil, _root));
                 }
                 const_iterator find (const key_type& k) const
                 {
                     node *z = _find(_root, k);
                     if (z == _nil)
                         return (this->end());
-                    return (const_iterator(z, _nil));
+                    return (const_iterator(z, _nil, _root));
                 }
                 size_type count (const key_type& k) const
                 {
@@ -372,7 +369,7 @@ namespace ft
                     
                     found = _find(_root, z->data->first);
                     if (found != _nil)
-                        return (ft::make_pair(iterator(found, _nil), false));
+                        return (ft::make_pair(iterator(found, _nil, _root), false));
                     while (x != _nil)
                     {
                         y = x;
@@ -394,7 +391,8 @@ namespace ft
                     z->right = _nil;
                     z->color = RED;
                     _insert_fixup(z);
-                    return ft::make_pair(iterator(z, _nil), true);
+                    _size++;
+                    return ft::make_pair(iterator(z, _nil, _root), true);
                 }
                 void transplant(node *u, node *v)
                 {

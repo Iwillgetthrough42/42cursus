@@ -19,21 +19,24 @@ namespace ft
             typedef typename value_type::first_type first;
             typedef typename value_type::second_type second;
             typedef  ft::Node<first, second> Node;
-            map_iterator() : node(NULL), nil(NULL){}
-            map_iterator(Node *node, Node *nil)
+            map_iterator() : node(NULL), nil(NULL), root(NULL){}
+            map_iterator(Node *node, Node *nil, Node *root)
             {
                 this->node = node;
                 this->nil = nil;
+                this->root = root;
             }
             map_iterator(map_iterator const &other)
             {
                 this->node = other.node;
                 this->nil = other.nil;
+                this->root = other.root;
             }
             map_iterator &operator=(map_iterator const &other)
             {
                 this->nil = other.nil;
                 this->node = other.node;
+                this->root = other.root;
                 return (*this);
             }
             template<class L>
@@ -72,7 +75,10 @@ namespace ft
             }
             map_iterator &operator--()
             {
-                node = predecessor();
+                if (node == nil)
+                    node = _max(root);
+                else
+                    node = predecessor();
                 return (*this);
             }
             map_iterator operator--(int num)
@@ -85,6 +91,7 @@ namespace ft
         private:
             Node *node;
             Node *nil;
+            Node *root;
 
             Node *_min(Node *x)
             {
