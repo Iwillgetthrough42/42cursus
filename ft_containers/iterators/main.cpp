@@ -18,6 +18,7 @@ int main()
         ft::map<const int, int> mp(lst.begin(), lst.end());
 
        //ft::map<const int, int> mp2(mp.begin(), mp.end());
+        mp.erase(mp.begin(), ++(++(++mp.begin())));
         ft::map<const int, int>::iterator it = mp.begin();
         ft::map<const int, int>::iterator ite = mp.end();
         while (it != ite)

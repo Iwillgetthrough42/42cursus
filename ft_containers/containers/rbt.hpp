@@ -133,12 +133,14 @@ namespace ft
                 }
                 void erase(iterator first, iterator last)
                 {
-                    iterator tmp = first;
-                    while (tmp != last)
+                    iterator tmp;
+
+                    while (first != last)
                     {
-                        erase((*first).first);
-                        first++;
-                        tmp++;
+                        tmp = first;
+                        ++tmp;
+                        erase(first);
+                        first = tmp;
                     }
                 }
                 void clear()
@@ -467,18 +469,21 @@ namespace ft
                                 w->color = RED;
                                 x = x->parent;
                             }
-                            else if(w->right->color == BLACK)
+                            else
                             {
-                                w->left->color = BLACK;
-                                w->color = RED;
-                                right_rotate(w);
-                                w = x->parent->right;
+                                if(w->right->color == BLACK)
+                                {
+                                    w->left->color = BLACK;
+                                    w->color = RED;
+                                    right_rotate(w);
+                                    w = x->parent->right;
+                                }
+                                w->color = x->parent->color;
+                                x->parent->color = BLACK;
+                                w->right->color = BLACK;
+                                left_rotate(x->parent);
+                                x = _root;
                             }
-                            w->color = x->parent->color;
-                            x->parent->color = BLACK;
-                            w->right->color = BLACK;
-                            left_rotate(x->parent);
-                            x = _root;
                         }
                         else
                         {
@@ -496,18 +501,21 @@ namespace ft
                                 w->color = RED;
                                 x = x->parent;
                             }
-                            else if(w->left->color == BLACK)
+                            else
                             {
-                                w->right->color = BLACK;
-                                w->color = RED;
-                                right_rotate(w);
-                                w = x->parent->left;
+                                if(w->left->color == BLACK)
+                                {
+                                    w->right->color = BLACK;
+                                    w->color = RED;
+                                    left_rotate(w);
+                                    w = x->parent->left;
+                                }
+                                w->color = x->parent->color;
+                                x->parent->color = BLACK;
+                                w->left->color = BLACK;
+                                right_rotate(x->parent);
+                                x = _root; 
                             }
-                            w->color = x->parent->color;
-                            x->parent->color = BLACK;
-                            w->left->color = BLACK;
-                            left_rotate(x->parent);
-                            x = _root; 
                         }
                     }
                     x->color = BLACK;
