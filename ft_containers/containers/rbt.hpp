@@ -189,7 +189,100 @@ namespace ft
                 {
                     return (_alloc);
                 }
-                
+                iterator lower_bound (const key_type& k)
+                {
+                    node *tmp = _root;
+                    node *res = _nil;
+
+                    while (tmp != _nil)
+                    {
+                        if (_compare(tmp->data->first, k))
+                        {
+                            tmp = tmp->right;
+                        }
+                        else
+                        {
+                            res = tmp;
+                            tmp = tmp->left;
+                        }
+                    }
+                    return (iterator(res, _nil, _root));
+                }
+                const_iterator lower_bound (const key_type& k) const
+                {
+                    node *tmp = _root;
+                    node *res = _nil;
+
+                    while (tmp != _nil)
+                    {
+                        if (_compare(tmp->data->first, k))
+                        {
+                            tmp = tmp->right;
+                        }
+                        else
+                        {
+                            res = tmp;
+                            tmp = tmp->left;
+                        }
+                    }
+                    return (const_iterator(res, _nil, _root));
+                }
+                iterator upper_bound (const key_type& k)
+                {
+                    node *tmp = _root;
+                    node *res = _nil;
+
+                    while (tmp != _nil)
+                    {
+                        if (_compare(tmp->data->first, k))
+                        {
+                            tmp = tmp->right;
+                        }
+                        else if (_compare(k, tmp->data->first))
+                        {
+                            res = tmp;
+                            tmp = tmp->left;
+                        }
+                        else
+                        {
+                            tmp = tmp->right;
+                        }
+                    }
+                    return (iterator(res, _nil, _root));
+                }
+                const_iterator upper_bound (const key_type& k) const
+                {
+                    node *tmp = _root;
+                    node *res = _nil;
+
+                    while (tmp != _nil)
+                    {
+                        if (_compare(tmp->data->first, k))
+                        {
+                            tmp = tmp->right;
+                        }
+                        else if (_compare(k, tmp->data->first))
+                        {
+                            res = tmp;
+                            tmp = tmp->left;
+                        }
+                        else
+                        {
+                            tmp = tmp->right;
+                        }
+                    }
+                    return (const_iterator(res, _nil, _root));
+                }
+                pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+                {
+                    ft::pair<const_iterator, const_iterator> pr(this->lower_bound(k), this->upper_bound(k));
+                    return (pr);
+                }
+                pair<iterator,iterator> equal_range (const key_type& k)
+                {
+                    ft::pair<iterator, iterator> pr(this->lower_bound(k), this->upper_bound(k));
+                    return (pr);
+                }
             protected:
                 size_type _size;
                 key_compare _compare;

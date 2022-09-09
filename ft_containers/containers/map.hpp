@@ -147,7 +147,7 @@ namespace ft
                 }
                 else
                 {
-                    return (*z.second);
+                    return ((*z).second);
                 }
             }
             const mapped_type& at (const key_type& k) const
@@ -159,7 +159,7 @@ namespace ft
                 }
                 else
                 {
-                    return (*z.second);
+                    return ((*z).second);
                 }
             }
             void erase (iterator position)
@@ -206,6 +206,30 @@ namespace ft
            {
             return (tree.count(k));
            }
+           iterator lower_bound (const key_type& k)
+           {
+            return (tree.lower_bound(k));
+           }
+           const_iterator lower_bound (const key_type& k) const
+           {
+            return (const_iterator(tree.lower_bound(k)));
+           }
+           iterator upper_bound (const key_type& k)
+           {
+            return (tree.upper_bound(k));
+           }
+           const_iterator upper_bound (const key_type& k) const
+           {
+            return (const_iterator(tree.upper_bound(k)));
+           }
+           pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+            {
+                return (tree.equal_range(k));
+            }
+            pair<iterator,iterator> equal_range (const key_type& k)
+            {
+                return (tree.equal_range(k));
+            }
         protected:
             key_compare _compare;
             value_compare _compval;
