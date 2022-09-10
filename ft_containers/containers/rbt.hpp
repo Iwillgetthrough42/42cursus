@@ -43,6 +43,7 @@ namespace ft
                     _nil->data = NULL;
                     _nil->color = BLACK;
                     _root = _nil;
+                    _begin = _nil;
                 }
 
                 ~red_black_tree()
@@ -54,11 +55,11 @@ namespace ft
 
                 iterator begin()
                 {
-                    return (iterator(_min(_root), _nil, _root));
+                    return (iterator(_begin, _nil, _root));
                 }
                 const_iterator begin() const
                 {
-                    return (const_iterator(_min(_root), _nil, _root));
+                    return (const_iterator(_begin, _nil, _root));
                 }
                 iterator end()
                 {
@@ -120,11 +121,31 @@ namespace ft
                 {
                     erase(position->first);
                 }
+                node *successor(node *n)
+                {
+                    node *y;
+
+                    if (n->right != _nil)
+                    {
+                        return (_min(n->right));
+                    }
+                    y = n->parent;
+                    while (y != _nil && n == y->right)
+                    {
+                        n = y;
+                        y = y->parent;
+                    }
+                    return (y);
+                }
                 size_type erase(const key_type& k)
                 {
                     node *z = _find(_root, k);
                     if (z != _nil)
                     {
+                        if (z == _begin)
+                        {
+                            _begin = successor(z);
+                        }
                         _delete(z);
                         _size--;
                         return (1);
@@ -147,6 +168,7 @@ namespace ft
                 {
                     delete_tree(_root);
                     _root = _nil;
+                    _begin = _nil;
                 }
                 key_compare key_comp() const
                 {
@@ -155,11 +177,14 @@ namespace ft
                 void swap(red_black_tree &other)
                 {
                     size_type tmpsize = _size;
+                    node* tmpbegin = _begin;
                     node *tmproot = _root;
                     node *tmpnil = _nil;
                     _size =other._size;
                     _root = other._root;
                     _nil = other._nil;
+                    _begin = other._begin;
+                    other._begin = tmpbegin;
                     other._size = tmpsize;
                     other._root = tmproot;
                     other._nil = tmpnil;
@@ -290,6 +315,7 @@ namespace ft
                 allocator_type _alloc;
                 node *_root;
                 node *_nil;
+                node *_begin;
 
                 void delete_tree(node *x)
                 {
@@ -487,6 +513,8 @@ namespace ft
                     z->right = _nil;
                     z->color = RED;
                     _insert_fixup(z);
+                    if (_begin == _nil || _compare(z->data->first, _begin->data->first))
+                        _begin = z;
                     _size++;
                     return ft::make_pair(iterator(z, _nil, _root), true);
                 }
