@@ -19,48 +19,99 @@ namespace ft
             typedef typename value_type::first_type first;
             typedef typename value_type::second_type second;
             typedef  ft::Node<first, second> Node;
-            map_iterator() : node(NULL), nil(NULL){}
-            map_iterator(Node *node, Node *nil)
+            map_iterator() : node(NULL), nil(NULL), root(NULL){}
+            map_iterator(Node *node, Node *nil, Node *root)
             {
                 this->node = node;
                 this->nil = nil;
+                this->root = root;
             }
             map_iterator(map_iterator const &other)
             {
                 this->node = other.node;
                 this->nil = other.nil;
+                this->root = other.root;
             }
             map_iterator &operator=(map_iterator const &other)
             {
                 this->nil = other.nil;
                 this->node = other.node;
+                this->root = other.root;
                 return (*this);
             }
             template<class L>
             bool operator==(map_iterator<L> const &rhs) const
             {
-                return (this->node == rhs.node);
+                return (this->node == rhs.base());
             }
             template<class L>
             bool operator!=(map_iterator<L> const &rhs) const
             {
-                return (this->node != rhs.node);
+                return (this->node != rhs.base());
             }
-            reference operator*()
+            reference operator*() const
             {
                 return (*(node->data));
             }
-            pointer operator->()
+            operator map_iterator<const T> () const
+            {
+                return (map_iterator<const T>(node, nil, root));
+            }
+            pointer operator->() const
             {
                 return (node->data);
             }
+            Node *base() const
+            {
+                return (node);
+            }
             map_iterator &operator++()
+            {
+                node = successor();
+                return (*this);
+            }
+            map_iterator operator++(int num)
+            {
+               (void) num;
+               map_iterator tmp = *this;
+               ++(*this);
+               return (tmp);
+            }
+            map_iterator &operator--()
+            {
+                if (node == nil)
+                    node = _max(root);
+                else
+                    node = predecessor();
+                return (*this);
+            }
+            map_iterator operator--(int num)
+            {
+               (void) num;
+               map_iterator tmp = *this;
+               --(*this);
+               return (tmp);
+            }
+        private:
+            Node *node;
+            Node *nil;
+            Node *root;
+
+            Node *_min(Node *x)
+            {
+                while (x->left != nil)
+                {
+                    x = x->left;
+                }
+                return (x);
+            }
+            Node *successor()
             {
                 Node *y;
 
                 if (node->right != nil)
                 {
-                    _min(node->right);
+                    return (_min(node->right));
                 }
                 y = node->parent;
                 while (y != nil && node == y->right)
@@ -69,21 +120,15 @@ namespace ft
                     y = y->parent;
                 }
                 return (y);
+
             }
-            map_iterator &operator++(int num)
-            {
-               (void) num;
-               map_iterator tmp = *this;
-               ++this;
-               return (tmp);
-            }
-            map_iterator &operator--()
+            Node *predecessor()
             {
                 Node *y;
 
                 if (node->left != nil)
                 {
-                    _max(node->left);
+                    return (_max(node->left));
                 }
                 y = node->parent;
                 while (y != nil && node == y->left)
@@ -93,28 +138,9 @@ namespace ft
                 }
                 return (y);
             }
-            map_iterator &operator--(int num)
-            {
-               (void) num;
-               map_iterator tmp = *this;
-               --this;
-               return (tmp);
-            }
-        private:
-            Node *node;
-            Node *nil;
-
-            Node *_min(Node *x)
-            {
-                while (x->left != _nil)
-                {
-                    x = x->left;
-                }
-                return (x);
-            }
             Node *_max(Node *x)
             {
-                while (x->right != _nil)
+                while (x->right != nil)
                 {
                     x = x->right;
                 }
