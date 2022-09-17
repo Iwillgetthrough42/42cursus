@@ -52,18 +52,6 @@ namespace ft{
 		typedef const T&						reference;
 		typedef std::random_access_iterator_tag		iterator_category;
 	};
-	template<class InputIterator>
-  	typename iterator_traits<InputIterator>::difference_type
-    distance (InputIterator first, InputIterator last)
-	{
-		typename iterator_traits<InputIterator>::difference_type diff = 0;
-		while (first != last)
-		{
-			diff++;
-			first++;
-		}
-		return (diff);
-	}
 }
 
 	
