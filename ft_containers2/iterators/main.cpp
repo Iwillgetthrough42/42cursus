@@ -19,5 +19,6 @@ int main()
                 lst.push_back(i);
         ft::vector<int> vec(2, 1);
         vec.insert(vec.begin() + 1, lst.begin(), lst.end());
+        vec.erase(vec.begin(), vec.end());
 
 }
