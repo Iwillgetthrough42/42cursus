@@ -147,7 +147,7 @@ namespace ft
                             _begin = successor(z);
                         }
                         _delete(z);
-                        _size--;
+                        delete_node(z);
                         return (1);
                     }
                     return (0);
@@ -345,7 +345,15 @@ namespace ft
                     x->right = _nil;
                     x->parent = _nil;
                     x->data = _alloc.allocate(1);
-                    _alloc.construct(x->data, val);
+                    try
+                    {
+                        _alloc.construct(x->data, val);
+                    }
+                    catch(...)
+                    {
+                        _alloc.deallocate(x->data, 1);
+                         _node_alloc.deallocate(x, 1);
+                    }
                     return (x);
                 }   
                 node *_min(node *x) const
@@ -491,7 +499,11 @@ namespace ft
                     
                     found = _find(_root, z->data->first);
                     if (found != _nil)
+                    {
+                        delete_node(z);
+                        ++_size;
                         return (ft::make_pair(iterator(found, _nil, _root), false));
+                    }
                     while (x != _nil)
                     {
                         y = x;

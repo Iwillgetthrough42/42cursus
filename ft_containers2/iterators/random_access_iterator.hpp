@@ -62,12 +62,13 @@ namespace ft
                 this->p--;
                 return (tmp);
             }
-            random_access_iterator operator+(size_t n) const
+            random_access_iterator operator+(difference_type n) const
             {
                 return random_access_iterator(this->p + n);
             }
-            random_access_iterator operator-(size_t n) const
+            random_access_iterator operator-(difference_type n) const
             {
+                std::cout << "hi" << std::endl;
                 return random_access_iterator(this->p - n);
             }
             reference operator[](size_t n) const{return (this->p[n]);}

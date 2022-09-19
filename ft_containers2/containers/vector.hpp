@@ -346,7 +346,7 @@ namespace ft
                 tmp = _alloc.allocate(tmpcapacity);
                 try
                 {
-                    for (i = 0; i < std::distance(this->begin(), position); i++)
+                    for (i = 0; i < static_cast<size_type>(std::distance(this->begin(), position)); i++)
                     {
                         _alloc.construct(&tmp[i], _data[i]);
                     }
@@ -396,7 +396,7 @@ namespace ft
                 tmp = _alloc.allocate(tmpcapacity);
                 try
                 {
-                    for (i = 0; i < std::distance(this->begin(), position); i++)
+                    for (i = 0; i < static_cast<size_type>(std::distance(this->begin(), position)); i++)
                     {
                         _alloc.construct(&tmp[i], _data[i]);
                     }
