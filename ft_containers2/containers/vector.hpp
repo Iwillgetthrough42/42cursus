@@ -93,6 +93,11 @@ namespace ft
             {
                 if (this != &x)
                 {
+                    this->clear();
+                    _alloc.deallocate(_data, _capacity);
+                    this->_alloc = x._alloc;
+                    this->_size = 0;
+                    this->_capacity = 0;
                     this->assign(x.begin(), x.end());
                 }
                 return (*this);
@@ -169,6 +174,7 @@ namespace ft
                             _alloc.destroy(&_data[j]);
                         }
                         _alloc.deallocate(_data, _capacity);
+                        throw;
 
                     }
                     _size = n;
@@ -292,6 +298,7 @@ namespace ft
                         _alloc.destroy(&_data[j]);
                     }
                     _alloc.deallocate(_data, _capacity);
+                    throw;
                 }
                 _size = n;
             }
@@ -308,6 +315,7 @@ namespace ft
                 catch(...)
                 {
                     _alloc.deallocate(_data, _capacity);
+                    throw;
                 }
             }
             void pop_back()
@@ -421,12 +429,26 @@ namespace ft
             }
             iterator erase (iterator position)
             {
+                size_type i;
+
                 iterator temp(position);
                 size_type index = std::distance(this->begin(), position);
                 _alloc.destroy(&(*position));
-                for (size_type i = index; i < _size - 1; i++)
+                try
                 {
-                    _data[i] = _data[i + 1];
+                    for (i = index; i < _size - 1; i++)
+                    {
+                        _alloc.construct(&_data[i], _data[i + 1]);
+                    }
+                }
+                catch(...)
+                {
+                    for (size_type j = index; j < i; j++)
+                    {
+                        _alloc.destroy(&_data[i]);
+                    }
+                    _alloc.deallocate(_data, _capacity);
+                    throw;
                 }
                 _size--;
                 return (temp);
@@ -446,10 +468,22 @@ namespace ft
                     _alloc.destroy(&(*first));
                     first++;
                 }
-                for (size_type i = 0; i < _size; i++)
+                try
                 {
-                    if (i < dist || i >= static_cast<size_type>(diff))
-                        _data[j++] = _data[i];
+                    for (size_type i = 0; i < _size; i++)
+                    {
+                        if (i < dist || i >= static_cast<size_type>(diff))
+                            _alloc.construct(&_data[j++], _data[i]);
+                    }
+                }
+                catch(...)
+                {
+                    for (size_type i = 0; i < j; i++)
+                    {
+                        _alloc.destroy(&_data[i]);
+                    }
+                    _alloc.deallocate(_data, _capacity);
+                    throw;
                 }
                 _size -= d;
                 return (temp);
@@ -464,19 +498,10 @@ namespace ft
             }
             void swap (vector& x)
             {
-                allocator_type tmpall;
-                pointer tmp = _data;
-                _data = x._data;
-                x._data = tmp;
-                size_type tmp_size = _size;
-                _size = x._size;
-                tmpall = x._alloc;
-                x._alloc = _alloc;
-                _alloc = tmpall; 
-                x._size = tmp_size;
-                tmp_size = _capacity;
-                _capacity = x._capacity;
-                x._capacity = tmp_size;
+                std::swap(_data, x._data);
+                std::swap(_size, x._size);
+                std::swap(_capacity, x._capacity);
+                std::swap(_alloc, x._alloc);
             }
             allocator_type get_allocator() const
             {
