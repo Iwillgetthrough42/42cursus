@@ -10,7 +10,7 @@ int main()
         {
                 vec.push_back(i);
         }
-        std::cout << * (vec.end() - 1) << std::endl;
+        std::cout << * (vec.end() - 3) << std::endl;
         /*vec.erase(vec.end() - 2, vec.end() - 1);
         for (int i = 0; i < vec.size(); i++)
         {

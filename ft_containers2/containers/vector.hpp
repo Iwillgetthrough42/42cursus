@@ -473,7 +473,7 @@ namespace ft
                     for (size_type i = 0; i < _size; i++)
                     {
                         if (i < dist || i >= static_cast<size_type>(diff))
-                            _alloc.construct(&_data[j++], _data[i]);
+                            _data[j++] = _data[i];
                     }
                 }
                 catch(...)
