@@ -16,7 +16,6 @@ namespace ft
         {
             public:
                 typedef T value_type;
-                typedef typename value_type::first_type key_type;
                 typedef Compare value_compare;
                 typedef Alloc allocator_type;
                 typedef typename ft::Node<value_type> node;
