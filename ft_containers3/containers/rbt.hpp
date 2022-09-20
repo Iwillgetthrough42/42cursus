@@ -17,7 +17,7 @@ namespace ft
             public:
                 typedef T value_type;
                 typedef typename value_type::first_type key_type;
-                typedef Compare key_compare;
+                typedef Compare value_compare;
                 typedef Alloc allocator_type;
                 typedef typename ft::Node<value_type> node;
                 typedef typename allocator_type::reference referenece;
@@ -33,7 +33,7 @@ namespace ft
                 typedef typename Alloc::template rebind<Node<value_type> >::other node_alloc;
 
 
-                red_black_tree() : _size(0), _compare(key_compare())
+                red_black_tree() : _size(0), _compare(value_compare())
                 {
                     _nil = _node_alloc.allocate(1);
                     _nil->left = _nil;
@@ -118,7 +118,7 @@ namespace ft
                 }
                 void erase (iterator position)
                 {
-                    erase(position->first);
+                    erase(*position);
                 }
                 node *successor(node *n)
                 {
@@ -136,7 +136,7 @@ namespace ft
                     }
                     return (y);
                 }
-                size_type erase(const key_type& k)
+                size_type erase(const value_type& k)
                 {
                     node *z = _find(_root, k);
                     if (z != _nil)
@@ -169,10 +169,6 @@ namespace ft
                     _root = _nil;
                     _begin = _nil;
                 }
-                key_compare key_comp() const
-                {
-                    return (_compare);
-                }
                 void swap(red_black_tree &other)
                 {
                     size_type tmpsize = _size;
@@ -188,21 +184,21 @@ namespace ft
                     other._root = tmproot;
                     other._nil = tmpnil;
                 }
-                iterator find (const key_type& k)
+                iterator find (const value_type& k)
                 {
                     node *z = _find(_root, k);
                     if (z == _nil)
                         return (this->end());
                     return (iterator(z, _nil, _root));
                 }
-                const_iterator find (const key_type& k) const
+                const_iterator find (const value_type& k) const
                 {
                     node *z = _find(_root, k);
                     if (z == _nil)
                         return (this->end());
                     return (const_iterator(z, _nil, _root));
                 }
-                size_type count (const key_type& k) const
+                size_type count (const value_type& k) const
                 {
                     node *z = _find(_root, k);
                     if (z != _nil)
@@ -213,14 +209,14 @@ namespace ft
                 {
                     return (_alloc);
                 }
-                iterator lower_bound (const key_type& k)
+                iterator lower_bound (const value_type& k)
                 {
                     node *tmp = _root;
                     node *res = _nil;
 
                     while (tmp != _nil)
                     {
-                        if (_compare(tmp->data->first, k))
+                        if (_compare(*(tmp->data), k))
                         {
                             tmp = tmp->right;
                         }
@@ -232,14 +228,14 @@ namespace ft
                     }
                     return (iterator(res, _nil, _root));
                 }
-                const_iterator lower_bound (const key_type& k) const
+                const_iterator lower_bound (const value_type& k) const
                 {
                     node *tmp = _root;
                     node *res = _nil;
 
                     while (tmp != _nil)
                     {
-                        if (_compare(tmp->data->first, k))
+                        if (_compare(*(tmp->data), k))
                         {
                             tmp = tmp->right;
                         }
@@ -251,18 +247,18 @@ namespace ft
                     }
                     return (const_iterator(res, _nil, _root));
                 }
-                iterator upper_bound (const key_type& k)
+                iterator upper_bound (const value_type& k)
                 {
                     node *tmp = _root;
                     node *res = _nil;
 
                     while (tmp != _nil)
                     {
-                        if (_compare(tmp->data->first, k))
+                        if (_compare(*(tmp->data), k))
                         {
                             tmp = tmp->right;
                         }
-                        else if (_compare(k, tmp->data->first))
+                        else if (_compare(k, *(tmp->data)))
                         {
                             res = tmp;
                             tmp = tmp->left;
@@ -274,18 +270,18 @@ namespace ft
                     }
                     return (iterator(res, _nil, _root));
                 }
-                const_iterator upper_bound (const key_type& k) const
+                const_iterator upper_bound (const value_type& k) const
                 {
                     node *tmp = _root;
                     node *res = _nil;
 
                     while (tmp != _nil)
                     {
-                        if (_compare(tmp->data->first, k))
+                        if (_compare(*(tmp->data), k))
                         {
                             tmp = tmp->right;
                         }
-                        else if (_compare(k, tmp->data->first))
+                        else if (_compare(k, *(tmp->data)))
                         {
                             res = tmp;
                             tmp = tmp->left;
@@ -297,19 +293,19 @@ namespace ft
                     }
                     return (const_iterator(res, _nil, _root));
                 }
-                pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+                pair<const_iterator,const_iterator> equal_range (const value_type& k) const
                 {
                     ft::pair<const_iterator, const_iterator> pr(this->lower_bound(k), this->upper_bound(k));
                     return (pr);
                 }
-                pair<iterator,iterator> equal_range (const key_type& k)
+                pair<iterator,iterator> equal_range (const value_type& k)
                 {
                     ft::pair<iterator, iterator> pr(this->lower_bound(k), this->upper_bound(k));
                     return (pr);
                 }
             protected:
                 size_type _size;
-                key_compare _compare;
+                value_compare _compare;
                 node_alloc _node_alloc;
                 allocator_type _alloc;
                 node *_root;
@@ -415,28 +411,17 @@ namespace ft
                     y->right = x;
                     x->parent = y;
                 }
-                node *_find(node *x, value_type val)
+                node *_find(node *x, value_type val) const
                 {
-                    if (x == _nil || (!_compare(x->data->first, val->first) &&\
-                    !_compare(val->first, x->data->first)))
+                    if (x == _nil || ((!_compare(*(x->data), val)) &&\
+                    !_compare(val, (*x->data))))
                     {
                         return (x);
                     }
-                    if (_compare(val->first, x->data->first))
+                    if (_compare(val, *(x->data)))
                         return (_find(x->left, val));
                     else
                         return (_find(x->right, val));
-                }
-                node *_find(node *x, key_type key) const
-                {
-                    if (x == _nil || ((!_compare(x->data->first, key) && !_compare(key, x->data->first))))
-                    {
-                        return (x);
-                    }
-                    if (_compare(key, x->data->first))
-                        return (_find(x->left, key));
-                    else
-                        return (_find(x->right, key));
                 }
                 void _insert_fixup(node *z)
                 {
@@ -496,7 +481,7 @@ namespace ft
                     node *y = _nil;
                     node *found;
                     
-                    found = _find(_root, z->data->first);
+                    found = _find(_root, *(z->data));
                     if (found != _nil)
                     {
                         delete_node(z);
@@ -506,7 +491,7 @@ namespace ft
                     while (x != _nil)
                     {
                         y = x;
-                        if (_compare(z->data->first, x->data->first))
+                        if (_compare(*(z->data), *(x->data)))
                             x = x->left;
                         else
                             x = x->right;
@@ -516,7 +501,7 @@ namespace ft
                     {
                         _root = z;
                     }
-                    else if(_compare(z->data->first, y->data->first))
+                    else if(_compare(*(z->data), *(y->data)))
                         y->left = z;
                     else
                         y->right = z;
@@ -524,7 +509,7 @@ namespace ft
                     z->right = _nil;
                     z->color = RED;
                     _insert_fixup(z);
-                    if (_begin == _nil || _compare(z->data->first, _begin->data->first))
+                    if (_begin == _nil || _compare(*(z->data), *(_begin->data)))
                         _begin = z;
                     _size++;
                     return ft::make_pair(iterator(z, _nil, _root), true);
