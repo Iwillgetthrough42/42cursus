@@ -6,6 +6,7 @@
 #include "../iterators/map_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
 #include "../iterators/iterator.hpp"
+#include "type_traits.hpp"
 #include "node.hpp"
 #include "rbt.hpp"
 

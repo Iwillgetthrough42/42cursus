@@ -5,6 +5,7 @@
 #include "../iterators/map_iterator.hpp"
 #include <iostream>
 #include "algorithm.hpp"
+#include "type_traits.hpp"
 
 namespace ft
 {
@@ -24,11 +25,7 @@ namespace ft
                 typedef typename allocator_type::const_reference const_referenece;
                 typedef typename allocator_type::pointer pointer;
                 typedef typename allocator_type::const_pointer const_pointer;
-                #if (!isset)
-                    typedef typename ft::map_iterator<const value_type, node> iterator;
-                #elif(isset)
-                    typedef typename ft::map_iterator<value_type, node> iterator;
-                #endif
+                typedef typename ft::map_iterator<typename ft::constif<isset, value_type>::type, node> iterator;
                 typedef typename ft::map_iterator<const value_type, node> const_iterator;
                 typedef typename ft::reverse_iterator<iterator> reverse_iterator;
                 typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
