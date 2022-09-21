@@ -192,13 +192,6 @@ namespace ft
                         return (iterator(_nil, _nil, _root));
                     return (iterator(z, _nil, _root));
                 }
-                /*const_iterator find (const value_type& k) const
-                {
-                    node *z = _find(_root, k);
-                    if (z == _nil)
-                        return (this->end());
-                    return (const_iterator(z, _nil, _root));
-                }*/
                 size_type count (const value_type& k) const
                 {
                     node *z = _find(_root, k);
@@ -229,25 +222,6 @@ namespace ft
                     }
                     return (iterator(res, _nil, _root));
                 }
-                /*const_iterator lower_bound (const value_type& k) const
-                {
-                    node *tmp = _root;
-                    node *res = _nil;
-
-                    while (tmp != _nil)
-                    {
-                        if (_compare(*(tmp->data), k))
-                        {
-                            tmp = tmp->right;
-                        }
-                        else
-                        {
-                            res = tmp;
-                            tmp = tmp->left;
-                        }
-                    }
-                    return (const_iterator(res, _nil, _root));
-                }*/
                 iterator upper_bound (const value_type& k) const
                 {
                     node *tmp = _root;
@@ -271,33 +245,6 @@ namespace ft
                     }
                     return (iterator(res, _nil, _root));
                 }
-                /*const_iterator upper_bound (const value_type& k) const
-                {
-                    node *tmp = _root;
-                    node *res = _nil;
-
-                    while (tmp != _nil)
-                    {
-                        if (_compare(*(tmp->data), k))
-                        {
-                            tmp = tmp->right;
-                        }
-                        else if (_compare(k, *(tmp->data)))
-                        {
-                            res = tmp;
-                            tmp = tmp->left;
-                        }
-                        else
-                        {
-                            tmp = tmp->right;
-                        }
-                    }
-                    return (const_iterator(res, _nil, _root));
-                }*/
-                /*ft::pair<const_iterator,const_iterator> equal_range (const value_type& k) const
-                {
-                    return (ft::make_pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k)));
-                }*/
                 ft::pair<iterator,iterator> equal_range (const value_type& k) const
                 {
                     return (ft::make_pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));
