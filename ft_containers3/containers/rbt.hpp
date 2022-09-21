@@ -10,7 +10,8 @@ namespace ft
 {
     template <                                     
         class T,                                      
-        class Compare,         
+        class Compare,
+        bool isset,        
         class Alloc = std::allocator<T > >
         class red_black_tree
         {
@@ -23,7 +24,11 @@ namespace ft
                 typedef typename allocator_type::const_reference const_referenece;
                 typedef typename allocator_type::pointer pointer;
                 typedef typename allocator_type::const_pointer const_pointer;
-                typedef typename ft::map_iterator<value_type, node> iterator;
+                #if (!isset)
+                    typedef typename ft::map_iterator<const value_type, node> iterator;
+                #elif(isset)
+                    typedef typename ft::map_iterator<value_type, node> iterator;
+                #endif
                 typedef typename ft::map_iterator<const value_type, node> const_iterator;
                 typedef typename ft::reverse_iterator<iterator> reverse_iterator;
                 typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -183,20 +188,20 @@ namespace ft
                     other._root = tmproot;
                     other._nil = tmpnil;
                 }
-                iterator find (const value_type& k)
+                iterator find (const value_type& k) const
                 {
                     node *z = _find(_root, k);
                     if (z == _nil)
-                        return (this->end());
+                        return (iterator(_nil, _nil, _root));
                     return (iterator(z, _nil, _root));
                 }
-                const_iterator find (const value_type& k) const
+                /*const_iterator find (const value_type& k) const
                 {
                     node *z = _find(_root, k);
                     if (z == _nil)
                         return (this->end());
                     return (const_iterator(z, _nil, _root));
-                }
+                }*/
                 size_type count (const value_type& k) const
                 {
                     node *z = _find(_root, k);
@@ -208,7 +213,7 @@ namespace ft
                 {
                     return (_alloc);
                 }
-                iterator lower_bound (const value_type& k)
+                iterator lower_bound (const value_type& k) const
                 {
                     node *tmp = _root;
                     node *res = _nil;
@@ -227,7 +232,7 @@ namespace ft
                     }
                     return (iterator(res, _nil, _root));
                 }
-                const_iterator lower_bound (const value_type& k) const
+                /*const_iterator lower_bound (const value_type& k) const
                 {
                     node *tmp = _root;
                     node *res = _nil;
@@ -245,8 +250,8 @@ namespace ft
                         }
                     }
                     return (const_iterator(res, _nil, _root));
-                }
-                iterator upper_bound (const value_type& k)
+                }*/
+                iterator upper_bound (const value_type& k) const
                 {
                     node *tmp = _root;
                     node *res = _nil;
@@ -269,7 +274,7 @@ namespace ft
                     }
                     return (iterator(res, _nil, _root));
                 }
-                const_iterator upper_bound (const value_type& k) const
+                /*const_iterator upper_bound (const value_type& k) const
                 {
                     node *tmp = _root;
                     node *res = _nil;
@@ -291,16 +296,14 @@ namespace ft
                         }
                     }
                     return (const_iterator(res, _nil, _root));
-                }
-                pair<const_iterator,const_iterator> equal_range (const value_type& k) const
+                }*/
+                /*ft::pair<const_iterator,const_iterator> equal_range (const value_type& k) const
                 {
-                    ft::pair<const_iterator, const_iterator> pr(this->lower_bound(k), this->upper_bound(k));
-                    return (pr);
-                }
-                pair<iterator,iterator> equal_range (const value_type& k)
+                    return (ft::make_pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k)));
+                }*/
+                ft::pair<iterator,iterator> equal_range (const value_type& k) const
                 {
-                    ft::pair<iterator, iterator> pr(this->lower_bound(k), this->upper_bound(k));
-                    return (pr);
+                    return (ft::make_pair<iterator, iterator>(this->lower_bound(k), this->upper_bound(k)));
                 }
             protected:
                 size_type _size;

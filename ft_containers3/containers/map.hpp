@@ -234,7 +234,7 @@ namespace ft
             value_compare _compval;
             allocator_type _alloc;
             ft::red_black_tree<value_type, \
-            value_compare, allocator_type> tree;
+            value_compare, false, allocator_type> tree;
         };
         template< class Key, class T, class Compare, class Alloc >
         bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs,
