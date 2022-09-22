@@ -33,10 +33,10 @@ namespace ft
     struct is_integral< wchar_t> : public true_type{};
     template <>
     struct is_integral< signed char> : public true_type{};
-    /*template <>
+    template <>
     struct is_integral< char16_t> : public true_type{};
     template <>
-    struct is_integral< char32_t> : public true_type{};*/
+    struct is_integral< char32_t> : public true_type{};
     template <>
     struct is_integral< long int> : public true_type{};
     template <>
