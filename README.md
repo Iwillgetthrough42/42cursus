@@ -19,6 +19,5 @@ the outer circle allows students to . specialize whatever subject they prefer.
 |10.netpractice | NetPractice is a general practical exercise to let you discover networking.
 |11.cppmodules(0-8)| OOP in c++
 |12.Inception | This project aims to broaden your knowledge of system administration by using Docker. You will virtualize several Docker images, creating them in your new personal virtual machine.
-|13. ft_containers | The standard C++ containers have all a specific usage. To make sure you understand them, let’s re-implement them!
-passes https://github.com/divinepet/ft_containers-unit-test tester and mli's tester NOT FINISHED YET!!!!
+|13. ft_containers | The standard C++ containers have all a specific usage. To make sure you understand them, let’s re-implement them! passes https://github.com/divinepet/ft_containers-unit-test tester and mli's tester NOT FINISHED YET!!!!
 -----------------------
