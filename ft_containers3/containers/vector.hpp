@@ -81,9 +81,9 @@ namespace ft
                 }
                 catch(...)
                 {
-                    for (size_type j = 0; j < i; j++)
+                    for (size_type j = 0; j <= i; j++)
                     {
-                        _alloc.destroy(&_data[i]);
+                        _alloc.destroy(&_data[j]);
                     }
                     _alloc.deallocate(_data, _capacity);
                     throw;
