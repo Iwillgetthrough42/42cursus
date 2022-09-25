@@ -69,7 +69,7 @@ void map_test()
         mp.insert(TESTED_NAMESPACE::make_pair<int, int>(i, 20 - i));
     }
     TESTED_NAMESPACE::map<int, int> other(mp.begin(), mp.end());
-    other.erase(mp.begin(), ++mp.begin());
+    other.erase(other.begin());
     for (TESTED_NAMESPACE::map<int, int>::iterator it \
     =other.begin(); it != other.end(); it++)
     {
@@ -109,5 +109,4 @@ int main()
     stack_test();
     map_test();
     test_set();
-
 }
