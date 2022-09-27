@@ -2,6 +2,7 @@
 #include "../containers/pair.hpp"
 #include "../containers/map.hpp"
 #include "../containers/vector.hpp"
+#include "../containers/stack.hpp"
 #include <vector>
 #include <map>
 #include <list>
@@ -12,13 +13,12 @@ namespace ft
 }
 int main()
 {
-        std::list<int> lst;
-        //std::list<std::pair<const int, int>>::iterator it = lst.begin();
-        //std::list<std::pair<const int, int>>::iterator ite = lst.end();
-        for (int i = 0; i < 7; i++ )
-                lst.push_back(i);
-        ft::vector<int> vec(2, 1);
-        vec.insert(vec.begin() + 1, lst.begin(), lst.end());
-        vec.erase(vec.begin(), vec.end());
-
+        ft::stack<int> stk;
+        ft::vector<int> deque;
+        for (int i = 0; i < 100 * 10000; ++i)
+		deque.push_back(i);
+	for (int i = 100 * 10000; i < 200 * 10000; ++i)
+		stk.push(i);
+	ft::stack<int> stack(deque);
+        system("leaks a.out");
 }

@@ -15,6 +15,7 @@ namespace ft{
 
             explicit stack (const container_type& ctnr = container_type()) : c(ctnr)
             {
+                
             }
             virtual ~stack(){}
             bool empty() const

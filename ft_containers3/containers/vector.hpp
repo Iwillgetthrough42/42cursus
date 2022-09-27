@@ -81,7 +81,7 @@ namespace ft
                 }
                 catch(...)
                 {
-                    for (size_type j = 0; j <= i; j++)
+                    for (size_type j = 0; j < i; j++)
                     {
                         _alloc.destroy(&_data[j]);
                     }
@@ -515,21 +515,23 @@ namespace ft
             
             void reallocate(size_type new_capacity)
             {
+                size_type i;
+
                 pointer tmp = _alloc.allocate(new_capacity);
                 try
                 {
-                    for (size_type i = 0; i < _size; i++)
+                    for (i = 0; i < _size; i++)
                     {
                         _alloc.construct(&tmp[i], _data[i]);
                     }
                 }
-                catch(std::exception &e)
+                catch(...)
                 {
-                    for (size_type i = 0; i < _size; i++)
+                    for (size_type j = 0; j < i; j++)
                     {
-                        _alloc.destroy(&tmp[i]);
+                        _alloc.destroy(&tmp[j]);
                     }
-                    _alloc.deallocate(_data, new_capacity);
+                    _alloc.deallocate(tmp, new_capacity);
                     throw;
                 }
                 this->~vector();
