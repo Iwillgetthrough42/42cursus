@@ -66,38 +66,23 @@ namespace ft
 			    for (size_type i = 0; i < _size; ++i) { _alloc.destroy(&_data[i]); }
 			    _alloc.deallocate(_data, _capacity);
 		    }
-            vector (const vector& x) : _alloc(x._alloc), _size(x._size), _capacity(x._capacity)
+            vector (const vector& x) : _data(NULL),_alloc(x._alloc), _size(0), _capacity(x._capacity)
             {
-                size_type i;
-
-                _data = _alloc.allocate(_capacity);
-                pointer other = x._data;
-                try
-                {
-                    for(i = 0; i < _size; i++)
-                    {
-                        _alloc.construct(&_data[i], other[i]);
-                    }
-                }
-                catch(...)
-                {
-                    for (size_type j = 0; j < i; j++)
-                    {
-                        _alloc.destroy(&_data[j]);
-                    }
-                    _alloc.deallocate(_data, _capacity);
-                    throw;
-                }
+               *this = x;
             }
             vector& operator= (const vector& x)
             {
                 if (this != &x)
                 {
-                    this->clear();
-                    _alloc.deallocate(_data, _capacity);
+                    if (_data)
+                    {
+                        this->clear();
+                        _alloc.deallocate(_data, _capacity);
+                    }
                     this->_alloc = x._alloc;
                     this->_size = 0;
-                    this->_capacity = 0;
+                    this->_capacity = x._capacity;
+                    _data = _alloc.allocate(_capacity);
                     this->assign(x.begin(), x.end());
                 }
                 return (*this);
