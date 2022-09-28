@@ -27,7 +27,7 @@ namespace ft
             explicit vector (const allocator_type& alloc = allocator_type()) :
             _alloc(alloc), _size(0),_capacity(0)
             {
-                _data = _alloc.allocate(_capacity);
+                _data = NULL;
             }
             explicit vector (size_type n, const value_type& val = value_type(),
             const allocator_type& alloc = allocator_type()) : _alloc(alloc),
@@ -47,7 +47,7 @@ namespace ft
                 {
                     for (size_type j = 0; j < i; j++)
                     {
-                        _alloc.destroy(&_data[i]);
+                        _alloc.destroy(&_data[j]);
                     }
                     _alloc.deallocate(_data, _capacity);
                     throw;
@@ -79,7 +79,6 @@ namespace ft
                         this->clear();
                         _alloc.deallocate(_data, _capacity);
                     }
-                    this->_alloc = x._alloc;
                     this->_size = 0;
                     this->_capacity = x._capacity;
                     _data = _alloc.allocate(_capacity);
@@ -291,7 +290,13 @@ namespace ft
             {
                 if (_size + 1 > _capacity)
                 {
-                    _capacity == 0 ? reallocate(1) : reallocate(_capacity * 2);
+                    if (_capacity == 0)
+                    {
+                        system("leaks a.out");
+                        reallocate(1);
+                    }
+                    else
+                        reallocate(_capacity * 2);
                 }
                 try
                 {
