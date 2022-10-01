@@ -45,13 +45,16 @@ namespace ft
                     _root = _nil;
                     _begin = _nil;
                 }
-                red_black_tree(const red_black_tree &other)
+                red_black_tree(const red_black_tree &x) : _begin(_nil), _root(_nil), _nil(x._nil)
                 {
                     this->insert(x.begin(), x.end());
                 }
-                red_black_tree &operator=(const red_black_tree &other)
+                red_black_tree &operator=(const red_black_tree &x)
                 {
                     this->clear();
+                    _begin = _nil;
+                    _root = _nil;
+                    _nil = x._nil;
                     this->insert(x.begin(), x.end());
                 }
                 ~red_black_tree()
