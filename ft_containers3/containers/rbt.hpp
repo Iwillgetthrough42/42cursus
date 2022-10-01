@@ -45,14 +45,21 @@ namespace ft
                     _root = _nil;
                     _begin = _nil;
                 }
-
+                red_black_tree(const red_black_tree &other)
+                {
+                    this->insert(x.begin(), x.end());
+                }
+                red_black_tree &operator=(const red_black_tree &other)
+                {
+                    this->clear();
+                    this->insert(x.begin(), x.end());
+                }
                 ~red_black_tree()
                 {
                     this->clear();
                     _node_alloc.destroy(_nil);
                     _node_alloc.deallocate(_nil, 1);
                 }
-
                 iterator begin()
                 {
                     return (iterator(_begin, _nil, _root));
