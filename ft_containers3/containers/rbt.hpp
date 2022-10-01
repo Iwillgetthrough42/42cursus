@@ -34,7 +34,7 @@ namespace ft
                 typedef typename Alloc::template rebind<Node<value_type> >::other node_alloc;
 
 
-                red_black_tree() : _size(0), _compare(value_compare())
+                red_black_tree(const value_compare &comp = value_compare(), const allocator_type &alloc = allocator_type()) : _size(0), _compare(comp), _alloc(alloc)
                 {
                     _nil = _node_alloc.allocate(1);
                     _nil->left = _nil;
@@ -45,13 +45,15 @@ namespace ft
                     _root = _nil;
                     _begin = _nil;
                 }
-                red_black_tree(const red_black_tree &x) : _begin(_nil), _root(_nil), _nil(x._nil)
+                red_black_tree(const red_black_tree &x) : _alloc(x._alloc), _compare(x._compare), _begin(_nil), _root(_nil), _nil(x._nil)
                 {
                     this->insert(x.begin(), x.end());
                 }
                 red_black_tree &operator=(const red_black_tree &x)
                 {
                     this->clear();
+                    _alloc = x._alloc;
+                    _compare = x._compare;
                     _begin = _nil;
                     _root = _nil;
                     _nil = x._nil;
