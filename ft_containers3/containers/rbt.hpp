@@ -58,6 +58,7 @@ namespace ft
                     _root = _nil;
                     _nil = x._nil;
                     this->insert(x.begin(), x.end());
+                    return (*this);
                 }
                 ~red_black_tree()
                 {
