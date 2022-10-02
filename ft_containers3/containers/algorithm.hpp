@@ -51,6 +51,10 @@ template <class InputIterator1, class InputIterator2, class Comp>
     }
     return true;
   }      
-
+    template <class T>
+    struct less : std::binary_function <T,T,bool> 
+    {
+        bool operator() (const T& x, const T& y) const {return x<y;}
+    };
 }
 #endif
