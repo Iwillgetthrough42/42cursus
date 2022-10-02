@@ -41,16 +41,6 @@ namespace ft
                     _nil->right = _nil;
                     _nil->parent = _nil;
                     _nil->data = _alloc.allocate(1);
-                    try
-                    {
-                        _alloc.construct(_nil->data, value_type());
-                    }
-                    catch(...)
-                    {
-                        _alloc.deallocate(_nil->data, 1);
-                         _node_alloc.deallocate(_nil, 1);
-                         throw;
-                    }
                     _nil->color = BLACK;
                     _root = _nil;
                     _begin = _nil;
