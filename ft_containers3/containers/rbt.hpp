@@ -63,9 +63,7 @@ namespace ft
                 ~red_black_tree()
                 {
                     this->clear();
-                    _alloc.destroy(_nil->data);
                     _alloc.deallocate(_nil->data, 1);
-                    _node_alloc.destroy(_nil);
                     _node_alloc.deallocate(_nil, 1);
                 }
                 iterator begin()
