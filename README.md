@@ -18,7 +18,7 @@ the outer circle allows students to . specialize whatever subject they prefer.
 |8.philosophers |  In this project, you will learn the basics of threading a process. You willlearn how to make threads. You will discover the mutex.
 |9.minishell | The objective of this project is for you to create a simple shell. Yes, yourlittle bash or zsh. You will learn a lot about processes and file descriptors.
 |10.netpractice | NetPractice is a general practical exercise to let you discover networking.
-|11.cppmodules(0-8)| OOP in c++
+|11.cppmodules(0-8)| Classes in c++
 |12.Inception | This project aims to broaden your knowledge of system administration by using Docker. You will virtualize several Docker images, creating them in your new personal virtual machine.
 |13. ft_containers | The standard C++ containers have all a specific usage. To make sure you understand them, let’s re-implement them! passes https://github.com/divinepet/ft_containers-unit-test tester and mli's tester
 -----------------------
