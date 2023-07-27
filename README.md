@@ -4,8 +4,8 @@
 42 cursus has two groups of projects, the first is inner circle, where projects  mainly in C and the second is outer circle
 the inner circle is the basic curriculum
 the outer circle allows students to . specialize whatever subject they prefer.
+![image](https://github.com/arastepa/42cursus/assets/77893589/07afb052-de5a-4e08-8be6-20f39f9b9b92)
 
-![image](https://user-images.githubusercontent.com/77893589/193851475-dadca04f-42fe-4062-8f58-0c390a259ad5.png)
 
 |         |         |         
 ----------|---------
