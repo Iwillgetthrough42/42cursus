@@ -20,7 +20,6 @@ the outer circle allows students to . specialize whatever subject they prefer.
 |10.netpractice | NetPractice is a general practical exercise to let you discover networking.
 |11.cppmodules(0-8)| Classes in c++
 |12.Inception | This project aims to broaden your knowledge of system administration by using Docker. You will virtualize several Docker images, creating them in your new personal virtual machine.
-|13. ft_containers | The standard C++ containers have all a specific usage. To make sure you understand them, let’s re-implement them! passes https://github.com/divinepet/ft_containers-unit-test tester and mli's tester
 |Webserv | This project is about writing your ow HTTP server. You will be able to test it with an actual browser. HTTP is one of the most used protocols on the internet. Knowing its arcane will be useful, even if you won’t be working on a website.
 |Ft_transcendence | integrate Pong game in a website using Javascript React.js and nest
 -----------------------
